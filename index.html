@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerosophia - Scegli il tuo Percorso</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-gold: #c5a059;
+            --button-bg: #1e1e1e;
+            --button-hover: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            font-style: italic;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-option {
+            background-color: var(--button-bg);
+            border: 2px solid var(--accent-gold);
+            color: var(--text-color);
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .btn-option:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(197, 160, 89, 0.3);
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+/* ===================================================
+   OTTIMIZZAZIONE RESPONSIVE PER SMARTPHONE (INDEX)
+   =================================================== */
+@media (max-width: 480px) {
+    /* Riduce il titolo principale per non farlo tagliare */
+    h1, .main-title, .titolo-principale { 
+        font-size: 28px !important; 
+        letter-spacing: 2px !important;
+        padding: 0 10px !important;
+        word-wrap: break-word;
+    }
+
+    /* Regola il sottotitolo */
+    h2, .subtitle, .sottotitolo {
+        font-size: 14px !important;
+        padding: 0 15px !important;
+    }
+
+    /* Rende i pulsanti del menu più proporzionati */
+    .menu-btn, button, a.button {
+        width: 85% !important; /* Evita che tocchino i bordi dello schermo */
+        font-size: 16px !important;
+        padding: 12px 10px !important;
+        margin: 8px auto !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>NUMEROSOPHIA</h1>
+        <p class="subtitle">Esplora la geometria sacra dei tuoi numeri</p>
+        
+        <div class="menu-options">
+            <a href="pitagora.html" class="btn-option">Numerologia Pitagorica</a>
+            
+            <a href="caldea.html" class="btn-option">Numerologia Caldea</a>
+            
+            <!-- Il tasto Affinità che rimanda alla pagina dedicata -->
+            <a href="compatibilita.html" class="btn-option"> Affinità e Compatibilità</a>
+            
+            <a href="archivio.html" class="btn-option" style="background-color: #2c3e50; color: white; margin-top: 15px;">📁 Accedi all'Archivio</a>
+        </div>
+        
+        <div class="footer">
+            © 2026 Numerosophia
+        </div>
+    </div>
+
+</body>
+</html>
