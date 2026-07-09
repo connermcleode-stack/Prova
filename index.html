@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numerosophia</title>
-    <!-- Importazione dei font eleganti da Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -33,62 +32,56 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 24px 16px;
-            overflow-x: hidden;
+            align-items: center; 
+            padding: 12px 16px;
+            overflow: hidden; 
             position: relative;
         }
 
-        /* Sfondo geometrico leggero */
         body::before {
             content: '';
             position: absolute;
-            top: -50px;
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100vw;
-            height: 500px;
+            width: 140vw;
+            height: 600px;
             background: 
-                radial-gradient(circle, transparent 40%, rgba(214, 175, 55, 0.02) 41%, transparent 60%),
-                radial-gradient(circle, transparent 20%, rgba(214, 175, 55, 0.01) 21%, transparent 40%);
-            opacity: 0.6;
+                radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.1) 0%, rgba(170, 124, 17, 0.03) 35%, transparent 70%),
+                radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px) 0 0 / 40px 40px,
+                radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px) 20px 20px / 60px 60px;
+            opacity: 0.75;
             pointer-events: none;
             z-index: 1;
         }
 
         .container {
             width: 100%;
-            max-width: 380px;
+            max-width: 360px;
             text-align: center;
             position: relative;
             z-index: 2;
         }
 
-        /* Logo e testata ottimizzati */
         .header-logo {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .sacred-triangle {
-            width: clamp(90px, 25vh, 115px);
-            height: clamp(90px, 25vh, 115px);
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+            position: relative;
+            padding-top: 20px; /* Spazio per bilanciare l'assenza della figura superiore */
         }
 
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.5rem, 7vw, 2.1rem);
-            letter-spacing: clamp(2px, 1.2vw, 4px);
+            font-size: clamp(1.4rem, 6.5vw, 1.8rem);
+            letter-spacing: clamp(2px, 1vw, 3px);
             color: var(--gold-primary);
             background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0px 2px 4px rgba(0,0,0,0.8);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             white-space: nowrap;
         }
 
@@ -96,7 +89,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
+            margin: 6px 0;
             width: 100%;
         }
 
@@ -105,35 +98,34 @@
             flex: 1;
             height: 1px;
             background: linear-gradient(to var(--direction, right), transparent, var(--gold-dark));
-            max-width: 60px;
+            max-width: 50px;
         }
         .gold-divider::before { --direction: right; }
         .gold-divider::after { --direction: left; }
 
         .gold-divider svg {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             fill: var(--gold-primary);
-            margin: 0 8px;
+            margin: 0 6px;
         }
 
         .subtitle {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+            font-size: clamp(0.95rem, 4vw, 1.1rem);
             color: #e0dbd1;
-            line-height: 1.3;
+            line-height: 1.2;
             max-width: 90%;
-            margin: 0 auto 15px auto;
+            margin: 0 auto;
         }
 
-        /* Nuova intestazione di sezione identica a Foto 5 */
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            letter-spacing: 2.5px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
             color: #f5f1e9;
-            margin: 28px 0 16px 0;
+            margin: 14px 0 8px 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,51 +140,46 @@
             align-self: center;
         }
 
-        /* Linea di sinistra che sfuma verso l'esterno sinistro */
         .section-title::before {
             background: linear-gradient(to left, var(--gold-dark) 40%, transparent 100%);
-            margin-right: 14px;
+            margin-right: 10px;
         }
 
-        /* Linea di destra che sfuma verso l'esterno destro */
         .section-title::after {
             background: linear-gradient(to right, var(--gold-dark) 40%, transparent 100%);
-            margin-left: 14px;
+            margin-left: 10px;
         }
 
-        /* Rombo vuoto dorato affiancato al testo (come da Foto 5) */
         .section-title span {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
         }
 
         .section-title span::before, .section-title span::after {
             content: '';
-            width: 7px;
-            height: 7px;
+            width: 5px;
+            height: 5px;
             border: 1px solid var(--gold-primary);
             transform: rotate(45deg);
             display: inline-block;
             flex-shrink: 0;
-            box-shadow: 0 0 4px rgba(212, 175, 55, 0.2);
         }
 
-        /* Pulsanti adattabili */
         .menu-button {
             display: flex;
             align-items: center;
             width: 100%;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: clamp(12px, 3.5vw, 16px) clamp(14px, 4vw, 20px);
-            margin-bottom: 12px;
+            border-radius: 10px;
+            padding: clamp(9px, 2.5vw, 11px) clamp(12px, 3.5vw, 16px);
+            margin-bottom: 7px;
             cursor: pointer;
             text-decoration: none;
             color: #ffffff;
             transition: all 0.3s ease;
-            box-shadow: inset 0 1px 2px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.4);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.05), 0 3px 8px rgba(0,0,0,0.4);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             text-align: left;
@@ -200,26 +187,26 @@
 
         .menu-button:hover {
             border-color: var(--gold-primary);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.12);
             transform: translateY(-1px);
         }
 
         .icon-container {
-            width: clamp(40px, 12vw, 46px);
-            height: clamp(40px, 12vw, 46px);
+            width: clamp(36px, 9vw, 40px);
+            height: clamp(36px, 9vw, 40px);
             border-radius: 50%;
             border: 1px solid rgba(212, 175, 55, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: clamp(12px, 4vw, 18px);
+            margin-right: clamp(10px, 3.5vw, 14px);
             background: rgba(0,0,0,0.2);
             flex-shrink: 0;
         }
 
         .icon-container svg {
-            width: 65%;
-            height: 65%;
+            width: 60%;
+            height: 60%;
             fill: none;
             stroke: var(--gold-primary);
             stroke-width: 1.2;
@@ -235,7 +222,7 @@
         }
 
         .button-category {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-muted);
@@ -247,8 +234,8 @@
 
         .button-main-title {
             font-family: 'Cinzel', serif;
-            font-size: clamp(0.95rem, 4vw, 1.1rem);
-            letter-spacing: 1.5px;
+            font-size: clamp(0.9rem, 3.8vw, 1rem);
+            letter-spacing: 1px;
             color: var(--gold-light);
             white-space: nowrap;
             overflow: hidden;
@@ -256,8 +243,8 @@
         }
 
         .arrow-right {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             fill: none;
             stroke: var(--gold-dark);
             stroke-width: 2;
@@ -267,44 +254,43 @@
 
         .menu-button:hover .arrow-right {
             stroke: var(--gold-primary);
-            transform: translateX(3px);
+            transform: translateX(2px);
         }
 
-        /* Footer */
         footer {
-            margin-top: 30px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 4px;
         }
 
         .footer-dots {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
         }
 
         .footer-dots span {
-            width: 3.5px;
-            height: 3.5px;
+            width: 3px;
+            height: 3px;
             background-color: var(--gold-dark);
             border-radius: 50%;
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
         .footer-dots span.center-star {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: var(--gold-primary);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
         .version {
-            font-size: 0.6rem;
-            letter-spacing: 1.5px;
-            color: rgba(255,255,255,0.25);
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.2);
             text-transform: uppercase;
         }
     </style>
@@ -313,17 +299,8 @@
 
     <div class="container">
         
-        <!-- Intestazione con logo geometrico -->
         <div class="header-logo">
-            <svg class="sacred-triangle" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" stroke="#d4af37" stroke-width="1" fill="none"/>
-                <circle cx="50" cy="50" r="38" stroke="#d4af37" stroke-width="0.5" fill="none" stroke-dasharray="1 2"/>
-                <polygon points="50,18 22,68 78,68" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                <text x="50" y="14" fill="#f3e5ab" font-family="Cinzel" font-size="8" text-anchor="middle">7</text>
-                <text x="14" y="73" fill="#f3e5ab" font-family="Cinzel" font-size="8" text-anchor="middle">4</text>
-                <text x="86" y="73" fill="#f3e5ab" font-family="Cinzel" font-size="8" text-anchor="middle">3</text>
-                <text x="50" y="52" fill="#f3e5ab" font-family="Cinzel" font-size="12" text-anchor="middle" font-weight="bold">5</text>
-            </svg>
+            <!-- La zona superiore è stata completamente ripulita e liberata da ogni figura -->
 
             <h1>NUMEROSOPHIA</h1>
             
@@ -334,12 +311,10 @@
             <p class="subtitle">Ogni numero racconta una parte di te.</p>
         </div>
 
-        <!-- Sezione Metodi con Righe Sfumate e Rombi di Foto 5 -->
         <div class="section-title">
             <span>Scegli il metodo</span>
         </div>
 
-        <!-- Numerologia Pitagorica -->
         <a href="pitagora.html" class="menu-button">
             <div class="icon-container">
                 <svg viewBox="0 0 24 24">
@@ -362,7 +337,6 @@
             <svg class="arrow-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
 
-        <!-- Numerologia Caldea -->
         <a href="caldea.html" class="menu-button">
             <div class="icon-container">
                 <svg viewBox="0 0 24 24">
@@ -377,7 +351,6 @@
             <svg class="arrow-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
 
-        <!-- Affinità e Compatibilità -->
         <a href="compatibilita.html" class="menu-button">
             <div class="icon-container">
                 <svg viewBox="0 0 24 24" style="fill: none; stroke: var(--gold-primary); stroke-width: 1.2;">
@@ -392,12 +365,10 @@
             <svg class="arrow-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
 
-        <!-- Sezione Consulti con Righe Sfumate e Rombi di Foto 5 -->
         <div class="section-title">
             <span>I tuoi consulti</span>
         </div>
 
-        <!-- Archivio -->
         <a href="archivio.html" class="menu-button">
             <div class="icon-container">
                 <svg viewBox="0 0 24 24" style="fill: none; stroke: var(--gold-primary);">
@@ -411,7 +382,6 @@
             <svg class="arrow-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
 
-        <!-- Footer dell'applicazione -->
         <footer>
             <div class="gold-divider" style="margin: 0;">
                 <svg viewBox="0 0 10 10"><polygon points="5,0 10,5 5,10 0,5"/></svg>
