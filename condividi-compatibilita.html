@@ -33,16 +33,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 15px 10px;
+            padding: 5px;
+            overflow: hidden; /* Evita lo scroll sulla pagina principale */
         }
 
-        /* CONTENITORE PRINCIPALE MOBILE-RESPONSIVE */
+        /* CONTENITORE PRINCIPALE MOBILE-RESPONSIVE COMPATTO */
         #quadro-esportazione {
             background-color: var(--bg-dark);
             width: 100%;
-            max-width: 480px;
-            padding: 25px 12px;
+            max-width: 380px;
+            padding: 15px 12px;
             border: 2px solid var(--accent-gold);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -53,23 +55,23 @@
         /* Intestazione */
         .header-Quadro {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 12px;
             border-bottom: 1px solid var(--border-gold);
-            padding-bottom: 15px;
+            padding-bottom: 8px;
         }
 
         .header-Quadro h1 {
             font-family: 'Cinzel', serif;
-            font-size: 24px;
-            letter-spacing: 3px;
+            font-size: 20px;
+            letter-spacing: 2px;
             color: var(--accent-gold);
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .header-Quadro h2 {
             font-family: 'Cinzel', serif;
-            font-size: 12px;
-            letter-spacing: 1.5px;
+            font-size: 10px;
+            letter-spacing: 1px;
             color: var(--text-light);
             text-transform: uppercase;
             opacity: 0.9;
@@ -80,59 +82,56 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0 5px 0;
+            gap: 8px;
+            margin: 10px 0 2px 0;
         }
 
         .info-data {
             text-align: center;
             background: rgba(255, 255, 255, 0.03);
-            padding: 8px 12px;
+            padding: 4px 8px;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             flex: 1;
-            max-width: 160px;
         }
 
         .info-data .nome-profilo {
             color: var(--text-light);
             font-weight: 600;
-            font-size: 12px;
-            letter-spacing: 1px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            white-space: normal;
+            white-space: nowrap;
             overflow: hidden;
-            line-height: 1.3;
+            text-overflow: ellipsis;
         }
 
         .info-data .data-profilo {
             display: block;
             color: var(--accent-gold);
             font-weight: bold;
-            margin-top: 4px;
-            font-size: 11px;
+            margin-top: 2px;
+            font-size: 10px;
         }
 
         .stella-separatore {
             color: var(--accent-gold);
-            font-size: 14px;
-            animation: pulse 2s infinite;
+            font-size: 12px;
         }
 
-        /* CARD STRUTTURATA A TRE COLONNE */
+        /* CARD LIVELLI OTTIMIZZATE IN ALTEZZA */
         .livello-card {
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            padding: 15px 8px;
-            margin-bottom: 15px;
+            padding: 10px 6px;
+            margin-bottom: 10px;
             display: grid;
-            grid-template-columns: 0.95fr 1.45fr 0.9fr;
+            grid-template-columns: 0.9fr 1.3fr 0.9fr;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
-        /* Colonna 1: Info e descrizione a sinistra */
         .col-info {
             display: flex;
             flex-direction: column;
@@ -141,22 +140,21 @@
 
         .livello-titolo {
             font-family: 'Cinzel', serif;
-            font-size: 9px;
-            letter-spacing: 0.2px;
+            font-size: 8.5px;
+            letter-spacing: 0.1px;
             color: var(--accent-gold);
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             line-height: 1.2;
         }
 
         .livello-descrizione-breve {
-            font-size: 9px;
-            line-height: 1.25;
+            font-size: 8.5px;
+            line-height: 1.2;
             color: var(--text-muted);
             font-weight: 300;
         }
 
-        /* Colonna 2: Contenitore Carte Affiancate */
         .col-carte {
             display: flex;
             align-items: center;
@@ -165,22 +163,20 @@
         }
 
         .img-carta {
-            width: 56px; 
-            height: 83px;
+            width: 48px; 
+            height: 72px;
             border-radius: 4px;
             border: 1px solid rgba(197, 160, 89, 0.4);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
             object-fit: cover;
-            background-color: rgba(255,255,255,0.02);
         }
 
         .piu-separatore {
             color: var(--accent-gold);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
         }
 
-        /* Colonna 3: Indice e Testo descrittivo a destra */
         .col-armonia {
             text-align: right;
             display: flex;
@@ -196,93 +192,124 @@
         }
 
         .armonia-valore {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 2px;
-            /* Il colore viene ora assegnato dinamicamente via JS */
+            margin-bottom: 1px;
         }
 
         .livello-descrizione-esito {
-            font-size: 8.5px;
-            line-height: 1.3;
+            font-size: 8px;
+            line-height: 1.2;
             color: var(--text-muted);
             text-align: right;
-            overflow: hidden;
         }
 
-        /* CARD FINALE */
+        /* CARD FINALE IN ORIZZONTALE */
         .totale-card {
             background: linear-gradient(135deg, #1b1e24 0%, #16191e 100%);
             border: 1px solid var(--border-gold);
             border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
+            padding: 12px;
+            margin-top: 10px;
         }
 
-        .totale-titolo {
-            font-family: 'Cinzel', serif;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            color: var(--accent-gold);
-            margin-bottom: 12px;
+        .totale-layout-orizzontale {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .cerchio-percentuale {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 3px solid var(--accent-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px auto;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             background: rgba(197, 160, 89, 0.05);
-            /* Il colore del testo interno viene ora assegnato dinamicamente via JS */
+            transition: border-color 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .totale-testi-destra {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+
+        .totale-titolo {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .descrizione-totale-testo {
+            font-size: 8.5px;
+            line-height: 1.25;
+            color: var(--text-muted);
         }
 
         .citazione-finale {
             font-style: italic;
-            font-size: 10.5px;
+            font-size: 8.5px;
             color: var(--text-muted);
-            margin-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 10px;
-            line-height: 1.4;
+            padding-top: 4px;
+            line-height: 1.3;
         }
 
+        /* CONTENITORE PULSANTI EFFETTO MEZZO-E-MEZZO */
         .btn-azione-container {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 10px;
             width: 100%;
-            max-width: 480px;
-            text-align: center;
+            max-width: 380px;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
         }
 
-        #btn-esporta {
-            background-color: var(--accent-gold);
-            color: #0d0f12;
-            border: none;
-            padding: 14px 20px;
-            width: 100%;
-            font-size: 14px;
+        .btn-custom {
+            flex: 1;
+            padding: 12px 10px;
+            font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        /* Pulsante Esporta (Principale) */
+        #btn-esporta {
+            background-color: var(--accent-gold);
+            color: #0d0f12;
+            border: none;
         }
 
         #btn-esporta:disabled {
             cursor: not-allowed;
+            opacity: 0.6;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.6; }
+        /* Pulsante Home (Secondario) */
+        #btn-home {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+        }
+
+        #btn-home:hover {
+            background-color: rgba(197, 160, 89, 0.1);
         }
     </style>
 </head>
@@ -332,7 +359,7 @@
         <div class="livello-card" id="card-anima">
             <div class="col-info">
                 <div class="livello-titolo">Compatibilità dell'Anima</div>
-                <div class="livello-descrizione-breve">Il legame emotivo e spirituale profondo.</div>
+                <div class="livello-descrizione-breve">Il legame emotivo profondo.</div>
             </div>
             <div class="col-carte">
                 <img src="" id="img-anima-p1" class="img-carta" alt="Carta P1">
@@ -350,7 +377,7 @@
         <div class="livello-card" id="card-destino">
             <div class="col-info">
                 <div class="livello-titolo">Compatibilità del Destino</div>
-                <div class="livello-descrizione-breve">La missione e il cammino comune.</div>
+                <div class="livello-descrizione-breve">La missione comune.</div>
             </div>
             <div class="col-carte">
                 <img src="" id="img-destino-p1" class="img-carta" alt="Carta P1">
@@ -364,19 +391,25 @@
             </div>
         </div>
 
-        <!-- RISULTATO COMPLESSIV0 -->
+        <!-- RISULTATO COMPLESSIVO ORIZZONTALE -->
         <div class="totale-card">
-            <div class="totale-titolo">Affinità Complessiva</div>
-            <div class="cerchio-percentuale" id="lbl-totale-percentuale">--%</div>
-            <div class="livello-descrizione-breve" id="lbl-desc-totale" style="text-align: center;">Analisi generale della sinastria delle anime.</div>
-            <div class="citazione-finale">"Ogni relazione è un cammino di crescita. I numeri mostrano tendenze, non determinano il destino."</div>
+            <div class="totale-layout-orizzontale">
+                <div class="cerchio-percentuale" id="lbl-totale-percentuale">--%</div>
+                
+                <div class="totale-testi-destra">
+                    <div class="totale-titolo">Affinità Complessiva</div>
+                    <div class="descrizione-totale-testo" id="lbl-desc-totale">Analisi generale della sinastria delle anime.</div>
+                    <div class="citazione-finale">"Ogni relazione è un cammino di crescita. I numeri mostrano tendenze."</div>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- CONTENITORE PULSANTE ESTERNO -->
+    <!-- CONTENITORE PULSANTI AFFIANCATI -->
     <div class="btn-azione-container">
-        <button id="btn-esporta" onclick="generaImmagineCondivisione()">Esporta la Carta della Compatibilità</button>
+        <button id="btn-esporta" class="btn-custom" onclick="generaImmagineCondivisione()">Esporta Carta</button>
+        <button id="btn-home" class="btn-custom" onclick="ritornaAllaHome()">Torna alla Home</button>
     </div>
 
     <script>
@@ -400,20 +433,25 @@
                     return numStr; 
                 };
 
-                // --- FUNZIONE ASSEGNAZIONE COLORE DINAMICO IN BASE A PERCENTUALE ---
-                const impostaColorePercentuale = (elementoDom, percentuale) => {
+                const impostaColorePercentuale = (elementoDom, percentuale, eCerchio = false) => {
                     if (!elementoDom) return;
                     
+                    let colore = "#c5a059"; 
                     if (percentuale < 55) {
-                        elementoDom.style.color = "#e57373"; // Colore per legami sfidanti/karmici (es. Rosso morbido)
+                        colore = "#e57373"; 
                     } else if (percentuale >= 55 && percentuale < 75) {
-                        elementoDom.style.color = "#c5a059"; // Colore per unioni equilibrate (Oro Numerosophia)
+                        colore = "#c5a059"; 
                     } else {
-                        elementoDom.style.color = "#81c784"; // Colore per risonanza fluida/profonda (es. Verde smeraldo morbido)
+                        colore = "#81c784"; 
+                    }
+
+                    elementoDom.style.color = colore;
+
+                    if (eCerchio) {
+                        elementoDom.style.borderColor = colore;
+                        elementoDom.style.background = `${colore}0d`; 
                     }
                 };
-
-                // --- MOTORE DI CALCOLO NUMEROSOPHIA ---
 
                 const ottieniCRA = (n1, n2) => {
                     const coppia = [Math.abs(n1), Math.abs(n2)].sort((a, b) => a - b).join("-");
@@ -440,13 +478,10 @@
                     return bonusMaestriDiversi[coppia] !== undefined ? bonusMaestriDiversi[coppia] : 0;
                 };
 
-                const calcolaPotenzialeEvolutivo = (n1, n2, compatibilitaFinale) => {
-                    const coppia = [Math.abs(n1), Math.abs(n2)].sort((a, b) => a - b).join("-");
-                    if (coppia === "4-5") return "⭐⭐⭐⭐⭐";
-                    if (coppia === "1-7" || coppia === "2-8") return "⭐⭐⭐⭐☆";
-                    if (compatibilitaFinale < 55) return "⭐⭐⭐⭐☆"; 
-                    if (compatibilitaFinale >= 85) return "⭐⭐⭐⭐⭐"; 
-                    return "⭐⭐⭐☆☆"; 
+                const calcolaStelleDaPercentuale = (percentuale) => {
+                    if (percentuale < 55) return "⭐⭐☆☆☆"; 
+                    if (percentuale >= 55 && percentuale < 75) return "⭐⭐⭐⭐☆"; 
+                    return "⭐⭐⭐⭐⭐"; 
                 };
 
                 const calcolaAffinitaLivello = (n1, n2) => {
@@ -466,12 +501,11 @@
                     const cnm = ottieniCNM(n1, n2);
                     
                     let finale = Math.min(100, Math.max(0, Math.round(base + cra + cnm)));
-                    const stelle = calcolaPotenzialeEvolutivo(n1, n2, finale);
+                    const stelle = calcolaStelleDaPercentuale(finale);
                     
                     return { percentuale: finale, stelle: stelle };
                 };
 
-                // --- COMPOSIZIONE NOMI E COGNOMI ---
                 const nomeCompletoP1 = (dati.nomeP1 || dati.nomeLui || 'Tu') + 
                                        (dati.cognomeP1 || dati.cognomeLui ? ' ' + (dati.cognomeP1 || dati.cognomeLui) : '');
                 document.getElementById('lbl-nome-p1').innerText = nomeCompletoP1;
@@ -490,7 +524,7 @@
                     const risIo = calcolaAffinitaLivello(dati.ioLui, dati.ioLei);
                     const elIo = document.getElementById('lbl-armonia-io');
                     elIo.innerText = `${risIo.percentuale}%`;
-                    impostaColorePercentuale(elIo, risIo.percentuale); // Cambio colore logico
+                    impostaColorePercentuale(elIo, risIo.percentuale); 
                     
                     document.getElementById('lbl-desc-io').innerHTML = `Sintonia energetica.<br><b>Potenziale:</b> ${risIo.stelle}`;
                     document.getElementById('img-io-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.ioLui)}${estensioneCarte}`;
@@ -507,7 +541,7 @@
                     const risAnima = calcolaAffinitaLivello(dati.animaLui, dati.animaLei);
                     const elAnima = document.getElementById('lbl-armonia-anima');
                     elAnima.innerText = `${risAnima.percentuale}%`;
-                    impostaColorePercentuale(elAnima, risAnima.percentuale); // Cambio colore logico
+                    impostaColorePercentuale(elAnima, risAnima.percentuale); 
                     
                     document.getElementById('lbl-desc-anima').innerHTML = `Connessione intima.<br><b>Potenziale:</b> ${risAnima.stelle}`;
                     document.getElementById('img-anima-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.animaLui)}${estensioneCarte}`;
@@ -524,7 +558,7 @@
                     const risDestino = calcolaAffinitaLivello(dati.destinoLui, dati.destinoLei);
                     const elDestino = document.getElementById('lbl-armonia-destino');
                     elDestino.innerText = `${risDestino.percentuale}%`;
-                    impostaColorePercentuale(elDestino, risDestino.percentuale); // Cambio colore logico
+                    impostaColorePercentuale(elDestino, risDestino.percentuale); 
                     
                     document.getElementById('lbl-desc-destino').innerHTML = `Cammino di vita.<br><b>Potenziale:</b> ${risDestino.stelle}`;
                     document.getElementById('img-destino-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.destinoLui)}${estensioneCarte}`;
@@ -541,15 +575,16 @@
                     const percentualeTotale = Math.round(sommePercentuali / conteggioLivelli);
                     const elTotale = document.getElementById('lbl-totale-percentuale');
                     elTotale.innerText = `${percentualeTotale}%`;
-                    impostaColorePercentuale(elTotale, percentualeTotale); // Cambio colore logico finale
                     
-                    let messaggioEvolutivo = "Analisi generale della sinastria delle anime.";
+                    impostaColorePercentuale(elTotale, percentualeTotale, true); 
+                    
+                    let messaggioEvolutivo = "Analisi della sinastria delle anime.";
                     if (percentualeTotale < 55) {
-                        messaggioEvolutivo = "La sintonia di base richiede impegno, ma le sfide numeriche indicano un legame karmico straordinariamente stimolante, progettato per far evolvere profondamente entrambi.";
+                        messaggioEvolutivo = "Sintonia complessa. Le sfide numeriche indicano un forte legame karmico progettato per farvi evolvere profondamente.";
                     } else if (percentualeTotale >= 55 && percentualeTotale < 75) {
-                        messaggioEvolutivo = "Un'unione equilibrata in cui l'intesa e le differenze si alternano costruttivamente, offrendo continui spunti di confronto e maturazione comune.";
+                        messaggioEvolutivo = "Unione equilibrata in cui intesa e differenze si alternano costruttivamente, offrendo continua crescita.";
                     } else {
-                        messaggioEvolutivo = "Una risonanza profonda e fluida. Siete anime specchio che viaggiano sulla stessa lunghezza d'onda, facilitando la compreensão reciproca immediata.";
+                        messaggioEvolutivo = "Risonanza fluida. Siete anime specchio sulla stessa lunghezza d'onda, favorendo una comprensione immediata.";
                     }
                     document.getElementById('lbl-desc-totale').innerText = messaggioEvolutivo;
                 }
@@ -559,12 +594,16 @@
             }
         });
 
+        function ritornaAllaHome() {
+            // Reindirizza alla pagina index principale (puoi cambiare il nome del file se necessario)
+            window.location.href = "index.html";
+        }
+
         function generaImmagineCondivisione() {
             const pulsante = document.getElementById('btn-esporta');
             const quadro = document.getElementById('quadro-esportazione');
             
-            pulsante.innerText = "Generazione in corso...";
-            pulsante.style.opacity = "0.7";
+            pulsante.innerText = "In corso...";
             pulsante.disabled = true;
 
             const nome1 = document.getElementById('lbl-nome-p1').innerText.replace(/\s+/g, '_');
@@ -592,7 +631,7 @@
                             navigator.share({
                                 files: [file],
                                 title: 'Compatibilità Numerosophia',
-                                text: 'Ecco la mappa della nostra compatibilità numerologica!'
+                                text: 'Mappa della nostra compatibilità numerologica!'
                             })
                             .then(() => console.log('Condivisione riuscita'))
                             .catch((error) => console.log('Errore condivisione:', error))
@@ -600,25 +639,24 @@
                         } else {
                             const url = URL.createObjectURL(blob);
                             const linkCondivisione = document.createElement('a');
-                            linkCondivisione.download = nomeFile;
+                            linkCondivione.download = nomeFile;
                             linkCondivisione.href = url;
-                            document.body.appendChild(linkCondivisione);
-                            linkCondivisione.click();
-                            document.body.removeChild(linkCondivisione);
+                            document.body.appendChild(linkCondivione);
+                            linkCondivione.click();
+                            document.body.removeChild(linkCondivione);
                             URL.revokeObjectURL(url);
                             ripristinaPulsante();
                         }
                     }, 'image/png');
                 }).catch(err => {
                     console.error("Errore html2canvas:", err);
-                    alert("Si è verificato un errore nel salvare l'immagine.");
+                    alert("Errore nel salvare l'immagine.");
                     ripristinaPulsante();
                 });
             }, 100);
 
             function ripristinaPulsante() {
-                pulsante.innerText = "Esporta la Carta della Compatibilità";
-                pulsante.style.opacity = "1";
+                pulsante.innerText = "Esporta Carta";
                 pulsante.disabled = false;
             }
         }
