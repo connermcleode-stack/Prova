@@ -1724,10 +1724,12 @@ function eseguiCalcoloAffinita() {
             return parti.length === 3 ? `${parti[2]}/${parti[1]}/${parti[0]}` : dataIso;
         };
 
-        const datiDaSalvare = {
-            // AGGIUNTA DEI NOMI DEI PARTNER PER L'ESPORTAZIONE Grafica
+     const datiDaSalvare = {
+            // AGGIUNTA DEI NOMI E COGNOMI DEI PARTNER PER L'ESPORTAZIONE Grafica
             nomeP1: p1Nome || "Profilo 1",
+            cognomeP1: p1Cognome || "", // <-- Ora prende correttamente il cognome del Profilo 1
             nomeP2: p2Nome || "Profilo 2",
+            cognomeP2: p2Cognome || "", // <-- Ora prende correttamente il cognome del Profilo 2
             
             dataLui: formattaDataLeggibile(p1Data),
             dataLei: formattaDataLeggibile(p2Data),
