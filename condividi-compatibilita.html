@@ -573,7 +573,7 @@ const ottieniCNM = (n1, n2) => {
     return bonusMaestriDiversi[coppia] !== undefined ? bonusMaestriDiversi[coppia] : 0;
 };
 
-// 6. ASSEGNAZIONE DELLE STELLE PERSONALIZZATA (Invariata come da tue direttive)
+// 6. ASSEGNAZIONE DELLE STELLE PERSONALIZZATA
 const calcolaStelleDaPercentuale = (percentuale) => {
     if (percentuale === 0) return "☆☆☆☆☆";
     if (percentuale >= 1 && percentuale <= 30) return "⭐☆☆☆☆";
@@ -584,31 +584,72 @@ const calcolaStelleDaPercentuale = (percentuale) => {
     return "☆☆☆☆☆";
 };
 
-// 7. UNICO MOTORE DI CALCOLO UNIFICATO PER COMPATIBILITÀ (Sostituisce calcolaAffinitaLivello)
+// NUOVO: CATEGORIE DI COMPATIBILITÀ E COLORI COORDINATI
+const categoriaCompatibilita = (percentuale) => {
+    if (percentuale >= 90) return { nome: "Armonia Profonda", colore: "#2ec4b6" };
+    if (percentuale >= 80) return { nome: "Grande Sintonia", colore: "#4ade80" };
+    if (percentuale >= 70) return { nome: "Equilibrio Positivo", colore: "#a3e635" };
+    if (percentuale >= 60) return { nome: "Armonia Dinamica", colore: "#facc15" };
+    if (percentuale >= 50) return { nome: "Percorso di Adattamento", colore: "#fb923c" };
+    if (percentuale >= 40) return { nome: "Sfida Costruttiva", colore: "#f87171" };
+    return { nome: "Trasformazione Reciproca", colore: "#ef4444" };
+};
+
+// 7. UNICO MOTORE DI CALCOLO UNIFICATO PER COMPATIBILITÀ (Versione Ottimizzata e Sensibile)
 const calcolaCompatibilita = (n1, n2, tipo) => {
-    if (!n1 || !n2) return { percentuale: 0, stelle: "☆☆☆☆☆" };
+    if (!n1 || !n2) return { percentuale: 0, stelle: "☆☆☆☆☆", categoria: "N/A", colore: "#ffffff", cra: 0, cnm: 0 };
 
     // Recupera i profili blended (70/30 in caso di numeri maestri)
     const profiloA = ottieniProfiloBlended(n1);
     const profiloB = ottieniProfiloBlended(n2);
 
+    // ✅ Controllo di sicurezza per evitare crash futuri
+    if (!profiloA || !profiloB) {
+        return {
+            percentuale: 28,
+            stelle: "⭐☆☆☆☆",
+            categoria: "Trasformazione Reciproca",
+            colore: "#ef4444",
+            cra: 0,
+            cnm: 0
+        };
+    }
+
     // Seleziona i pesi in base al tipo ("io", "anima", "destino")
     const pesiSelezionati = pesiParametri[tipo] || pesiParametri["io"];
+
+    // ✅ Definizione della sensibilità personalizzata per ogni parametro archetipale
+    const sensibilitaParametro = {
+        leadership: 9,
+        cooperazione: 7,
+        creativita: 6,
+        stabilita: 9,
+        liberta: 8,
+        amore: 6,
+        spiritualita: 5,
+        materializzazione: 9,
+        universalita: 5,
+        visione: 7,
+        intuizione: 5,
+        saggezza: 6
+    };
 
     let sommaDifferenzePesate = 0;
     let sommaPesi = 0;
 
     // Calcolo della compatibilità basato sulla distanza dei singoli parametri archetipali
     for (const chiave in pesiSelezionati) {
-        const valoreA = profiloA[chiave] || 0;
-        const valoreB = profiloB[chiave] || 0;
+        // ✅ Uso dell'operatore nullish coalescing (??) per preservare i valori validi pari a 0
+        const valoreA = profiloA[chiave] ?? 0;
+        const valoreB = profiloB[chiave] ?? 0;
         const peso = pesiSelezionati[chiave];
 
         // Differenza assoluta (scala da 0 a 10)
         const differenza = Math.abs(valoreA - valoreB);
         
-        // Trasformazione in percentuale di compatibilità locale per quel parametro
-        const compatibilitaParametro = 100 - (differenza * 10);
+        // ✅ Trasformazione in compatibilità usando la sensibilità specifica del parametro (evitando valori negativi)
+        const coeffSensibilita = sensibilitaParametro[chiave] !== undefined ? sensibilitaParametro[chiave] : 8;
+        const compatibilitaParametro = Math.max(0, 100 - (differenza * coeffSensibilita));
 
         sommaDifferenzePesate += compatibilitaParametro * peso;
         sommaPesi += peso;
@@ -617,21 +658,51 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
     // Media pesata iniziale
     let base = sommaDifferenzePesate / sommaPesi;
 
-    // Bonus per stesso numero (aumenta progressivamente di 6 punti, mantenendo la coerenza strutturale)
+    // ✅ Bonus personalizzato quando i partner condividono lo stesso archetipo numerico
     if (Math.abs(n1) === Math.abs(n2)) {
-        base += 6;
+        const stessoNum = Math.abs(n1);
+        const bonusStessoNumero = {
+            1: 4,
+            2: 5,
+            3: 4,
+            4: 3,
+            5: 2,
+            6: 5,
+            7: 3,
+            8: 3,
+            9: 5,
+            11: 5,
+            22: 4,
+            33: 6,
+            44: 4
+        };
+        // Applica il bonus specifico, altrimenti usa un default di +4 se il numero non è in tabella
+        base += bonusStessoNumero[stessoNum] ?? 4;
     }
 
     // Modificatori CRA e CNM
     const cra = ottieniCRA(n1, n2);
     const cnm = ottieniCNM(n1, n2);
 
-    // Risultato finale normalizzato tra 0 e 100
-    let finale = Math.min(100, Math.max(0, Math.round(base + cra + cnm)));
-    const stelle = calcolaStelleDaPercentuale(finale);
+    // ✅ Riscrittura pulita e leggibile per definire i limiti della percentuale finale
+    let finale = Math.round(base + cra + cnm);
+    finale = Math.max(28, finale);
+    finale = Math.min(96, finale);
 
-    return { percentuale: finale, stelle: stelle };
+    const infoCategoria = categoriaCompatibilita(finale);
+
+    // ✅ Oggetto restituito super-completo
+    return { 
+        percentuale: finale, 
+        stelle: calcolaStelleDaPercentuale(finale),
+        categoria: infoCategoria.nome,
+        colore: infoCategoria.colore,
+        cra: cra,
+        cnm: cnm
+    };
 };
+
+// ... [Codice intermedio dei nomi dei partner invariato] ...
 
                 const nomeCompletoP1 = (dati.nomeP1 || dati.nomeLui || 'Tu') + 
                                        (dati.cognomeP1 || dati.cognomeLui ? ' ' + (dati.cognomeP1 || dati.cognomeLui) : '');
@@ -653,7 +724,8 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     elIo.innerText = `${risIo.percentuale}%`;
                     impostaColorePercentuale(elIo, risIo.percentuale); 
                     
-                    document.getElementById('lbl-desc-io').innerHTML = `Sintonia energetica.<br><b>Potenziale:</b> ${risIo.stelle}`;
+                    // ✅ Generazione automatica e dinamica basata sul risultato reale
+                    document.getElementById('lbl-desc-io').innerHTML = `<b>${risIo.categoria}</b><br>Potenziale: ${risIo.stelle}`;
                     document.getElementById('img-io-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.ioLui)}${estensioneCarte}`;
                     document.getElementById('img-io-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.ioLei)}${estensioneCarte}`;
                     
@@ -670,7 +742,8 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     elAnima.innerText = `${risAnima.percentuale}%`;
                     impostaColorePercentuale(elAnima, risAnima.percentuale); 
                     
-                    document.getElementById('lbl-desc-anima').innerHTML = `Connessione intima.<br><b>Potenziale:</b> ${risAnima.stelle}`;
+                    // ✅ Generazione automatica e dinamica basata sul risultato reale
+                    document.getElementById('lbl-desc-anima').innerHTML = `<b>${risAnima.categoria}</b><br>Potenziale: ${risAnima.stelle}`;
                     document.getElementById('img-anima-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.animaLui)}${estensioneCarte}`;
                     document.getElementById('img-anima-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.animaLei)}${estensioneCarte}`;
                     
@@ -687,7 +760,8 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     elDestino.innerText = `${risDestino.percentuale}%`;
                     impostaColorePercentuale(elDestino, risDestino.percentuale); 
                     
-                    document.getElementById('lbl-desc-destino').innerHTML = `Cammino di vita.<br><b>Potenziale:</b> ${risDestino.stelle}`;
+                    // ✅ Generazione automatica e dinamica basata sul risultato reale
+                    document.getElementById('lbl-desc-destino').innerHTML = `<b>${risDestino.categoria}</b><br>Potenziale: ${risDestino.stelle}`;
                     document.getElementById('img-destino-p1').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.destinoLui)}${estensioneCarte}`;
                     document.getElementById('img-destino-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.destinoLei)}${estensioneCarte}`;
                     
@@ -708,10 +782,11 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     const stelleTotale = calcolaStelleDaPercentuale(percentualeTotale);
                     document.getElementById('lbl-totale-stelle').innerText = stelleTotale;
                     
+                    // ✅ Allineamento dei testi di descrizione complessiva alle nuove fasce
                     let messaggioEvolutivo = "Analisi della sinastria delle anime.";
-                    if (percentualeTotale < 55) {
+                    if (percentualeTotale < 50) {
                         messaggioEvolutivo = "Sintonia complessa. Le sfide numeriche indicano un forte legame karmico progettato per farvi evolvere profondamente.";
-                    } else if (percentualeTotale >= 55 && percentualeTotale < 75) {
+                    } else if (percentualeTotale >= 50 && percentualeTotale < 70) {
                         messaggioEvolutivo = "Unione equilibrata in cui intesa e differenze si alternano costruttivamente, offrendo continua crescita.";
                     } else {
                         messaggioEvolutivo = "Risonanza fluida. Siete anime specchio sulla stessa lunghezza d'onda, favorendo una comprensione immediata.";
@@ -723,6 +798,8 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                 console.error("Errore nel calcolo energetico dei dati:", e);
             }
         });
+
+// ... [Codici di esportazione e ritorno alla home invariati] ...
 
         function ritornaAllaHome() {
             window.location.href = "index.html";
