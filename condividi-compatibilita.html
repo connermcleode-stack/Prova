@@ -481,11 +481,11 @@
 
 // 1. CONFIGURAZIONE DEI PROFILI ARCHETIPALI (Valori da 1 a 10 per i 12 parametri)
 const profiliArchetipi = {
-    1: { leadership: 10, cooperazione: 2, creativita: 8, stabilita: 4, liberta: 9, amore: 4, spiritualita: 5, materializzazione: 7, universalita: 2, visione: 9, intuizione: 5, saggezza: 5 },
+    1: { leadership: 10, cooperazione: 1, creativita: 8, stabilita: 4, liberta: 10, amore: 3, spiritualita: 4, materializzazione: 8, universalita: 2, visione: 10, intuizione: 4, saggezza: 5 },
     2: { leadership: 2, cooperazione: 10, creativita: 5, stabilita: 7, liberta: 3, amore: 9, spiritualita: 7, materializzazione: 3, universalita: 6, visione: 4, intuizione: 9, saggezza: 7 },
     3: { leadership: 6, cooperazione: 6, creativita: 10, stabilita: 3, liberta: 8, amore: 7, spiritualita: 5, materializzazione: 5, universalita: 7, visione: 8, intuizione: 7, saggezza: 5 },
-    4: { leadership: 5, cooperazione: 7, creativita: 3, stabilita: 10, liberta: 2, amore: 6, spiritualita: 4, materializzazione: 9, universalita: 3, visione: 5, intuizione: 4, saggezza: 8 },
-    5: { leadership: 7, cooperazione: 4, creativita: 9, stabilita: 3, liberta: 10, amore: 5, spiritualita: 6, materializzazione: 6, universalita: 6, visione: 8, intuizione: 7, saggezza: 5 },
+    4: { leadership: 4, cooperazione: 7, creativita: 2, stabilita: 10, liberta: 1, amore: 6, spiritualita: 3, materializzazione: 10, universalita: 2, visione: 5, intuizione: 3, saggezza: 9 },
+    5: { leadership: 7, cooperazione: 4, creativita: 10, stabilita: 2, liberta: 10, amore: 5, spiritualita: 6, materializzazione: 5, universalita: 7, visione: 9, intuizione: 8, saggezza: 5 },
     6: { leadership: 4, cooperazione: 8, creativita: 7, stabilita: 8, liberta: 4, amore: 10, spiritualita: 6, materializzazione: 6, universalita: 8, visione: 6, intuizione: 6, saggezza: 8 },
     7: { leadership: 4, cooperazione: 3, creativita: 6, stabilita: 5, liberta: 6, amore: 4, spiritualita: 10, materializzazione: 3, universalita: 8, visione: 9, intuizione: 10, saggezza: 9 },
     8: { leadership: 9, cooperazione: 4, creativita: 5, stabilita: 8, liberta: 5, amore: 5, spiritualita: 4, materializzazione: 10, universalita: 4, visione: 8, intuizione: 5, saggezza: 7 },
@@ -587,11 +587,12 @@ const calcolaStelleDaPercentuale = (percentuale) => {
 // NUOVO: CATEGORIE DI COMPATIBILITÀ E COLORI COORDINATI
 const categoriaCompatibilita = (percentuale) => {
     if (percentuale >= 90) return { nome: "Armonia Profonda", colore: "#2ec4b6" };
-    if (percentuale >= 80) return { nome: "Grande Sintonia", colore: "#4ade80" };
-    if (percentuale >= 70) return { nome: "Equilibrio Positivo", colore: "#a3e635" };
+    if (percentuale >= 82) return { nome: "Grande Sintonia", colore: "#4ade80" };
+    if (percentuale >= 72) return { nome: "Equilibrio Positivo", colore: "#a3e635" };
     if (percentuale >= 60) return { nome: "Armonia Dinamica", colore: "#facc15" };
-    if (percentuale >= 50) return { nome: "Percorso di Adattamento", colore: "#fb923c" };
-    if (percentuale >= 40) return { nome: "Sfida Costruttiva", colore: "#f87171" };
+    if (percentuale >= 48) return { nome: "Percorso di Adattamento", colore: "#fb923c" };
+    if (percentuale >= 36) return { nome: "Sfida Costruttiva", colore: "#f87171" };
+
     return { nome: "Trasformazione Reciproca", colore: "#ef4444" };
 };
 
@@ -606,7 +607,7 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
     // ✅ Controllo di sicurezza per evitare crash futuri
     if (!profiloA || !profiloB) {
         return {
-            percentuale: 28,
+            percentuale: 24,
             stelle: "⭐☆☆☆☆",
             categoria: "Trasformazione Reciproca",
             colore: "#ef4444",
@@ -620,14 +621,14 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
 
     // ✅ Definizione della sensibilità personalizzata per ogni parametro archetipale
     const sensibilitaParametro = {
-        leadership: 9,
+        leadership: 8,
         cooperazione: 7,
         creativita: 6,
         stabilita: 9,
         liberta: 8,
         amore: 6,
         spiritualita: 5,
-        materializzazione: 9,
+        materializzazione: 8,
         universalita: 5,
         visione: 7,
         intuizione: 5,
@@ -686,7 +687,7 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
 
     // ✅ Riscrittura pulita e leggibile per definire i limiti della percentuale finale
     let finale = Math.round(base + cra + cnm);
-    finale = Math.max(28, finale);
+    finale = Math.max(24, finale);
     finale = Math.min(96, finale);
 
     const infoCategoria = categoriaCompatibilita(finale);
@@ -716,6 +717,9 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
 
                 let sommePercentuali = 0;
                 let conteggioLivelli = 0;
+		let percIo = 0;
+		let percAnima = 0;
+		let percDestino = 0;
 
                 // Livello IO
                 if(dati.ioLui && dati.ioLei) {
@@ -730,6 +734,7 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     document.getElementById('img-io-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.ioLei)}${estensioneCarte}`;
                     
                     sommePercentuali += risIo.percentuale;
+		    percIo = risIo.percentuale;
                     conteggioLivelli++;
                 } else {
                     document.getElementById('card-io').style.display = 'none';
@@ -748,6 +753,7 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     document.getElementById('img-anima-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.animaLei)}${estensioneCarte}`;
                     
                     sommePercentuali += risAnima.percentuale;
+		    percAnima = risAnima.percentuale;
                     conteggioLivelli++;
                 } else {
                     document.getElementById('card-anima').style.display = 'none';
@@ -766,33 +772,61 @@ const calcolaCompatibilita = (n1, n2, tipo) => {
                     document.getElementById('img-destino-p2').src = `${percorsoBaseCarte}${ottieniNomeFile(dati.destinoLei)}${estensioneCarte}`;
                     
                     sommePercentuali += risDestino.percentuale;
+		    percDestino = risDestino.percentuale;
                     conteggioLivelli++;
                 } else {
                     document.getElementById('card-destino').style.display = 'none';
                 }
 
-                // CALCOLO FINALE COMPLESSIVO
-                if (conteggioLivelli > 0) {
-                    const percentualeTotale = Math.round(sommePercentuali / conteggioLivelli);
-                    const elTotale = document.getElementById('lbl-totale-percentuale');
-                    elTotale.innerText = `${percentualeTotale}%`;
-                    
-                    impostaColorePercentuale(elTotale, percentualeTotale, true); 
-                    
-                    const stelleTotale = calcolaStelleDaPercentuale(percentualeTotale);
-                    document.getElementById('lbl-totale-stelle').innerText = stelleTotale;
-                    
-                    // ✅ Allineamento dei testi di descrizione complessiva alle nuove fasce
-                    let messaggioEvolutivo = "Analisi della sinastria delle anime.";
-                    if (percentualeTotale < 50) {
-                        messaggioEvolutivo = "Sintonia complessa. Le sfide numeriche indicano un forte legame karmico progettato per farvi evolvere profondamente.";
-                    } else if (percentualeTotale >= 50 && percentualeTotale < 70) {
-                        messaggioEvolutivo = "Unione equilibrata in cui intesa e differenze si alternano costruttivamente, offrendo continua crescita.";
-                    } else {
-                        messaggioEvolutivo = "Risonanza fluida. Siete anime specchio sulla stessa lunghezza d'onda, favorendo una comprensione immediata.";
-                    }
-                    document.getElementById('lbl-desc-totale').innerText = messaggioEvolutivo;
-                }
+          // CALCOLO FINALE COMPLESSIVO (supporta anche analisi parziali)
+
+let sommaPesata = 0;
+let pesoTotale = 0;
+
+// IO
+if (percIo > 0) {
+    sommaPesata += percIo * 0.25;
+    pesoTotale += 0.25;
+}
+
+// ANIMA
+if (percAnima > 0) {
+    sommaPesata += percAnima * 0.40;
+    pesoTotale += 0.40;
+}
+
+// DESTINO
+if (percDestino > 0) {
+    sommaPesata += percDestino * 0.35;
+    pesoTotale += 0.35;
+}
+
+if (pesoTotale > 0) {
+
+    const percentualeTotale = Math.round(sommaPesata / pesoTotale);
+
+    const elTotale = document.getElementById('lbl-totale-percentuale');
+    elTotale.innerText = `${percentualeTotale}%`;
+
+    impostaColorePercentuale(elTotale, percentualeTotale, true);
+
+    const stelleTotale = calcolaStelleDaPercentuale(percentualeTotale);
+    document.getElementById('lbl-totale-stelle').innerText = stelleTotale;
+
+    let messaggioEvolutivo = "Analisi della sinastria delle anime.";
+
+    if (percentualeTotale < 50) {
+        messaggioEvolutivo = "Sintonia complessa. Le sfide numeriche indicano un forte legame karmico progettato per farvi evolvere profondamente.";
+    }
+    else if (percentualeTotale < 70) {
+        messaggioEvolutivo = "Unione equilibrata in cui intesa e differenze si alternano costruttivamente, offrendo continua crescita.";
+    }
+    else {
+        messaggioEvolutivo = "Risonanza fluida. Siete anime specchio sulla stessa lunghezza d'onda, favorendo una comprensione immediata.";
+    }
+
+    document.getElementById('lbl-desc-totale').innerText = messaggioEvolutivo;
+}
 
             } catch (e) {
                 console.error("Errore nel calcolo energetico dei dati:", e);
