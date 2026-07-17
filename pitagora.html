@@ -251,25 +251,20 @@
 
     </div>
     
-    <!-- RIGA PRINCIPALE: TORNA ALLA SCELTA (FRECCIA) + CALCOLA AFFIANCATI -->
-    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin: 15px auto 0 auto; width: fit-content;">
+   <!-- RIGA UNICA OTTIMIZZATA PER TUTTI I PULSANTI -->
+    <div style="display: flex; gap: 6px; justify-content: center; align-items: center; margin: 20px auto 0 auto; width: 100%; max-width: 400px; padding: 0 5px;">
         
-        <!-- Link Torna alla Scelta ridotto a sola freccia -->
-        <a href="index.html" class="btn-home" style="margin: 0; padding: 10px 15px; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; height: 45px; box-sizing: border-box; text-decoration: none;">⬅</a>
+        <!-- 1. Freccia Torna alla Scelta -->
+        <a href="index.html" class="btn-home" style="margin: 0; padding: 0; font-size: 15px; display: flex; align-items: center; justify-content: center; width: 40px; height: 42px; min-width: 40px; box-sizing: border-box; text-decoration: none;">⬅</a>
         
-        <!-- Tasto Calcola -->
-        <button onclick="eseguiCalcoloCompleto()" style="display: block; width: fit-content; min-width: 140px; height: 45px; background: #8e7355; color: white; padding: 0 24px; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: background 0.2s; letter-spacing: 1px; box-sizing: border-box; margin: 0;">CALCOLA</button>
+        <!-- 2. Tasto Copia (Appare a sinistra di Calcola) -->
+        <button id="btnCopia" class="btn-secondary" onclick="copiaMappaInAppunti()" style="display: none; margin: 0; padding: 0 12px; font-size: 12px; font-weight: bold; cursor: pointer; letter-spacing: 0.5px; height: 42px; width: fit-content; line-height: 42px; box-sizing: border-box;">COPIA</button>
         
-    </div>
-    
-    <!-- CONTENITORE PULSANTI COPIA E SALVA AFFIANCATI E CENTRATI -->
-    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px; width: 100%;">
+        <!-- 3. Tasto Calcola (Centro) -->
+        <button onclick="eseguiCalcoloCompleto()" style="display: block; margin: 0; padding: 0 16px; background: #8e7355; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px; height: 42px; width: fit-content; min-width: 100px; box-sizing: border-box;">CALCOLA</button>
         
-        <!-- Tasto Copia compatto -->
-        <button id="btnCopia" class="btn-secondary" onclick="copiaMappaInAppunti()" style="display: none; width: fit-content; min-width: 90px; padding: 10px 18px; margin-top: 0; font-size: 13px; font-weight: bold; cursor: pointer; letter-spacing: 0.5px;">COPIA</button>
-        
-        <!-- Tasto Salva compatto (Solo icona) -->
-        <button id="btnSalva" type="button" onclick="salvaNelDatabase()" style="display: none; width: fit-content; padding: 10px 15px; margin-top: 0; background: #8e7355; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.2s;">💾</button>
+        <!-- 4. Tasto Salva (Appare a destra di Calcola - Solo icona) -->
+        <button id="btnSalva" type="button" onclick="salvaNelDatabase()" style="display: none; margin: 0; padding: 0; background: #8e7355; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; transition: background 0.2s; width: 40px; height: 42px; min-width: 40px; line-height: 42px; box-sizing: border-box;">💾</button>
         
     </div>
     
