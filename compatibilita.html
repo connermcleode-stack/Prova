@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;600;700&family=Montserrat:wght=300;400;500;600&display=swap');
 
-       :root {
+        :root {
             /* Sfondo generale: un magenta/prugna estremamente profondo, scuro e vellutato */
             --bg-color: #2b030f;         
             
@@ -17,7 +17,7 @@
             /* Sfondo interno per input e badge: una tonalità scurissima per dare profondità */
             --inner-bg: #1c020a;         
             
-            /* Testo chiaro morbido (rimane invariato per ottima leggibilità) */
+            /* Testo chiaro morbido */
             --text-color: #e0dbd1;       
             
             /* Oro luminoso coordinato */
@@ -41,40 +41,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-sizing: border-box;
         }
 
-	/* Sfondo mistico con texture stellata e BAGLIORE RUBINO ACCESO (stile Carta 8) */
+        /* Sfondo mistico con texture stellata e BAGLIORE RUBINO ACCESO (stile Carta 8) */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                /* 1. Bagliore centrale molto più ampio, saturo e luminoso (colore rubino/magenta acceso) */
+                /* 1. Bagliore centrale ampio e saturo (colore rubino/magenta acceso) */
                 radial-gradient(circle at 50% 35%, rgba(197, 16, 73, 0.45) 0%, rgba(138, 8, 47, 0.2) 50%, transparent 80%),
                 
-                /* 2. Un secondo gradiente che simula la sfumatura di luce dal basso verso l'alto tipica della carta */
+                /* 2. Gradiente che simula la sfumatura di luce dal basso verso l'alto */
                 linear-gradient(to bottom, rgba(43, 3, 15, 0) 40%, rgba(197, 16, 73, 0.15) 100%),
                 
                 /* 3. Texture stellata */
                 radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 40px 40px,
                 radial-gradient(rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px) 20px 20px / 60px 60px;
-            opacity: 0.9; /* Alzata l'opacità generale per rendere il tutto più vivido */
-            pointer-events: none;
-            z-index: -1;
-        }
-
-
-        /* Sfondo mistico con texture stellata e bagliore oro centrale */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.14) 0%, transparent 65%),
-                radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 40px 40px,
-                radial-gradient(rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px) 20px 20px / 60px 60px;
-            opacity: 0.75;
+            opacity: 0.9;
             pointer-events: none;
             z-index: -1;
         }
@@ -83,7 +67,6 @@
             max-width: 750px;
             width: 100%;
             text-align: left;
-            box-sizing: border-box;
         }
 
         .btn-back {
@@ -109,36 +92,35 @@
 
         .ns-header-banner {
             border: 1px solid var(--border-color);
-            padding: 15px 20px;         /* RIDOTTO: da 30px a 15px per stringere il riquadro verticalmente */
+            padding: 15px 20px;
             text-align: center;
-            margin-bottom: 20px;        /* RIDOTTO: da 30px a 20px per avvicinarlo al modulo sotto */
+            margin-bottom: 20px;
             background-color: var(--panel-bg);
             border-radius: 16px;
-            box-sizing: border-box;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;              /* AGGIUNTO: per garantire il perfetto allineamento flex */
-            flex-direction: column;     /* AGGIUNTO: dispone gli elementi in verticale */
-            align-items: center;        /* AGGIUNTO: centra perfettamente h1 e p su qualsiasi schermo */
-            justify-content: center;    /* AGGIUNTO: centra verticalmente */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-	.ns-header-banner h1 {
+        .ns-header-banner h1 {
             margin: 0;
             font-family: 'Cinzel', serif;
             color: var(--accent-gold);
-            font-size: 1.6rem;          /* Ottimizzato leggermente per mobile rispetto a 1.8rem */
+            font-size: 1.6rem;
             letter-spacing: 1px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            text-align: center;         /* Forza la centratura del testo */
+            text-align: center;
         }
 
         .ns-header-banner p {
             color: #a69f95;
             font-size: 0.9rem;
-            margin-top: 4px;            /* Ridotto lo stacco tra il titolo e il sottotitolo */
+            margin-top: 4px;
             margin-bottom: 0;
-            text-align: center;         /* Forza la centratura del testo */
-            text-transform: uppercase;  /* Rende automatico il maiuscolo di "SU TRE LIVELLI" */
+            text-align: center;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
@@ -148,7 +130,6 @@
             padding: 25px;
             margin-bottom: 30px;
             border-radius: 16px;
-            box-sizing: border-box;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
@@ -166,7 +147,6 @@
             padding: 18px;
             border-radius: 10px;
             border: 1px solid rgba(212, 175, 55, 0.15);
-            box-sizing: border-box;
         }
 
         .partner-title {
@@ -193,7 +173,7 @@
             color: #c4beb3;
         }
 
-        .input-field, .select-box {
+        .input-field {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid rgba(142, 115, 85, 0.3);
@@ -201,26 +181,19 @@
             color: #f5f2eb;
             border-radius: 6px;
             font-size: 0.95rem;
-            box-sizing: border-box;
             transition: border-color 0.2s, background-color 0.2s;
         }
 
-        .input-field:focus, .select-box:focus {
+        .input-field:focus {
             border-color: var(--accent-gold);
             background-color: #31151e;
             outline: none;
         }
 
-        /* Adattamento stilistico delle opzioni interne alle select box */
-        .select-box option {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
         .btn-calc {
             width: 100%;
             padding: 15px;
-            background-color: #8e7355; /* Mantenuto coerente con i bottoni principali dell'ecosistema */
+            background-color: #8e7355;
             color: white;
             border: none;
             font-size: 1.1rem;
@@ -229,7 +202,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             margin-top: 10px;
-            box-sizing: border-box;
             letter-spacing: 0.5px;
         }
 
@@ -245,7 +217,6 @@
             border-radius: 12px;
             border: 1px solid var(--border-color);
             border-left: 4px solid #8e7355;
-            box-sizing: border-box;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
@@ -275,7 +246,6 @@
             border-radius: 8px;
             border: 1px solid rgba(212, 175, 55, 0.15);
             justify-content: space-around;
-            box-sizing: border-box;
         }
 
         .result-badge {
@@ -296,7 +266,7 @@
             font-size: 0.95rem;
             line-height: 1.6;
             color: #c4beb3;
-            text-align: justify;
+            text-align: left !important;
         }
 
         .footer {
@@ -309,34 +279,20 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 20px 10px;
-            }
+            body { padding: 20px 10px; }
+            .ns-calc-panel { padding: 15px; border-radius: 12px; }
+            .partner-block { min-width: 100%; }
+            .ns-level-container { padding: 15px; border-radius: 10px; }
+        }
 
-            .ns-calc-panel {
-                padding: 15px;
-                border-radius: 12px;
-            }
+        /* RESET TOTALE ALLINEAMENTO E DIMENSIONI DENTRO I BOX DI RISULTATO */
+        div[onclick], .sezione-dinamica div, .ns-level-container div {
+            text-align: left !important;
+        }
 
-            .partner-block {
-                min-width: 100%;
-            }
-
-            .ns-level-container {
-                padding: 15px;
-                border-radius: 10px;
-            }
-
-            .ns-level-desc {
-                text-align: left;
-
-/* Correzione per il titolo del livello dentro il box cliccabile */
-        .card-cliccabile h1, 
-        .card-cliccabile h2, 
-        .card-cliccabile h3, 
-        .card-cliccabile h4,
-        #quadro-esportazione .titolo-livello, 
-        [id^="card-"] h1, [id^="card-"] h2, [id^="card-"] h3 { 
+        .card-cliccabile h1, .card-cliccabile h2, .card-cliccabile h3, .card-cliccabile h4,
+        #quadro-esportazione .titolo-livello, [id^="card-"] h1, [id^="card-"] h2, [id^="card-"] h3,
+        .sezione-dinamica div h1, .sezione-dinamica div h2, .sezione-dinamica div h3 { 
             font-size: 1.1rem !important;      
             text-align: left !important;        
             line-height: 1.3 !important;        
@@ -345,50 +301,21 @@
             margin-bottom: 10px !important;
         }
 
-        /* Rende anche la descrizione del responso sotto il titolo allineata a sinistra */
-        .card-cliccabile p, 
-        [id^="card-"] p,
-        .ns-level-desc {
-            text-align: left !important; 
-        }
-        /* ======================================================== */
-        /*  FINE DELLE NUOVE REGOLE DI CORREZIONE                   */
-        /* ======================================================== */
-
-            }
+        .card-cliccabile p, [id^="card-"] p, div[onclick] p, .sezione-dinamica div p,
+        div[onclick] span, .sezione-dinamica div span, div[onclick] em, div[onclick] i {
+            font-size: 1.1rem !important;
+            text-align: left !important;
+            line-height: 1.4 !important;
+            letter-spacing: normal !important;
+            display: block !important;
         }
 
-/* RESET TOTALE ALLINEAMENTO E DIMENSIONI DENTRO I BOX DI RISULTATO */
-div[onclick], 
-.sezione-dinamica div, 
-.ns-level-container div {
-    text-align: left !important;
-}
-
-/* Intercettiamo i titoli corsivi dorati e i responsi */
-div[onclick] h1, div[onclick] h2, div[onclick] h3, div[onclick] h4,
-.sezione-dinamica div h1, .sezione-dinamica div h2, .sezione-dinamica div h3,
-div[onclick] p, .sezione-dinamica div p,
-div[onclick] span, .sezione-dinamica div span,
-div[onclick] em, div[onclick] i {
-    font-size: 1.1rem !important;
-    text-align: left !important;
-    line-height: 1.4 !important;
-    letter-spacing: normal !important;
-    display: block !important; /* Forza ad andare a capo correttamente senza spaziature artificiali */
-}
-
-/* Forza la sinistra anche per il testo "Clicca qui per leggere..." */
-div[onclick] * {
-    text-align: left !important;
-}
-
-
+        div[onclick] * { text-align: left !important; }
     </style>
 </head>
 <body>
 
-    <div class="sezione-dinamica">
+   <div class="sezione-dinamica">
         <a href="index.html" class="btn-back">← Torna alla Home</a>
 
         <div class="ns-header-banner">
@@ -416,9 +343,9 @@ div[onclick] * {
                         <input type="text" id="p1-cognome" class="input-field" placeholder="Es. Rossi">
                     </div>
                     <div class="form-group">
-    			<label>Data di Nascita (GG/MM/AAAA):</label>
-   			 <input type="text" id="p1-data" class="input-field" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" oninput="formattaEValidaData(this)">
-		    </div>
+                        <label>Data di Nascita (GG/MM/AAAA):</label>
+                        <input type="text" id="p1-data" class="input-field" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" oninput="formattaEValidaData(this)">
+                    </div>
                     <div class="form-group" style="margin-top: 15px;">
                         <label style="color: var(--accent-gold);">Oppure seleziona da Archivio:</label>
                         <select id="comp-partner-a" class="select-box" onchange="caricaDaArchivio(1)">
@@ -439,9 +366,9 @@ div[onclick] * {
                         <input type="text" id="p2-cognome" class="input-field" placeholder="Es. Bianchi">
                     </div>
                     <div class="form-group">
-    			<label>Data di Nascita (GG/MM/AAAA):</label>
-    			<input type="text" id="p2-data" class="input-field" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" oninput="formattaEValidaData(this)">
-		    </div>
+                        <label>Data di Nascita (GG/MM/AAAA):</label>
+                        <input type="text" id="p2-data" class="input-field" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" oninput="formattaEValidaData(this)">
+                    </div>
                     <div class="form-group" style="margin-top: 15px;">
                         <label style="color: var(--accent-gold);">Oppure seleziona da Archivio:</label>
                         <select id="comp-partner-b" class="select-box" onchange="caricaDaArchivio(2)">
@@ -540,9 +467,11 @@ div[onclick] * {
         </div>
     </div>
 
+    <!-- Inclusione del Motore di Calcolo condiviso centralizzato -->
+    <script src="calcoli.js"></script>
     <script>
 function formattaEValidaData(input) {
-    let v = input.value.replace(/\D/g, ''); // Rimuove tutto ciò che non è un numero
+    let v = input.value.replace(/\D/g, ''); 
     if (v.length > 2) v = v.substring(0, 2) + '/' + v.substring(2);
     if (v.length > 5) v = v.substring(0, 5) + '/' + v.substring(5, 9);
     input.value = v;
@@ -1555,307 +1484,166 @@ function formattaEValidaData(input) {
 }; 
 
 // ==========================================================================
-// BLOCCO UNIFICATO: LOGICA DI CALCOLO E GESTIONE INTERFACCIA (SINISTRIA)
+// GESTIONE INTERFACCIA E UTILITY SINISTRIA
 // ==========================================================================
 
-const tavolaPitagorica = {
-    'a': 1, 'j': 1, 's': 1, 'b': 2, 'k': 2, 't': 2, 'c': 3, 'l': 3, 'u': 3,
-    'd': 4, 'm': 4, 'v': 4, 'e': 5, 'n': 5, 'w': 5, 'f': 6, 'o': 6, 'x': 6,
-    'g': 7, 'p': 7, 'y': 7, 'h': 8, 'q': 8, 'z': 8, 'i': 9, 'r': 9
-};
-
-function ottieniNomeArchetipo(numero) {
-    const archetipi = {
-        1: "Il Guerriero", 2: "Il Fanciullo", 3: "Il Giullare", 4: "Il Costruttore",
-        5: "Il Cercatore", 6: "L'Angelo Custode", 7: "Il Saggio", 8: "Il Sovrano",
-        9: "Il Liberatore", 11: "Il Genio", 22: "Il Creatore", 33: "Il Maestro"
-    };
-    return archetipi[parseInt(numero)] || `Numero ${numero}`;
-}
-
+/**
+ * Genera una chiave univoca ordinata per la coppia (es. "3-7" sia per 3 e 7 che per 7 e 3)
+ */
 function ottieniChiaveCoppia(num1, num2) {
     const n1 = parseInt(num1, 10) || 0;
     const n2 = parseInt(num2, 10) || 0;
     return n1 <= n2 ? `${n1}-${n2}` : `${n2}-${n1}`;
 }
 
-function pulisciTesto(testo) {
-    if (!testo) return "";
-    return testo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
-}
-
-function riduciNumero(somma) {
-    if (somma === 11 || somma === 22 || somma === 33) return somma;
-    while (somma > 9) {
-        somma = somma.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
-        if (somma === 11 || somma === 22 || somma === 33) return somma;
-    }
-    return somma;
-}
-
-function calcolaNomeCognome(nome, cognome, tipo) {
-    const vocali = ['a', 'e', 'i', 'o', 'u'];
-    const nomePulito = pulisciTesto(nome);
-    const cognomePulito = pulisciTesto(cognome);
-    let sommaTotale = 0;
-
-    for (let letter of nomePulito) {
-        if (tipo === 'io') sommaTotale += tavolaPitagorica[letter] || 0;
-        else if (tipo === 'anima' && vocali.includes(letter)) sommaTotale += tavolaPitagorica[letter] || 0;
-    }
-    for (let letter of cognomePulito) {
-        if (tipo === 'io') sommaTotale += tavolaPitagorica[letter] || 0;
-        else if (tipo === 'anima' && vocali.includes(letter)) sommaTotale += tavolaPitagorica[letter] || 0;
-    }
-    return riduciNumero(sommaTotale);
-}
-
-function calcolaDestino(dataString) {
-    if (!dataString) return 0;
-    const parti = dataString.split('-'); // Il browser restituisce YYYY-MM-DD
-    if (parti.length !== 3) return 0;
-
-    // Prendiamo l'anno e lo forziamo a massimo 4 cifre se l'utente ha digitato cifre in più
-    let anno = parti[0];
-    if (anno.length > 4) {
-        anno = anno.substring(0, 4);
-    }
-
-    const mese = parti[1];
-    const giorno = parti[2];
-
-    // Uniamo le cifre pulite (es. "1985" + "12" + "25") e spezziamo in un array
-    const cifre = (anno + mese + giorno).split('');
-    let somma = cifre.reduce((a, b) => parseInt(a) + parseInt(b), 0);
-    
-    return riduciNumero(somma);
-}
-
+/**
+ * Recupera il testo di affinità dal database locale e ne formatta i tag grafici
+ */
 function recuperaTestoAffinita(livello, num1, num2) {
     const chiave = ottieniChiaveCoppia(num1, num2);
     let testoOriginale = "";
     
-    // Controllo di sicurezza resiliente per evitare crash se i database globali mancano o sono corrotti
+    // Controllo di sicurezza resiliente per evitare crash se il database globale manca
     try {
         if (typeof databaseCompatibilita !== 'undefined' && databaseCompatibilita[livello] && databaseCompatibilita[livello][chiave]) {
             testoOriginale = databaseCompatibilita[livello][chiave];
         }
-    } catch(e) { console.error(e); }
+    } catch(e) { 
+        console.error("Errore nel recupero del database compatibilità:", e); 
+    }
 
     if (testoOriginale && testoOriginale !== "...") {
         let testoFormattato = testoOriginale
             .replaceAll("Descrizione della Compatibilità:", "<br><br><b>Descrizione della Compatibilità:</b>")
             .replaceAll("🎯", "<br><br><span class='box-luce'>🎯 ")
             .replaceAll("⚠️", "</span><br><br><span class='box-ombra'>⚠️ ");
-        return testoFormattato + "</span>";
+        
+        // Verifica la chiusura dei tag span inseriti dinamicamente
+        if (testoFormattato.includes("<span class=")) {
+            testoFormattato += "</span>";
+        }
+        return testoFormattato;
     }
     return `Le due frequenze numeriche (${num1} e ${num2}) lavoreranno sul proprio equilibrio energetico per trovare una sintesi armonica sul piano del confronto.`;
 }
 
-// ==========================================
-// FUNZIONE DI ESECUZIONE (GANCIO DEL PULSANTE)
-// ==========================================
+// ==========================================================================
+// FUNZIONE DI ESECUZIONE (GANCIO DEL PULSANTE) - VERSIONE FUNZIONI LIBERE
+// ==========================================================================
 function eseguiCalcoloAffinita() {
-    const p1Nome = document.getElementById('p1-nome') ? document.getElementById('p1-nome').value.trim() : "";
-    const p1Cognome = document.getElementById('p1-cognome') ? document.getElementById('p1-cognome').value.trim() : "";
-    let p1Data = document.getElementById('p1-data') ? document.getElementById('p1-data').value.trim() : "";
-
-    const p2Nome = document.getElementById('p2-nome') ? document.getElementById('p2-nome').value.trim() : "";
-    const p2Cognome = document.getElementById('p2-cognome') ? document.getElementById('p2-cognome').value.trim() : "";
-    let p2Data = document.getElementById('p2-data') ? document.getElementById('p2-data').value.trim() : "";
-
-    // CONVERSIONE SMART DEL FORMATO DATA (Risolve il blocco su smartphone)
-    if (p1Data.includes('/')) {
-        const parti1 = p1Data.split('/');
-        if (parti1.length === 3) p1Data = `${parti1[2]}-${parti1[1].padStart(2, '0')}-${parti1[0].padStart(2, '0')}`;
-    }
-    if (p2Data.includes('/')) {
-        const parti2 = p2Data.split('/');
-        if (parti2.length === 3) p2Data = `${parti2[2]}-${parti2[1].padStart(2, '0')}-${parti2[0].padStart(2, '0')}`;
-    }
-
-    // 1. CONTROLLO DI SICUREZZA: Tutto vuoto
-    if (!p1Nome && !p1Cognome && !p1Data && !p2Nome && !p2Cognome && !p2Data) {
-        alert("Inserisci almeno un dato per effettuare il calcolo.");
+    if (typeof window.calcolaCompatibilitaEsclusiva !== 'function') {
+        alert("Errore: Il motore centrale dei calcoli non è caricato.");
         return;
     }
 
-    // 2. CONTROLLI INCROCIATI (AVVISI SE MANCA IL CORRISPETTIVO PARTNER)
-    if ((p1Nome && !p2Nome) || (!p1Nome && p2Nome)) {
-        alert("Per calcolare l'affinità dei Nomi, inserisci il Nome di entrambi i profili.");
+    // 1. RACCOLTA DATI GREZZI
+    const p1 = {
+        nome: document.getElementById('p1-nome')?.value.trim() || "",
+        cognome: document.getElementById('p1-cognome')?.value.trim() || "",
+        data: document.getElementById('p1-data')?.value.trim() || ""
+    };
+
+    const p2 = {
+        nome: document.getElementById('p2-nome')?.value.trim() || "",
+        cognome: document.getElementById('p2-cognome')?.value.trim() || "",
+        data: document.getElementById('p2-data')?.value.trim() || ""
+    };
+
+    // Controlli formali di riempimento minimi
+    if (!p1.nome && !p1.cognome && !p1.data && !p2.nome && !p2.cognome && !p2.data) {
+        alert("Inserisci i dati per effettuare il calcolo.");
         return;
     }
 
-    if ((p1Cognome && !p2Cognome) || (!p1Cognome && p2Cognome)) {
-        alert("Per calcolare l'affinità dei Cognomi, inserisci il Cognome di entrambi i profili.");
-        return;
-    }
+    // 2. DELEGA COMPLETA AL MOTORE CENTRALE
+    const report = window.calcolaCompatibilitaEsclusiva(p1, p2);
 
-    if ((p1Data && !p2Data) || (!p1Data && p2Data)) {
-        alert("Per calcolare il Destino, inserisci la Data di Nascita di entrambi i profili.");
-        return;
-    }
-
-    const haTestoP1 = (p1Nome.length > 0 || p1Cognome.length > 0);
-    const haTestoP2 = (p2Nome.length > 0 || p2Cognome.length > 0);
-
-    // Inizializziamo le variabili per l'esportazione
-    let ioP1 = 0, ioP2 = 0, animaP1 = 0, animaP2 = 0, destinoP1 = 0, destinoP2 = 0;
-
-  // ==========================================
-    // 1. CALCOLO LIVELLO IO
-    // ==========================================
-    if (haTestoP1 && haTestoP2) {
-        ioP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'io');
-        ioP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'io');
-        document.getElementById('res-io-p1').innerText = ioP1;
-        document.getElementById('res-io-p2').innerText = ioP2;
-        
-        const testoIo = recuperaTestoAffinita('io', ioP1, ioP2);
-        const titoloIo = `${ottieniNomeArchetipo(ioP1)} & ${ottieniNomeArchetipo(ioP2)}`;
-        
-        let sottotitoloIo = "L'Incontro delle Personalità";
-        try {
-            if (typeof sottotitoliIo !== 'undefined') {
-                const chiaveIo = `${ioP1}-${ioP2}`;
-                const chiaveIoInv = `${ioP2}-${ioP1}`;
-                sottotitoloIo = sottotitoliIo[chiaveIo] || sottotitoliIo[chiaveIoInv] || sottotitoloIo;
-            }
-        } catch(e) {}
-
-        // Percorsi immagini per il livello dell'Io
-        const imgIo1 = `./carte/${ioP1}.png`;
-        const imgIo2 = `./carte/${ioP2}.png`;
-
-        document.getElementById('res-io-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">1. Il Livello dell'Io (L'Individualità)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgIo1}" alt="Carta ${ioP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgIo2}" alt="Carta ${ioP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${ioP1} & ${ioP2}): ${titoloIo}
-                </span>
-                <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px; font-style: italic;">${sottotitoloIo}</div>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgIo1}" alt="Carta ${ioP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgIo2}" alt="Carta ${ioP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoIo}
-                </div>
-            </div>
-        `;
+    // 3. INIEZIONE IMMEDIATA DEI RISULTATI NEL DOM (Nessun calcolo qui)
+    
+    // --- LIVELLO IO ---
+    document.getElementById('res-io-p1').innerText = report.io.p1Val;
+    document.getElementById('res-io-p2').innerText = report.io.p2Val;
+    if (report.io.calcolabile) {
+        const testoIo = typeof recuperaTestoAffinita === 'function' ? recuperaTestoAffinita('io', report.io.p1Num, report.io.p2Num) : '';
+        document.getElementById('res-io-testo').innerHTML = generaHtmlLivello("1. Il Livello dell'Io (L'Espressione)", report.io.p1Num, report.io.p2Num, report.io.p1Arch, report.io.p2Arch, testoIo);
     } else {
-        document.getElementById('res-io-p1').innerText = "-";
-        document.getElementById('res-io-p2').innerText = "-";
-        document.getElementById('res-io-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Io.</i>";
+        document.getElementById('res-io-testo').innerHTML = "<i style='color: #888;'>Inserisci Nome e Cognome per entrambi.</i>";
     }
 
-    // ==========================================
-    // 2. CALCOLO LIVELLO ANIMA
-    // ==========================================
-    if (haTestoP1 && haTestoP2) {
-        animaP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'anima');
-        animaP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'anima');
-        document.getElementById('res-anima-p1').innerText = animaP1;
-        document.getElementById('res-anima-p2').innerText = animaP2;
-        
-        const testoAnima = recuperaTestoAffinita('anima', animaP1, animaP2);
-        const titoloAnima = `${ottieniNomeArchetipo(animaP1)} & ${ottieniNomeArchetipo(animaP2)}`;
-        
-        // Percorsi immagini per il livello dell'Anima
-        const imgAnima1 = `./carte/${animaP1}.png`;
-        const imgAnima2 = `./carte/${animaP2}.png`;
-
-        document.getElementById('res-anima-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">2. Il Livello dell'Anima (La Sintonia Profonda)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgAnima1}" alt="Carta ${animaP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgAnima2}" alt="Carta ${animaP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${animaP1} & ${animaP2}): ${titoloAnima}
-                </span>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgAnima1}" alt="Carta ${animaP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgAnima2}" alt="Carta ${animaP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoAnima}
-                </div>
-            </div>
-        `;
+    // --- LIVELLO ANIMA ---
+    document.getElementById('res-anima-p1').innerText = report.anima.p1Val;
+    document.getElementById('res-anima-p2').innerText = report.anima.p2Val;
+    if (report.anima.calcolabile) {
+        const testoAnima = typeof recuperaTestoAffinita === 'function' ? recuperaTestoAffinita('anima', report.anima.p1Num, report.anima.p2Num) : '';
+        document.getElementById('res-anima-testo').innerHTML = generaHtmlLivello("2. Il Livello dell'Anima (La Sintonia)", report.anima.p1Num, report.anima.p2Num, report.anima.p1Arch, report.anima.p2Arch, testoAnima);
     } else {
-        document.getElementById('res-anima-p1').innerText = "-";
-        document.getElementById('res-anima-p2').innerText = "-";
-        document.getElementById('res-anima-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Anima.</i>";
+        document.getElementById('res-anima-testo').innerHTML = "<i style='color: #888;'>Inserisci Nome e Cognome per entrambi.</i>";
     }
 
-    // ==========================================
-    // 3. CALCOLO LIVELLO DESTINO
-    // ==========================================
-    if (p1Data && p2Data) {
-        destinoP1 = calcolaDestino(p1Data);
-        destinoP2 = calcolaDestino(p2Data);
-        document.getElementById('res-destino-p1').innerText = destinoP1;
-        document.getElementById('res-destino-p2').innerText = destinoP2;
-        
-        const testoDestino = recuperaTestoAffinita('destino', destinoP1, destinoP2);
-        const titoloDestino = `${ottieniNomeArchetipo(destinoP1)} & ${ottieniNomeArchetipo(destinoP2)}`;
-        
-        // Percorsi immagini per il livello del Destino
-        const imgDestino1 = `./carte/${destinoP1}.png`;
-        const imgDestino2 = `./carte/${destinoP2}.png`;
-
-        document.getElementById('res-destino-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">3. Il Livello del Destino (Il Progetto Evolutivo)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgDestino1}" alt="Carta ${destinoP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgDestino2}" alt="Carta ${destinoP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${destinoP1} & ${destinoP2}): ${titoloDestino}
-                </span>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgDestino1}" alt="Carta ${destinoP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgDestino2}" alt="Carta ${destinoP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoDestino}
-                </div>
-            </div>
-        `;
+    // --- LIVELLO DESTINO ---
+    document.getElementById('res-destino-p1').innerText = report.destino.p1Val;
+    document.getElementById('res-destino-p2').innerText = report.destino.p2Val;
+    if (report.destino.calcolabile) {
+        const testoDestino = typeof recuperaTestoAffinita === 'function' ? recuperaTestoAffinita('destino', report.destino.p1Num, report.destino.p2Num) : '';
+        document.getElementById('res-destino-testo').innerHTML = generaHtmlLivello("3. Il Livello del Destino (Il Progetto)", report.destino.p1Num, report.destino.p2Num, report.destino.p1Arch, report.destino.p2Arch, testoDestino);
     } else {
-        document.getElementById('res-destino-p1').innerText = "-";
-        document.getElementById('res-destino-p2').innerText = "-";
-        document.getElementById('res-destino-testo').innerHTML = "<i style='color: #888;'>Inserisci la Data di Nascita di entrambi per calcolare il Destino.</i>";
+        document.getElementById('res-destino-testo').innerHTML = "<i style='color: #888;'>Inserisci la Data di Nascita per entrambi.</i>";
     }
-    // ==========================================================================
+
+    if (document.getElementById('risultati-sinastria')) {
+        document.getElementById('risultati-sinastria').style.display = 'block';
+    }
+}
+
+/**
+ * Semplice helper di rendering grafico (struttura HTML) tenuto dentro la pagina
+ */
+function generaHtmlLivello(titolo, n1, n2, arch1, arch2, testoSegreto) {
+    // LOG DI CONTROLLO: Verifica cosa stampa nella console del browser quando generi i quadranti
+    console.log(`Livello: ${titolo} - Carta 1: ${n1} - Carta 2: ${n2}`);
+
+    // Se n1 o n2 non sono definiti o sono validi parzialmente, evitiamo stringhe rotte
+    const foto1 = n1 && n1 !== '-' ? `./carte/${n1}.png` : './carte/default.png'; // o un'immagine di fallback
+    const foto2 = n2 && n2 !== '-' ? `./carte/${n2}.png` : './carte/default.png';
+
+    return `
+        <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
+            <div class="ns-level-title">${titolo}</div>
+            <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
+                <img src="${foto1}" alt="Carta ${n1}" class="mini-carta-archetipo" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <img src="${foto2}" alt="Carta ${n2}" class="mini-carta-archetipo" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            </div>
+            <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">Responso: ${arch1} & ${arch2}</span>
+            <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
+            <div class="testo-segreto" style="display: none;">
+                ${testoSegreto}
+            </div>
+        </div>
+    `;
+}
+// ==========================================================================
     // INTEGRAZIONE ESPORTAZIONE: SALVATAGGIO DEI DATI E GENERAZIONE DINAMICA PULSANTE
     // ==========================================================================
     try {
+        // --- RECUPERO E DEFINIZIONE DI SICUREZZA DELLE VARIABILI MANCANTI ---
+        const p1Nome = (typeof p1 !== 'undefined' && p1.nome) ? p1.nome : "Profilo 1";
+        const p1Cognome = (typeof p1 !== 'undefined' && p1.cognome) ? p1.cognome : "";
+        const p1Data = (typeof p1 !== 'undefined' && p1.data) ? p1.data : "";
+        
+        const p2Nome = (typeof p2 !== 'undefined' && p2.nome) ? p2.nome : "Profilo 2";
+        const p2Cognome = (typeof p2 !== 'undefined' && p2.cognome) ? p2.cognome : "";
+        const p2Data = (typeof p2 !== 'undefined' && p2.data) ? p2.data : "";
+
+        const ioP1 = (typeof report !== 'undefined' && report.io) ? report.io.p1Num : null;
+        const ioP2 = (typeof report !== 'undefined' && report.io) ? report.io.p2Num : null;
+        
+        const animaP1 = (typeof report !== 'undefined' && report.anima) ? report.anima.p1Num : null;
+        const animaP2 = (typeof report !== 'undefined' && report.anima) ? report.anima.p2Num : null;
+        
+        const destinoP1 = (typeof report !== 'undefined' && report.destino) ? report.destino.p1Num : null;
+        const destinoP2 = (typeof report !== 'undefined' && report.destino) ? report.destino.p2Num : null;
+        // ---------------------------------------------------------------------
+
         // Valori percentuali indicativi per il layout grafico
         const percentualeIo = ioP1 && ioP2 ? 82 : 0; 
         const percentualeAnima = animaP1 && animaP2 ? 68 : 0;
@@ -1869,12 +1657,12 @@ function eseguiCalcoloAffinita() {
             return parti.length === 3 ? `${parti[2]}/${parti[1]}/${parti[0]}` : dataIso;
         };
 
-     const datiDaSalvare = {
-            // AGGIUNTA DEI NOMI E COGNOMI DEI PARTNER PER L'ESPORTAZIONE Grafica
-            nomeP1: p1Nome || "Profilo 1",
-            cognomeP1: p1Cognome || "", // <-- Ora prende correttamente il cognome del Profilo 1
-            nomeP2: p2Nome || "Profilo 2",
-            cognomeP2: p2Cognome || "", // <-- Ora prende correttamente il cognome del Profilo 2
+        const datiDaSalvare = {
+            // NOMI E COGNOMI DEI PARTNER PER L'ESPORTAZIONE GRAFICA
+            nomeP1: p1Nome,
+            cognomeP1: p1Cognome, 
+            nomeP2: p2Nome,
+            cognomeP2: p2Cognome, 
             
             dataLui: formattaDataLeggibile(p1Data),
             dataLei: formattaDataLeggibile(p2Data),
@@ -1887,7 +1675,7 @@ function eseguiCalcoloAffinita() {
             animaLui: animaP1,
             animaLei: animaP2,
             percentualeAnima: percentualeAnima,
-            descrizioneAnima: "Connessione autentica ma con differenze da armonizzare. Serve ascolto e compreensão per trasformare le sensibilità.",
+            descrizioneAnima: "Connessione autentica ma con differenze da armonizzare. Serve ascolto e comprensione per trasformare le sensibilità.",
             
             destinoLui: destinoP1,
             destinoLei: destinoP2,
@@ -1898,7 +1686,54 @@ function eseguiCalcoloAffinita() {
             descrizioneTotale: "Relazione caratterizzata da una buona sintonia generale. Io e Destino mostrano una forte armonia e una visione comune."
         };
 
-        localStorage.setItem('risultatoCompatibilita', JSON.stringify(datiDaSalvare));
+        // ============================================================================
+        // CALCOLO DELLE PERCENTUALI REALI DA PASSARE A CONDIVIDI-COMPATIBILITA.HTML
+        // ============================================================================
+        
+        // Funzione helper interna per calcolare l'affinità basata sul ciclo pitagorico (monocifra)
+        function calcolaPercentualeAffina(n1, n2) {
+            if (!n1 || !n2 || n1 === "-" || n2 === "-") return 0;
+            const base1 = window.riduciMonocifraStretta ? window.riduciMonocifraStretta(n1) : parseInt(n1);
+            const base2 = window.riduciMonocifraStretta ? window.riduciMonocifraStretta(n2) : parseInt(n2);
+            
+            if (base1 === base2) return 100;
+            
+            const diff = Math.abs(base1 - base2);
+            if (diff === 1 || diff === 8) return 60;  // Adiacenti
+            if (diff === 2 || diff === 7) return 75;  // Buona sinergia
+            if (diff === 3 || diff === 6) return 85;  // Ottima sinergia
+            if (diff === 4 || diff === 5) return 90;  // Complementari
+            
+            return 50; 
+        }
+
+        // Calcolo delle singole percentuali di livello basate sui dati del report
+        const pctIo = (typeof report !== 'undefined' && report.io && report.io.calcolabile) ? calcolaPercentualeAffina(report.io.p1Num, report.io.p2Num) : 0;
+        const pctAnima = (typeof report !== 'undefined' && report.anima && report.anima.calcolabile) ? calcolaPercentualeAffina(report.anima.p1Num, report.anima.p2Num) : 0;
+        const pctDestino = (typeof report !== 'undefined' && report.destino && report.destino.calcolabile) ? calcolaPercentualeAffina(report.destino.p1Num, report.destino.p2Num) : 0;
+
+        // Calcolo della media globale usando un nome univoco per evitare conflitti
+        let contatoreValidi = 0;
+        let sommaValidi = 0;
+        if (typeof report !== 'undefined' && report.io && report.io.calcolabile) { sommaValidi += pctIo; contatoreValidi++; }
+        if (typeof report !== 'undefined' && report.anima && report.anima.calcolabile) { sommaValidi += pctAnima; contatoreValidi++; }
+        if (typeof report !== 'undefined' && report.destino && report.destino.calcolabile) { sommaValidi += pctDestino; contatoreValidi++; }
+        
+        const percentualeTotaleEsporta = contatoreValidi > 0 ? Math.round(sommaValidi / contatoreValidi) : 0;
+
+        // Strutturazione dinamica dell'oggetto con un nome totalmente univoco
+        const oggettoDatiEsportazione = {
+            p1Nome: p1Nome,
+            p2Nome: p2Nome,
+            percentualeAnima: pctAnima,
+            percentualeIo: pctIo,
+            percentualeDestino: pctDestino,
+            percentualeTotale: percentualeTotaleEsporta,
+            descrizioneTotale: "Relazione caratterizzata da una buona sintonia generale. Io e Destino mostrano una forte armonia e una visione comune."
+        };
+
+        // SALVATAGGIO IN LOCALSTORAGE usando il nuovo oggetto univoco
+        localStorage.setItem('risultatoCompatibilita', JSON.stringify(oggettoDatiEsportazione));
 
         // Creazione dinamica del tasto grafico "Esporta affinità"
         const contenitoreRisultati = document.getElementById('risultati-sinastria');
@@ -1941,27 +1776,32 @@ function eseguiCalcoloAffinita() {
     } catch (error) {
         console.error("Errore durante la scrittura in localStorage o creazione tasto:", error);
     }
-    // ==========================================================================
-
-    // MOSTRA RISULTATI E SCROLL
-    const contenitoreRisultati = document.getElementById('risultati-sinastria');
-    if (contenitoreRisultati) {
-        contenitoreRisultati.style.display = 'block';
-        contenitoreRisultati.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// ==========================================
-// GESTIONE POPUP COMPATIBILITÀ (STILE PITAGORA)
-// ==========================================
+  // ==========================================================================
+  // GESTIONE POPUP COMPATIBILITÀ (STILE PITAGORA)
+  // ==========================================================================
 function apriApprofondimentoCompatibilita(elementoCard) {
     const titoloSezione = elementoCard.querySelector('.ns-level-title').innerText;
     const infoResponso = elementoCard.querySelector('.info-responso').innerText;
     const testoCompleto = elementoCard.querySelector('.testo-segreto').innerHTML;
     
+    // Recuperiamo il contenitore delle carte dal quadrante cliccato
+    const carteContainer = elementoCard.querySelector('.carte-mini-container');
+    let htmlCarte = '';
+    if (carteContainer) {
+        // Cloniamo l'HTML delle carte per inserirlo nella modale
+        htmlCarte = carteContainer.outerHTML;
+    }
+    
     document.getElementById('modaleTitolo').innerText = titoloSezione;
     document.getElementById('modaleSottotitolo').innerText = infoResponso;
-    document.getElementById('modaleContenuto').innerHTML = testoCompleto;
+    
+    // Iniettiamo le carte seguite da un piccolo margine di distacco e dal testo dell'analisi
+    document.getElementById('modaleContenuto').innerHTML = `
+        <div style="margin-bottom: 20px; text-align: center;">
+            ${htmlCarte}
+        </div>
+        ${testoCompleto}
+    `;
     
     document.getElementById('modaleApprofondimento').style.display = 'flex';
 }
@@ -2027,6 +1867,10 @@ function configuraTriggerArchivio() {
     }
 }
 
+// ===================================================
+// GESTIONE ARCHIVIO CLIENTI (INDEXEDDB)
+// ===================================================
+
 // Apre la modale e popola dinamicamente la lista clienti dall'Archivio
 function apriPopupArchivio(numeroProfilo) {
     profiloAttivo = numeroProfilo;
@@ -2048,7 +1892,7 @@ function apriPopupArchivio(numeroProfilo) {
             return;
         }
 
-        // Ordinamento alfabetico
+        // Ordinamento alfabetico per nome
         clienti.sort((a, b) => a.nome.localeCompare(b.nome));
 
         let htmlPulsanti = "";
@@ -2060,7 +1904,7 @@ function apriPopupArchivio(numeroProfilo) {
                      style="padding: 12px; margin-bottom: 8px; background-color: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-size: 14px; color: #2c3e50; font-weight: bold; text-align: left;"
                      onmouseover="this.style.backgroundColor='#f1f5f9'; this.style.borderColor='#c5a059';" 
                      onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#e2e8f0';">
-                    👤 ${cliente.nome || ''} ${cliente.cognome || ''}${dettagli}
+                     👤 ${cliente.nome || ''} ${cliente.cognome || ''}${dettagli}
                 </div>`;
         });
 
@@ -2078,18 +1922,18 @@ function selezionaEIniettaProfilo(id_cliente) {
     requestGet.onsuccess = function(event) {
         const cliente = event.target.result;
         if (cliente) {
-            // Funzione interna per convertire la data da GG/MM/AAAA a AAAA-MM-DD
+            // Converte la data da GG/MM/AAAA a AAAA-MM-DD per l'input di tipo date
             let dataFormattata = "";
             if (cliente.data_nascita && cliente.data_nascita.includes('/')) {
                 const parti = cliente.data_nascita.split('/');
                 if (parti.length === 3) {
-                    // Inverte l'ordine: Anno - Mese - Giorno
                     dataFormattata = `${parti[2]}-${parti[1]}-${parti[0]}`;
                 }
             } else {
                 dataFormattata = cliente.data_nascita || "";
             }
 
+            // Iniezione dinamica nel profilo corretto
             if (profiloAttivo === 1) {
                 if (document.getElementById('p1-nome')) document.getElementById('p1-nome').value = cliente.nome || "";
                 if (document.getElementById('p1-cognome')) document.getElementById('p1-cognome').value = cliente.cognome || "";
@@ -2109,19 +1953,23 @@ function chiudiPopupArchivio() {
 }
 </script>
 
-<!-- STRUTTURA DEL POPUP MODALE COMPATIBILITÀ (IDENTICA A PITAGORA) -->
+<!-- ===================================================
+     STRUTTURE HTML DELLE MODALI
+     =================================================== -->
+
+<!-- STRUTTURA DEL POPUP MODALE COMPATIBILITÀ -->
 <div id="modaleApprofondimento" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
     <div style="background-color: white; padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative;">
         <span onclick="chiudiModale()" style="position: absolute; top: 12px; right: 18px; font-size: 24px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
         <h2 id="modaleTitolo" style="color: #c5a059; margin-top: 0; margin-bottom: 5px; font-size: 22px;">Titolo</h2>
         <h4 id="modaleSottotitolo" style="color: #7f8c8d; margin-top: 0; margin-bottom: 15px; font-style: italic; font-size: 14px;">Sottotitolo</h4>
         <div id="modaleContenuto" style="font-size: 14px; line-height: 1.6; color: #2c3e50; max-height: 400px; overflow-y: auto; padding-right: 5px;">
-            <!-- Contenuto dinamico -->
+            <!-- Contenuto dinamico (Luce e Ombra) -->
         </div>
     </div>
 </div>
 
-<!-- NUOVA STRUTTURA DEL POPUP SELEZIONE ARCHIVIO -->
+<!-- STRUTTURA DEL POPUP SELEZIONE ARCHIVIO -->
 <div id="modaleArchivio" style="display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center;">
     <div style="background-color: white; padding: 25px; border-radius: 12px; max-width: 420px; width: 90%; box-shadow: 0 5px 20px rgba(0,0,0,0.4); position: relative; display: flex; flex-direction: column; max-height: 75vh;">
         <span onclick="chiudiPopupArchivio()" style="position: absolute; top: 12px; right: 18px; font-size: 26px; font-weight: bold; cursor: pointer; color: #aaa; line-height: 1;">&times;</span>
@@ -2134,6 +1982,9 @@ function chiudiPopupArchivio() {
     </div>
 </div>
 
+<!-- ===================================================
+     STILI CSS DI SUPPORTO
+     =================================================== -->
 <style>
     .ns-level-container.card-cliccabile {
         cursor: pointer;
@@ -2143,45 +1994,34 @@ function chiudiPopupArchivio() {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(197, 160, 89, 0.15);
     }
-/* ===================================================
-       BOX COLORATI PER POPUP COMPATIBILITÀ (LUCE E OMBRA)
-       =================================================== */
 
-    /* Box Verde (Luce) - Cosa fare per aumentare la compatibilità */
+    /* Box Verde (Luce) */
     #modaleContenuto .box-luce {
-        color: #196f3d !important;         /* Testo verde scuro */
-        background-color: #d4efdf !important; /* Sfondo verde chiaro */
-        padding: 12px 15px !important;     /* Spazio interno */
-        border-radius: 8px !important;     /* Angoli arrotondati */
-        margin-top: 15px !important;       /* Distanza dal testo sopra */
-        border-left: 4px solid #196f3d !important; /* Bordo spesso a sinistra */
-        display: block !important;         /* Unico rettangolo compatto */
+        color: #196f3d !important;
+        background-color: #d4efdf !important;
+        padding: 12px 15px !important;
+        border-radius: 8px !important;
+        margin-top: 15px !important;
+        margin-bottom: 12px !important;
+        border-left: 4px solid #196f3d !important;
+        display: block !important;
         line-height: 1.5 !important;
     }
 
-    /* Box Rosso (Ombra) - Cosa evitare */
-    #modaleContenuto .box-ombra {
-        color: #943126 !important;         /* Testo rosso scuro */
-        background-color: #fadbd8 !important; /* Sfondo rosso chiaro */
-        padding: 12px 15px !important;     /* Spazio interno */
-        border-radius: 8px !important;     /* Angoli arrotondati */
-        margin-top: -20px !important;       /* Distanza dal box sopra */
-        border-left: 4px solid #943126 !important; /* Bordo spesso a sinistra */
-        display: block !important;         /* Unico rettangolo compatto */
+    /* Box Rosso (Ombra) */
+    #modaleContenuto .box-ombra,
+    #modaleContenuto span[style*="color: #ff5252"],
+    #modaleContenuto span[style*="color: rgb(255, 82, 82)"] {
+        color: #943126 !important;
+        background-color: #fadbd8 !important;
+        padding: 12px 15px !important;
+        border-radius: 8px !important;
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+        border-left: 4px solid #943126 !important;
+        display: block !important;
         line-height: 1.5 !important;
     }
-/* Box Rosso - Cosa evitare */
-#modaleContenuto span[style*="color: #ff5252"],
-#modaleContenuto span[style*="color: rgb(255, 82, 82)"] {
-    color: #943126 !important;         /* Testo rosso scuro leggibile */
-    background-color: #fadbd8 !important; /* Sfondo rettangolo rosso chiaro */
-    padding: 12px 15px !important;     /* Spazio interno al rettangolo */
-    border-radius: 8px !important;     /* Angoli arrotondati */
-    margin-top: -20px !important;       /* Distanza dal rettangolo verde */
-    border-left: 4px solid #943126 !important; /* Bordo spesso a sinistra */
-    display: block !important;         /* Lo trasforma in un rettangolo intero */
-    line-height: 1.5 !important;
-}
 </style>
 </body>
 </html>
