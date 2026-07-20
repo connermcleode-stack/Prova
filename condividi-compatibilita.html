@@ -439,136 +439,46 @@
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-    try {
-        const datiRaw = localStorage.getItem('risultatoCompatibilita');
-        if (!datiRaw) {
-            alert("Nessun dato di compatibilità trovato. Esegui prima il calcolo nella pagina principale.");
-            return;
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                const datiRaw = localStorage.getItem('risultatoCompatibilita');
+                if (!datiRaw) {
+                    alert("Nessun dato di compatibilità trovato. Esegui prima il calcolo.");
+                    return;
+                }
 
-        const dati = JSON.parse(datiRaw);
-        console.log("Numerosophia - Analisi Dati Completa:", dati);
+                const dati = JSON.parse(datiRaw);
 
-        // ==========================================
-        // 1. ESTRAZIONE VALORI (CON FALLBACK)
-        // ==========================================
-        const nome1 = dati.p1Nome || dati.nomeP1 || dati.nomeLui || 'Tu';
-        const nome2 = dati.p2Nome || dati.nomeP2 || dati.nomeLei || 'Altro';
-        const data1 = dati.dataLui || dati.dataP1 || '--/--/----';
-        const data2 = dati.dataLei || dati.dataP2 || '--/--/----';
+                const percorsoBaseCarte = "carte/"; 
+                const estensioneCarte = ".png";     
 
-        const pctIo = dati.percentualeIo || 0;
-        const pctAnima = dati.percentualeAnima || 0;
-        const pctDestino = dati.percentualeDestino || 0;
-        const pctTotale = dati.percentualeTotale || 0;
+                const ottieniNomeFile = (numero) => {
+                    if (numero === undefined || numero === null) return "";
+                    const numStr = numero.toString();
+                    if (numStr.startsWith("-")) return "ombra" + numStr.replace("-", ""); 
+                    return numStr; 
+                };
 
-        const io1 = dati.ioLui || 0;
-        const io2 = dati.ioLei || 0;
-        const anima1 = dati.animaLui || 0;
-        const anima2 = dati.animaLei || 0;
-        const destino1 = dati.destinoLui || 0;
-        const destino2 = dati.destinoLei || 0;
+                const impostaColorePercentuale = (elementoDom, percentuale, eCerchio = false) => {
+                    if (!elementoDom) return;
+                    
+                    let colore = "#c5a059"; 
+                    if (percentuale < 55) {
+                        colore = "#e57373"; 
+                    } else if (percentuale >= 55 && percentuale < 75) {
+                        colore = "#c5a059"; 
+                    } else {
+                        colore = "#81c784"; 
+                    }
 
-        // ==========================================
-        // 2. AGGANCIO E SCRITTURA TESTI (PROFILI SUPERIORI E TOTALI)
-        // ==========================================
-        const impostaTestoDinamico = (selettori, valore) => {
-            selettori.forEach(sel => {
-                const el = document.getElementById(sel) || document.querySelector(sel);
-                if (el) el.innerText = valore;
-            });
-        };
+                    elementoDom.style.color = colore;
 
-        // Nomi e Date in alto
-        impostaTestoDinamico(['lbl-nome-p1', 'nome1', '.profilo1-nome', '.p1-name'], nome1);
-        impostaTestoDinamico(['lbl-nome-p2', 'nome2', '.profilo2-nome', '.p2-name'], nome2);
-        impostaTestoDinamico(['lbl-data-p1', 'data1', '.profilo1-data'], data1);
-        impostaTestoDinamico(['lbl-data-p2', 'data2', '.profilo2-data'], data2);
+                    if (eCerchio) {
+                        elementoDom.style.borderColor = colore;
+                        elementoDom.style.background = `${colore}0d`; 
+                    }
+                };
 
-        // Se l'HTML usa un singolo blocco di testo del tipo "PROFILO 1" o "PROFILO 2" (come da screen)
-        // proviamo a sovrascrivere i nodi testuali contenenti la dicitura standard
-        document.querySelectorAll('div, span, h3').forEach(el => {
-            if (el.children.length === 0) {
-                if (el.innerText.trim() === "PROFILO 1") el.innerText = nome1;
-                if (el.innerText.trim() === "PROFILO 2") el.innerText = nome2;
-            }
-        });
-
-        // ==========================================
-        // 3. PERCENTUALI E IMMAGINI DEI 3 LIVELLI
-        // ==========================================
-        
-        // --- LIVELLO IO ---
-        impostaTestoDinamico(['lbl-io-percentuale', 'pct-io', '.armonia-io-valore'], `${pctIo}%`);
-        // Cerchiamo le scritte "Caricamento..." o "--%" dentro il blocco dell'Io
-        const cardIo = document.getElementById('card-io') || document.querySelector('.compatibilita-io');
-        if (cardIo) {
-            cardIo.style.display = 'grid';
-            const elementiTesto = cardIo.querySelectorAll('span, div');
-            elementiTesto.forEach(el => { if(el.innerText.includes('--%') || el.innerText.includes('Caricamento')) el.innerText = `${pctIo}%`; });
-            
-            // Fix Immagini Carte dell'Io
-            const imgs = cardIo.querySelectorAll('img');
-            if(imgs.length >= 2 && io1 && io2) {
-                imgs[0].src = `carte/${io1}.png`; imgs[0].alt = `Carta ${io1}`;
-                imgs[1].src = `carte/${io2}.png`; imgs[1].alt = `Carta ${io2}`;
-            }
-        }
-
-        // --- LIVELLO ANIMA ---
-        impostaTestoDinamico(['lbl-anima-percentuale', 'pct-anima', '.armonia-anima-valore'], `${pctAnima}%`);
-        const cardAnima = document.getElementById('card-anima') || document.querySelector('.compatibilita-anima');
-        if (cardAnima) {
-            cardAnima.style.display = 'grid';
-            const elementiTesto = cardAnima.querySelectorAll('span, div');
-            elementiTesto.forEach(el => { if(el.innerText.includes('--%') || el.innerText.includes('Caricamento')) el.innerText = `${pctAnima}%`; });
-            
-            // Fix Immagini Carte dell'Anima
-            const imgs = cardAnima.querySelectorAll('img');
-            if(imgs.length >= 2 && anima1 && anima2) {
-                imgs[0].src = `carte/${anima1}.png`; imgs[0].alt = `Carta ${anima1}`;
-                imgs[1].src = `carte/${anima2}.png`; imgs[1].alt = `Carta ${anima2}`;
-            }
-        }
-
-        // --- LIVELLO DESTINO ---
-        impostaTestoDinamico(['lbl-destino-percentuale', 'pct-destino', '.armonia-destino-valore'], `${pctDestino}%`);
-        const cardDestino = document.getElementById('card-destino') || document.querySelector('.compatibilita-destino');
-        if (cardDestino) {
-            cardDestino.style.display = 'grid';
-            const elementiTesto = cardDestino.querySelectorAll('span, div');
-            elementiTesto.forEach(el => { if(el.innerText.includes('--%') || el.innerText.includes('Caricamento')) el.innerText = `${pctDestino}%`; });
-            
-            // Fix Immagini Carte del Destino
-            const imgs = cardDestino.querySelectorAll('img');
-            if(imgs.length >= 2 && destino1 && destino2) {
-                imgs[0].src = `carte/${destino1}.png`; imgs[0].alt = `Carta ${destino1}`;
-                imgs[1].src = `carte/${destino2}.png`; imgs[1].alt = `Carta ${destino2}`;
-            }
-        }
-
-        // ==========================================
-        // 4. AFFINITÀ COMPLESSIVA (CERCHIO IN BASSO)
-        // ==========================================
-        const elPctTotale = document.getElementById('lbl-totale-percentuale') || document.getElementById('percentuale-totale') || document.querySelector('.percentuale');
-        if (elPctTotale) {
-            elPctTotale.innerText = `${pctTotale}%`;
-        }
-        // Cerca l'elemento "--%" nel blocco finale
-        const cerchioTotale = document.querySelector('.affina-complessiva') || document.body;
-        cerchioTotale.querySelectorAll('span, div').forEach(el => {
-            if(el.innerText.trim() === "--%") el.innerText = `${pctTotale}%`;
-        });
-
-        if (document.getElementById('lbl-desc-totale') && dati.descrizioneTotale) {
-            document.getElementById('lbl-desc-totale').innerText = dati.descrizioneTotale;
-        }
-
-    } catch (e) {
-        console.error("Errore profondo nel rendering dei dati di esportazione:", e);
-    }
-});
 // 1. CONFIGURAZIONE DEI PROFILI ARCHETIPALI (Valori da 1 a 10 per i 12 parametri)
 const profiliArchetipi = {
     1: { leadership: 10, cooperazione: 1, creativita: 8, stabilita: 4, liberta: 10, amore: 3, spiritualita: 4, materializzazione: 8, universalita: 2, visione: 10, intuizione: 4, saggezza: 5 },
