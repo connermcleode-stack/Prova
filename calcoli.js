@@ -500,3 +500,190 @@ window.calcolaStringaNumerica = calcolaStringaNumerica;
 window.eseguiCalcoloCompleto = eseguiCalcoloCompleto;
 window.copiaMappaInAppunti = copiaMappaInAppunti;
 window.calcolaCompatibilitaEsclusiva = calcolaCompatibilitaEsclusiva;
+
+// ============================================================================
+// CALCOLI E DIZIONARI PER RELAZIONI KARMICHE (CON ESPANSIONI)
+// ============================================================================
+
+/**
+ * Riduce un numero preservando Karmici (13,14,16,19) e Maestri (11,22)
+ */
+function riduciNumeroKarmico(num) {
+  let n = parseInt(num, 10);
+  if (isNaN(n) || n === 0) return 0;
+  while (n > 9 && ![11, 22, 13, 14, 16, 19].includes(n)) {
+    n = String(n).split('').reduce((sum, d) => sum + parseInt(d, 10), 0);
+  }
+  return n;
+}
+
+/**
+ * Riduce in singola cifra o numero maestro (11, 22)
+ */
+function riduciInSingolaOCifraMaestra(num) {
+  let n = parseInt(num, 10);
+  if (isNaN(n) || n === 0) return 0;
+  while (n > 9 && ![11, 22].includes(n)) {
+    n = String(n).split('').reduce((sum, d) => sum + parseInt(d, 10), 0);
+  }
+  return n;
+}
+
+/**
+ * Calcola il Destino mantenendo i numeri karmici e maestri
+ */
+function calcolaDestino(dataStr) {
+  let cifre = dataStr.replace(/\D/g, '');
+  if (cifre.length < 8) return 0;
+  let somma = cifre.split('').reduce((acc, val) => acc + parseInt(val, 10), 0);
+  return riduciNumeroKarmico(somma);
+}
+
+/**
+ * Metodo 4: Numero di Ciclo/Vita della Relazione
+ * Somma tutti i numeri di entrambe le date di nascita
+ */
+function calcolaCicloRelazione(dataA, dataB) {
+  let cifreA = dataA.replace(/\D/g, '');
+  let cifreB = dataB.replace(/\D/g, '');
+  let sommaA = cifreA.split('').reduce((acc, v) => acc + parseInt(v, 10), 0);
+  let sommaB = cifreB.split('').reduce((acc, v) => acc + parseInt(v, 10), 0);
+  
+  let sommaTotale = sommaA + sommaB;
+  return riduciNumeroKarmico(sommaTotale);
+}
+
+// Significati generali per il numero di Destino della coppia
+const DESCRIZIONI_LEGAME = {
+  13: {
+    titolo: "Karma del Lavoro e della Fatica Condivisa",
+    badge: "Legame Karmico Attivo",
+    badgeClass: "badge-karmic",
+    testo: "Nulla è facile e tutto richiede impegno. C'è un debito di lavoro e presenza: la coppia è chiamata a rimboccarsi le maniche per trasformare la fatica in solidità strutturale."
+  },
+  14: {
+    titolo: "Karma di Libertà, Dipendenza e Confini",
+    badge: "Legame Karmico Attivo",
+    badgeClass: "badge-karmic",
+    testo: "Dinamiche di 'tira e molla', eccessi e apprendimento dei confini. Chiede di integrare la libertà personale senza cadere nella dipendenza affettiva o nel controllo."
+  },
+  16: {
+    titolo: "Karma del Crollo dell'Ego e Risveglio",
+    badge: "Legame Karmico Attivo",
+    badgeClass: "badge-karmic",
+    testo: "Incontro destinato a far crollare illusioni e sovrastrutture dell'ego. Le crisi servono da potente catalizzatore per un profondo e inevitabile risveglio interiore."
+  },
+  19: {
+    titolo: "Karma di Potere, Autonomia e Identità",
+    badge: "Legame Karmico Attivo",
+    badgeClass: "badge-karmic",
+    testo: "Mette al centro il confronto tra leadership e dipendenza. Entrambi devono imparare ad affermare la propria identità e splendere senza prevaricare l'altro."
+  },
+  11: {
+    titolo: "Legame Evolutivo Spirituale",
+    badge: "Legame Spirituale",
+    badgeClass: "badge-spiritual",
+    testo: "Risveglia la coscienza e la sensibilità reciproca. È una relazione fortemente intuitiva e ispirante che chiede maturità per non smarrirsi nell'idealizzazione."
+  },
+  22: {
+    titolo: "Legame di Costruzione Destinica",
+    badge: "Legame Destinico",
+    badgeClass: "badge-spiritual",
+    testo: "Unisce visione e materia per costruire grandi progetti concreti, famiglie o missioni di vita condivise. È importante non ridurla a sole responsabilità pratiche."
+  },
+  6: {
+    titolo: "Responsabilità e Cura Reciproca",
+    badge: "Karma di Riequilibrio",
+    badgeClass: "badge-soft",
+    testo: "Amore focalizzato sul nutrimento, l'affidabilità e l'armonia. Un karma dolce di riequilibrio che richiede però di evitare il sacrificio eccessivo di sé."
+  },
+  8: {
+    titolo: "Legame di Potere ed Equilibrio",
+    badge: "Test di Maturità",
+    badgeClass: "badge-soft",
+    testo: "Mette alla prova l'equilibrio tra dare e ricevere. Sollecita il rispetto reciproco e la gestione della forza interiore, evitando sterili scontri di volontà."
+  }
+};
+
+// Significati per il Ciclo della Relazione (Metodo 4)
+const DESCRIZIONI_CICLO = {
+  7: "Ciclo di ricerca e risveglio spirituale: l'incontro spinge verso l'introspezione profonda e la comprensione delle verità d'anima.",
+  9: "Ciclo di chiusura karmica: la relazione ha il compito primario di portare a compimento e risolvere nodi ed eredità del passato.",
+  14: "Ciclo specchio karmico di libertà: innesca accelerazioni improvvise, mettendo costantemente alla prova il rispetto dei reciproci spazi.",
+  16: "Ciclo specchio karmico trasformativo: irrompe all'improvviso per scuotere la traiettoria di vita e liberare l'anima da vecchi schemi."
+};
+
+/**
+ * Funzione principale esecutiva
+ */
+function validaECalcolaRelazioneKarmica() {
+  const nomeA = document.getElementById('nomeA').value.trim() || 'Persona A';
+  const nomeB = document.getElementById('nomeB').value.trim() || 'Persona B';
+  const dataA = document.getElementById('dataA').value.trim();
+  const dataB = document.getElementById('dataB').value.trim();
+
+  if (!dataA || dataA.length < 10 || !dataB || dataB.length < 10) {
+    alert("Inserisci entrambe le date di nascita nel formato completo GG/MM/AAAA.");
+    return;
+  }
+
+  // 1. Destini Personali e Analisi Singola
+  const destinoA = calcolaDestino(dataA);
+  const destinoB = calcolaDestino(dataB);
+
+  // 2. Metodo 2: Somma dei Destini della Coppia
+  const sommaDestini = destinoA + destinoB;
+  let numeroSintesi = riduciNumeroKarmico(sommaDestini);
+  if (!DESCRIZIONI_LEGAME[numeroSintesi]) {
+    numeroSintesi = riduciInSingolaOCifraMaestra(numeroSintesi);
+  }
+
+  // 3. Metodo 4: Numero di Ciclo della Relazione
+  const numCiclo = calcolaCicloRelazione(dataA, dataB);
+
+  // --- RENDERING DEI RISULTATI ---
+
+  // Impronta Principale
+  document.getElementById('numeroSintesi').innerText = numeroSintesi;
+  const info = DESCRIZIONI_LEGAME[numeroSintesi] || {
+    titolo: "Incontro di Affinità",
+    badge: "Legame di Esperienza",
+    badgeClass: "badge-soft",
+    testo: "Questa combinazione non presenta un karma attivo primario o un numero maestro sulla somma dei destini, ma rappresenta un percorso di apprendimento libero da pesi o debiti del passato."
+  };
+
+  document.getElementById('badgeContenitore').innerHTML = `
+    <span class="badge ${info.badgeClass}">${info.badge}</span>
+    <strong style="display:block; margin-top:8px; color:var(--accent-gold-light); font-size:1.05rem;">${info.titolo}</strong>
+  `;
+  document.getElementById('descrizioneSintesi').innerText = info.testo;
+
+  // ESPANSIONE 1: Karma Personali Singoli (Metodo 1)
+  let htmlKarmiciSingoli = "";
+  const karmiciValidi = [13, 14, 16, 19, 11, 22];
+
+  if (karmiciValidi.includes(destinoA)) {
+    htmlKarmiciSingoli += `<li style="margin-bottom:6px;"><strong>${nomeA}</strong> porta il Destino <strong>${destinoA}</strong> (karma/energia attiva personale).</li>`;
+  }
+  if (karmiciValidi.includes(destinoB)) {
+    htmlKarmiciSingoli += `<li style="margin-bottom:6px;"><strong>${nomeB}</strong> porta il Destino <strong>${destinoB}</strong> (karma/energia attiva personale).</li>`;
+  }
+
+  const boxKarmici = document.getElementById('boxKarmiciSingoli');
+  if (htmlKarmiciSingoli !== "") {
+    document.getElementById('listaKarmiciSingoli').innerHTML = htmlKarmiciSingoli;
+    boxKarmici.style.display = 'block';
+  } else {
+    boxKarmici.style.display = 'none';
+  }
+
+  // ESPANSIONE 2: Ciclo della Relazione (Metodo 4)
+  document.getElementById('numeroCiclo').innerText = numCiclo;
+  let descCiclo = DESCRIZIONI_CICLO[numCiclo] || `Numero di ciclo ${numCiclo}: definisce la frequenza evolutiva generale lungo il percorso comune della coppia.`;
+  document.getElementById('descrizioneCiclo').innerText = descCiclo;
+
+  // Mostra il contenitore e scrolla
+  const containerRisultati = document.getElementById('risultati-container');
+  containerRisultati.style.display = 'block';
+  containerRisultati.scrollIntoView({ behavior: 'smooth' });
+}
