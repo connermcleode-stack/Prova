@@ -559,58 +559,83 @@ const DESCRIZIONI_LEGAME = {
     titolo: "Karma del Lavoro e della Fatica Condivisa",
     badge: "Legame Karmico Attivo",
     badgeClass: "badge-karmic",
-    testo: "Nulla è facile e tutto richiede impegno. C'è un debito di lavoro e presenza: la coppia è chiamata a rimboccarsi le maniche per trasformare la fatica in solidità strutturale."
+    testo: "Questa relazione raramente segue percorsi semplici. Le difficoltà che emergono non sono punizioni, ma occasioni per costruire fondamenta solide attraverso costanza, responsabilità e collaborazione. La coppia può attraversare periodi in cui tutto sembra richiedere più impegno del previsto, ma proprio questa fatica diventa lo strumento per sviluppare fiducia reciproca e maturità. Quando entrambi imparano a sostenersi invece di accusarsi, il legame acquista una forza capace di resistere anche alle prove più impegnative.",
+    chiave: "La vostra forza nasce da ciò che scegliete di costruire insieme."
   },
+
   14: {
     titolo: "Karma di Libertà, Dipendenza e Confini",
     badge: "Legame Karmico Attivo",
     badgeClass: "badge-karmic",
-    testo: "Dinamiche di 'tira e molla', eccessi e apprendimento dei confini. Chiede di integrare la libertà personale senza cadere nella dipendenza affettiva o nel controllo."
+    testo: "L'incontro porta spesso a vivere un delicato equilibrio tra vicinanza e bisogno di autonomia. Possono alternarsi momenti di intensa unione e fasi di distanza, creando dinamiche di 'tira e molla'. La lezione consiste nell'imparare che amare non significa possedere né rinunciare alla propria individualità. Quando ciascuno rispetta i confini dell'altro senza alimentare controllo o dipendenza emotiva, la relazione diventa uno spazio di crescita e libertà condivisa.",
+    chiave: "Amarsi significa lasciare spazio anche al respiro dell'altro."
   },
+
   16: {
     titolo: "Karma del Crollo dell'Ego e Risveglio",
     badge: "Legame Karmico Attivo",
     badgeClass: "badge-karmic",
-    testo: "Incontro destinato a far crollare illusioni e sovrastrutture dell'ego. Le crisi servono da potente catalizzatore per un profondo e inevitabile risveglio interiore."
+    testo: "Questo è uno dei legami più trasformativi della numerologia. L'incontro tende a mettere in discussione convinzioni profonde, aspettative e immagini costruite su sé stessi o sull'altro. Le crisi possono apparire improvvise, ma hanno lo scopo di eliminare ciò che non è autentico. Se affrontate con consapevolezza, diventano il punto di partenza per una relazione più sincera, fondata sull'umiltà, sulla verità e su una maggiore maturità spirituale.",
+    chiave: "Ogni crisi può diventare una porta verso una relazione più autentica."
   },
+
   19: {
     titolo: "Karma di Potere, Autonomia e Identità",
     badge: "Legame Karmico Attivo",
     badgeClass: "badge-karmic",
-    testo: "Mette al centro il confronto tra leadership e dipendenza. Entrambi devono imparare ad affermare la propria identità e splendere senza prevaricare l'altro."
+    testo: "Questa relazione porta in primo piano il rapporto con il potere personale e con l'indipendenza. Possono emergere competizione, bisogno di affermarsi o difficoltà nel chiedere aiuto. Il vero insegnamento consiste nel riconoscere il valore di sé senza oscurare quello dell'altro. Quando entrambi imparano a collaborare anziché competere, il legame diventa una scuola di rispetto reciproco, forza interiore e autentica autonomia.",
+    chiave: "Due luci brillano di più quando nessuna cerca di spegnere l'altra."
   },
+
   11: {
     titolo: "Legame Evolutivo Spirituale",
     badge: "Legame Spirituale",
     badgeClass: "badge-spiritual",
-    testo: "Risveglia la coscienza e la sensibilità reciproca. È una relazione fortemente intuitiva e ispirante che chiede maturità per non smarrirsi nell'idealizzazione."
+    testo: "L'incontro risveglia sensibilità, intuizione e una forte percezione di avere qualcosa di importante da condividere. È una relazione che spesso genera ispirazione reciproca e stimola un percorso di crescita interiore. Proprio per la sua intensità può però favorire idealizzazioni o aspettative elevate. Coltivando dialogo, autenticità e concretezza, questo legame diventa una preziosa occasione di evoluzione sia personale che spirituale.",
+    chiave: "Ascoltate l'intuizione, ma lasciate che sia il dialogo a guidare il cammino."
   },
+
   22: {
     titolo: "Legame di Costruzione Destinica",
     badge: "Legame Destinico",
     badgeClass: "badge-spiritual",
-    testo: "Unisce visione e materia per costruire grandi progetti concreti, famiglie o missioni di vita condivise. È importante non ridurla a sole responsabilità pratiche."
+    testo: "Questa relazione possiede un forte potenziale costruttivo. Insieme è possibile dare forma a progetti importanti, creare una famiglia, sviluppare un'attività o lasciare un'impronta significativa nella vita degli altri. Il rischio è trasformare il rapporto in un insieme di doveri e responsabilità, dimenticando il lato emotivo. Quando cuore e concretezza procedono nella stessa direzione, la coppia può realizzare risultati di grande valore.",
+    chiave: "I sogni diventano destino quando vengono costruiti giorno dopo giorno."
   },
+
   6: {
     titolo: "Responsabilità e Cura Reciproca",
     badge: "Karma di Riequilibrio",
     badgeClass: "badge-soft",
-    testo: "Amore focalizzato sul nutrimento, l'affidabilità e l'armonia. Un karma dolce di riequilibrio che richiede però di evitare il sacrificio eccessivo di sé."
+    testo: "Questo legame invita a sperimentare il valore dell'accoglienza, della protezione e della responsabilità reciproca. La relazione tende a creare un forte senso di famiglia e di sostegno, ma può anche portare uno dei due partner a sacrificare eccessivamente i propri bisogni. La vera armonia nasce quando il prendersi cura dell'altro non significa dimenticare sé stessi, ma trovare un equilibrio tra dare e ricevere.",
+    chiave: "Prendersi cura dell'altro è prezioso, ma ricordate di nutrire anche voi stessi."
   },
+
   8: {
     titolo: "Legame di Potere ed Equilibrio",
     badge: "Test di Maturità",
     badgeClass: "badge-soft",
-    testo: "Mette alla prova l'equilibrio tra dare e ricevere. Sollecita il rispetto reciproco e la gestione della forza interiore, evitando sterili scontri di volontà."
+    testo: "Questa relazione mette alla prova il modo in cui entrambi gestiscono forza, ambizione e responsabilità. Possono emergere differenze nella gestione del denaro, del lavoro o delle decisioni importanti. Ogni confronto rappresenta un'opportunità per imparare il rispetto reciproco e la collaborazione. Quando il desiderio di prevalere lascia spazio alla fiducia, il rapporto sviluppa stabilità, solidità e una notevole capacità di affrontare insieme le sfide della vita.",
+    chiave: "Il vero potere di una coppia nasce dall'equilibrio, non dal controllo."
   }
 };
 
 // Significati per il Ciclo della Relazione (Metodo 4)
+// Messaggi Numerosophici del Ciclo della Relazione
+
 const DESCRIZIONI_CICLO = {
-  7: "Ciclo di ricerca e risveglio spirituale: l'incontro spinge verso l'introspezione profonda e la comprensione delle verità d'anima.",
-  9: "Ciclo di chiusura karmica: la relazione ha il compito primario di portare a compimento e risolvere nodi ed eredità del passato.",
-  14: "Ciclo specchio karmico di libertà: innesca accelerazioni improvvise, mettendo costantemente alla prova il rispetto dei reciproci spazi.",
-  16: "Ciclo specchio karmico trasformativo: irrompe all'improvviso per scuotere la traiettoria di vita e liberare l'anima da vecchi schemi."
+
+  7: "Ogni relazione attraversa momenti di silenzio. È proprio lì che l'anima impara ad ascoltare ciò che le parole non riescono a raccontare. Quando il cuore smette di cercare risposte immediate, la saggezza inizia lentamente a rivelarsi.",
+  9: "Nessun incontro è davvero casuale. Alcune persone arrivano per chiudere capitoli rimasti aperti, altre per insegnarci il valore del perdono. Lasciare andare ciò che ha compiuto il proprio percorso non significa perdere qualcosa, ma creare lo spazio necessario perché possa nascere un nuovo inizio.",
+  14: "La libertà non separa due anime autentiche, le rende capaci di incontrarsi ogni giorno per scelta. Quando il rispetto sostituisce il controllo, la relazione smette di essere una prigione e diventa un luogo in cui entrambi possono continuare a crescere.",
+  16: "Ogni certezza che crolla lascia intravedere un orizzonte più ampio. Le relazioni più trasformative non arrivano per distruggere ciò che siamo, ma per liberarci da ciò che non ci appartiene più. Nel coraggio di accogliere il cambiamento nasce una nuova consapevolezza.",
+  13: "Le grandi costruzioni non nascono dall'impeto di un giorno, ma dalla pazienza di chi posa un mattone dopo l'altro. Così anche una relazione diventa solida quando ogni difficoltà viene trasformata in un'occasione per crescere insieme.",
+  11: "Quando due anime si riconoscono, non sempre servono molte parole. L'intuizione illumina il cammino, ma è la sincerità a renderlo stabile. Ogni ispirazione trova il suo valore solo quando riesce a trasformarsi in gesti concreti.",
+  22: "Ogni sogno ha bisogno di mani che lo costruiscano e di cuori che continuino a crederci. Le relazioni destinate a lasciare un segno sono quelle che riescono a trasformare un ideale condiviso in una realtà vissuta, giorno dopo giorno.",
+  6: "L'amore più autentico non nasce dal sacrificio, ma dall'equilibrio. Chi si prende cura dell'altro senza dimenticare sé stesso alimenta una fiamma che continua a riscaldare entrambi nel tempo.",
+  8: "Il vero potere non consiste nell'avere ragione, ma nel saper creare armonia anche nelle differenze. Quando due persone imparano a mettere la propria forza al servizio della relazione, ogni sfida diventa una possibilità di crescita condivisa.",
+  19: "La luce di una persona non diminuisce quella dell'altra. Due anime evolvono davvero quando imparano a brillare insieme, senza competere, senza nascondersi e senza temere il valore reciproco."
+
 };
 
 /**

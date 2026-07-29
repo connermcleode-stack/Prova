@@ -45,6 +45,7 @@
       padding-bottom: env(safe-area-inset-bottom, 20px);
       padding-left: max(16px, env(safe-area-inset-left));
       padding-right: max(16px, env(safe-area-inset-right));
+      position: relative;
     }
 
     .container {
@@ -169,22 +170,73 @@
       border-color: var(--accent-gold);
     }
 
-    /* BUTTONS */
-    .btn-submit {
+    /* CONTENITORE PULSANTI AFFIANCATI */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
       width: 100%;
-      padding: 14px;
+      margin-top: 15px;
+    }
+
+    /* Pulsante Home Affiancato */
+    .btn-home {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .btn-home:hover {
+      border-color: var(--accent-gold);
+      transform: scale(1.05);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .btn-home:active {
+      transform: scale(0.95);
+    }
+
+    .btn-home svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-submit {
+      width: auto;
+      min-width: 130px;
+      height: 42px;
+      padding: 0 24px;
       border: none;
-      border-radius: 10px;
+      border-radius: 21px;
       background: linear-gradient(135deg, #d4af37, #aa820a);
       color: #0f0f14;
       font-family: var(--font-body);
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.88rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
       transition: transform 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-submit:active {
@@ -291,36 +343,35 @@
       font-size: 0.8rem;
     }
 
+    /* BADGES E CLASSI PER I RISULTATI */
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
 
-/* BADGES E CLASSI PER I RISULTATI */
-.badge {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 10px;
-}
+    .badge-karmic {
+      background: rgba(220, 53, 69, 0.2);
+      color: #ff6b6b;
+      border: 1px solid rgba(220, 53, 69, 0.4);
+    }
 
-.badge-karmic {
-  background: rgba(220, 53, 69, 0.2);
-  color: #ff6b6b;
-  border: 1px solid rgba(220, 53, 69, 0.4);
-}
+    .badge-spiritual {
+      background: rgba(212, 175, 55, 0.2);
+      color: #f3e5ab;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
 
-.badge-spiritual {
-  background: rgba(212, 175, 55, 0.2);
-  color: #f3e5ab;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-}
-
-.badge-soft {
-  background: rgba(40, 167, 69, 0.2);
-  color: #75b798;
-  border: 1px solid rgba(40, 167, 69, 0.4);
-}
+    .badge-soft {
+      background: rgba(40, 167, 69, 0.2);
+      color: #75b798;
+      border: 1px solid rgba(40, 167, 69, 0.4);
+    }
 
     /* RESULT AREA */
     #risultati-container {
@@ -398,7 +449,17 @@
         </div>
       </div>
 
-      <button class="btn-submit" onclick="gestisciCalcoloRelazione()">Calcola Legame</button>
+      <!-- Pulsanti Home e Calcola Affiancati e Centrati -->
+      <div class="btn-container">
+        <a href="index.html" class="btn-home" title="Torna alla Home">
+          <svg viewBox="0 0 24 24">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </a>
+        <button class="btn-submit" onclick="gestisciCalcoloRelazione()">Calcola</button>
+      </div>
+
     </div>
 
    <!-- AREA RISULTATI -->
