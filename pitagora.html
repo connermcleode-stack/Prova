@@ -274,6 +274,15 @@
             document.getElementById('modaleApprofondimento').style.display = 'none';
         }
     </script>
+ <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrato con successo!', reg))
+                    .catch(err => console.error('Errore nella registrazione del Service Worker:', err));
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -551,12 +560,36 @@
 </div>
 <script>
 const databaseArchetipi = {
-    1: { 
-        nome: "Il Guerriero (Leader/Pioniere)", 
-        significato: "Rappresenta l'impulso iniziale, la capacità di aprire nuove strade e di affermare la propria individualità superando la paura del giudizio.",
-        luce: "Iniziativa, indipendenza, coraggio, forte spinta all'azione autonoma.", 
-        ombra: "Egoismo, intolleranza, aggressività, paura di fallire." 
-    },
+ 1: {
+    nome: "Il Guerriero (Leader e Pioniere)",
+
+    significato: "Il Guerriero rappresenta la forza del primo passo, l'energia che apre nuovi percorsi e trasforma le intenzioni in azione. È l'archetipo dell'individualità, della volontà e del coraggio di affermare la propria identità senza rinunciare ai propri valori. Ama la libertà, affronta le sfide con determinazione e sente il bisogno di costruire il proprio destino attraverso l'impegno, l'iniziativa e la capacità di guidare con l'esempio.",
+
+    luce: "Leadership naturale, indipendenza, iniziativa, coraggio, determinazione, forza di volontà, spirito pionieristico, capacità strategica, perseveranza, originalità, fiducia in sé, autonomia, integrità, entusiasmo e desiderio di migliorare continuamente ciò che lo circonda.",
+
+    ombra: "Quando la sua energia perde equilibrio può manifestarsi come egocentrismo, orgoglio, autoritarismo o eccessiva competitività. La paura del fallimento può trasformarsi in rigidità, impulsività oppure nel bisogno di dimostrare continuamente il proprio valore. Fatica ad accettare aiuto, rischia di isolarsi emotivamente e può confondere la vera forza con il controllo sugli altri.",
+
+    chiave: "Il vero Guerriero non conquista il mondo imponendo la propria forza, ma imparando a guidare con coraggio, rispetto e consapevolezza. Il suo potere cresce quando trasforma il desiderio di vincere nella capacità di ispirare e proteggere chi lo circonda.",
+
+    evoluzione: [
+        {
+            livello: "🥉 1° Livello • Guerriero Egoico",
+            descrizione: "Combatte per affermare se stesso, conquistare il proprio spazio e dimostrare il proprio valore. Il successo personale diventa la misura della propria identità e l'ego guida gran parte delle sue scelte."
+        },
+        {
+            livello: "🥈 2° Livello • Guerriero Idealista",
+            descrizione: "La sua forza viene messa al servizio di un ideale più grande. Difende la giustizia, la libertà e ciò in cui crede, diventando un punto di riferimento capace di motivare e guidare gli altri."
+        },
+        {
+            livello: "🥇 3° Livello • Guerriero Consapevole",
+            descrizione: "Comprende che la battaglia più importante è quella contro i propri limiti interiori. Agisce con fermezza ma senza aggressività, unendo coraggio, umiltà e compassione. La sua leadership nasce dall'esempio e non dal bisogno di dominare."
+        }
+    ],
+
+    consiglio: "Definisci con chiarezza un obiettivo che senti davvero tuo e procedi con costanza, senza avere fretta di dimostrare qualcosa agli altri. Impara a chiedere aiuto quando serve e ricorda che la vera forza non consiste nel vincere ogni battaglia, ma nel rimanere fedele ai propri valori anche nelle difficoltà.",
+
+    mantra: "Ogni grande cammino inizia dal coraggio di compiere il primo passo."
+},
     2: { 
         nome: "Il Fanciullo (Collaboratore/Mediatore)", 
         significato: "Rappresenta la ricerca di armonia attraverso la relazione, lo sviluppo della sensibilità ricettiva e la maestria della cooperazione senza annullarsi.",
@@ -653,31 +686,22 @@ function compilaScheda(numero, compatta = false) {
     let numeroPulito = numero.toString().includes('/') ? parseInt(numero.toString().split('/')[0], 10) : parseInt(numero, 10);
     let base = riduciMonocifraStretta(numeroPulito);
 
-    
     // Identificazione dell'archetipo nel database
-    let chiaveFinestra = [11, 22, 33].includes(numeroPulito) ? numeroPulito : base;
+    let chiaveFinestra = [11, 22, 33, 44].includes(numeroPulito) ? numeroPulito : base;
     let datiArchetipo = databaseArchetipi[chiaveFinestra];
 
     if (!datiArchetipo) return "<i style='color: #888;'>Scheda non disponibile.</i>";
 
-
-
     // Definiamo il percorso dell'immagine della carta
-
     const imgCarta = `./carte/${numeroPulito}.png`;
-
-
 
     let titolo = datiArchetipo.nome;
     let significatoTesto = datiArchetipo.significato || 'Descrizione non disponibile.';
     let luceTesto = datiArchetipo.luce || 'Non specificata.';
     let ombraTesto = datiArchetipo.ombra || 'Non specificata.';
 
-
-
     // Gestione speciale se il numero è Karmico
-
-    if (databaseKarmici[numeroPulito]) {
+    if (typeof databaseKarmici !== 'undefined' && databaseKarmici[numeroPulito]) {
         let nomeKarmico = "";
         switch(numeroPulito) {
             case 13: nomeKarmico = "L'Alchimista / Morte Iniziatica"; break;
@@ -687,61 +711,93 @@ function compilaScheda(numero, compatta = false) {
         }
 
         titolo += ` <span style="color:#d35400; font-size:12px; display:block; margin-top:2px;">(Prova Karmica ${numeroPulito}: ${nomeKarmico})</span>`;
-
-        significatoTesto = `<strong style="color:#d35400;">[SFIDA DEL KARMA ${numeroPulito}]:</strong> ${databaseKarmici[numeroPulito]}<br><br><strong>Integrazione con la Base (${base}):</strong><br>${datiArchetipo.significato}`;
-
+        significatoTesto = `<strong style="color:#d35400;">[SFIDA DEL KARMA ${numeroPulito}]:</strong> ${databaseKarmici[numeroPulito]}<br><br><strong>Integrazione con la Base (${base}):</strong><br>${datiArchetipo.significato || ''}`;
     }
 
+    // Costruzione dinamica del blocco Percorso Evolutivo (3 livelli)
+    let evoluzioneHTML = '';
+    if (datiArchetipo.evoluzione && Array.isArray(datiArchetipo.evoluzione)) {
+        evoluzioneHTML = datiArchetipo.evoluzione.map(item => `
+            <div style="margin-bottom: 8px; padding: 8px 10px; background: rgba(255, 255, 255, 0.05); border-left: 3px solid #3498db; border-radius: 4px; text-align: left;">
+                <strong style="color: #ecf0f1; display: block; margin-bottom: 3px; font-size: 13px;">${item.livello}</strong>
+                <span style="font-size: 12px; color: #bdc3c7; line-height: 1.3; display: block;">${item.descrizione}</span>
+            </div>
+        `).join('');
+    }
 
+    // Costruzione dei 7 quadranti colorati per il POPUP
+    const quadrantiPopupHTML = `
+        <!-- 1. ✨ SIGNIFICATO -->
+        <div style="background-color: #1a252f; border-left: 4px solid #34495e; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #ecf0f1; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">✨ Significato</strong>
+            <div style="color: #d5dbdb; font-size: 13px; line-height: 1.4;">${significatoTesto}</div>
+        </div>
+
+        <!-- 2. ☀️ ESPRESSIONE IN LUCE -->
+        <div style="background-color: #1e372a; border-left: 4px solid #27ae60; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #2ecc71; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">☀️ Espressione in Luce</strong>
+            <div style="color: #d4efdf; font-size: 13px; line-height: 1.4;">${luceTesto}</div>
+        </div>
+
+        <!-- 3. 🌑 ESPRESSIONE IN OMBRA -->
+        <div style="background-color: #3a1c1d; border-left: 4px solid #c0392b; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #e74c3c; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🌑 Espressione in Ombra</strong>
+            <div style="color: #fadbd8; font-size: 13px; line-height: 1.4;">${ombraTesto}</div>
+        </div>
+
+        <!-- 4. 🗝️ CHIAVE EVOLUTIVA -->
+        ${datiArchetipo.chiave ? `
+        <div style="background-color: #342816; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #f1c40f; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🗝️ Chiave Evolutiva</strong>
+            <div style="color: #fdebd0; font-size: 13px; line-height: 1.4;">${datiArchetipo.chiave}</div>
+        </div>` : ''}
+
+        <!-- 5. 📈 PERCORSO EVOLUTIVO -->
+        ${evoluzioneHTML ? `
+        <div style="background-color: #1a2a3a; border-left: 4px solid #2980b9; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #3498db; display: block; margin-bottom: 8px; font-size: 13px; text-transform: uppercase;">📈 Percorso Evolutivo</strong>
+            ${evoluzioneHTML}
+        </div>` : ''}
+
+        <!-- 6. 🌱 CONSIGLIO PRATICO -->
+        ${datiArchetipo.consiglio ? `
+        <div style="background-color: #1b3320; border-left: 4px solid #16a085; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+            <strong style="color: #1abc9c; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🌱 Consiglio pratico</strong>
+            <div style="color: #e8f8f5; font-size: 13px; line-height: 1.4;">${datiArchetipo.consiglio}</div>
+        </div>` : ''}
+
+        <!-- 7. 🔮 MANTRA DELL'ARCHETIPO -->
+        ${datiArchetipo.mantra ? `
+        <div style="background-color: #2c1a32; border-left: 4px solid #8e44ad; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: center;">
+            <strong style="color: #9b59b6; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🔮 Mantra dell'Archetipo</strong>
+            <div style="color: #f5eed3; font-size: 13px; font-style: italic; font-weight: 600;">"${datiArchetipo.mantra}"</div>
+        </div>` : ''}
+    `;
 
     // SE LA FUNZIONE CHIEDE LA VERSIONE COMPATTA (es. per i Grandi Cicli)
-
     if (compatta) {
-
         return `
-
             <div class="card-cliccabile" onclick="apriApprofondimento(this)" style="padding: 5px; cursor: pointer;">
-
                 <span class="archetipo-nome" style="font-weight: bold; color: var(--accent-gold);">${datiArchetipo.nome.split(' (')[0]}</span>
-
                 <div class="descrizione" style="font-size:12px; line-height:1.3; opacity: 0.8;">${luceTesto.substring(0, 80)}...</div>
-
                 
-
-                <!-- Contenuto segreto per la modale anche per la versione compatta -->
-
+                <!-- Contenuto segreto per la modale (versione compatta) -->
                 <div class="testo-segreto" style="display: none;">
-
                     <div class="carte-popup-container" style="display: flex; justify-content: center; margin-bottom: 25px;">
-
                         <img src="${imgCarta}" alt="Carta ${numeroPulito}" onerror="this.style.display='none';" style="width: 140px; max-width: 50%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-
                     </div>
-
-                    <p><strong>Significato Evolutivo:</strong><br>${significatoTesto}</p>
-
-                    <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px; margin-top: 15px;"><strong>✨ Espressione in Luce:</strong><br>${luceTesto}</p>
-
-                    <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px; margin-top: 15px;"><strong>⚠️ Espressione in Ombra:</strong><br>${ombraTesto}</p>
-
+                    ${quadrantiPopupHTML}
                 </div>
-
             </div>
-
         `;
-
     }
-
-
 
     // VERSIONE ESTESA STANDARD (Per Anima, Persona, Destino, ecc.)
     return `
         <div class="ns-level-container card-cliccabile" onclick="apriApprofondimento(this)">
-
             <!-- Miniature carte CENTRATE nell'anteprima -->
             <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
                 <img src="${imgCarta}" alt="Carta ${numeroPulito}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-
             </div>
 
             <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
@@ -753,17 +809,10 @@ function compilaScheda(numero, compatta = false) {
             <div class="testo-segreto" style="display: none;">
                 <div class="carte-popup-container" style="display: flex; justify-content: center; margin-bottom: 25px;">
                     <img src="${imgCarta}" alt="Carta ${numeroPulito}" onerror="this.style.display='none';" style="width: 140px; max-width: 50%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-
                 </div>
-
-                <p><strong>Significato Evolutivo:</strong><br>${significatoTesto}</p>
-                <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px; margin-top: 15px;"><strong>✨ Espressione in Luce:</strong><br>${luceTesto}</p>
-                <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px; margin-top: 15px;"><strong>⚠️ Espressione in Ombra:</strong><br>${ombraTesto}</p>
-
+                ${quadrantiPopupHTML}
             </div>
-
         </div>
-
     `;
 }
 function compilaSchedaOmbra(valoreOmbra) {

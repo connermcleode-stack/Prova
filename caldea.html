@@ -362,6 +362,15 @@
             document.getElementById('modaleApprofondimento').style.display = 'none';
         }
     </script>
+ <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrato con successo!', reg))
+                    .catch(err => console.error('Errore nella registrazione del Service Worker:', err));
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -1195,36 +1204,82 @@ function copiaMappaInAppunti() {
 function apriApprofondimento(elementoCard) {
     const titoloSezione = elementoCard.querySelector('h3')?.innerText || "Approfondimento";
     
+    // Identifichiamo l'ID o l'elemento contenente il numero
     const spanNumero = elementoCard.querySelector('span[id^="num"], div[id^="num"], .numero-evidenziato');
     let numeroElemento = spanNumero ? spanNumero.innerText.trim() : "0";
     
+    // Pulizia da diciture d'appoggio (es. "35/8 (Pianeta...")
     if (numeroElemento.includes('(')) {
         numeroElemento = numeroElemento.split(' (')[0].trim();
     }
 
-    let numeroRidotto = numeroElemento.includes('/') ? numeroElemento.split('/')[1].trim() : numeroElemento;
-    
-    if (isNaN(numeroRidotto) || numeroRidotto > 9) {
-        numeroRidotto = riduciMonocifraStretta(numeroRidotto);
-    }
+    // Impostazione del titolo del modale
+    document.getElementById('modaleTitolo').innerText = `${titoloSezione}: ${numeroElemento}`;
 
-    let datiArchetipo = databaseArchetipi[numeroRidotto];
-    
-    if (datiArchetipo) {
-        document.getElementById('modaleTitolo').innerText = `${titoloSezione}: ${numeroElemento}`;
-        document.getElementById('modaleSottotitolo').innerText = datiArchetipo.nome;
-        
-        // Corretta la proprietà sblocco (in minuscolo)
-        let testoCompleto = `
-            <p><strong>Chiave di Sblocco Evolutivo:</strong><br>${datiArchetipo.sblocco || datiArchetipo.Sblocco || 'Descrizione non disponibile.'}</p>
-            <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px;"><strong>✨ Espressione in Luce:</strong><br>${datiArchetipo.luce || 'Non specificata.'}</p>
-            <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px;"><strong>⚠️ Espressione in Ombra:</strong><br>${datiArchetipo.ombra || 'Non specificata.'}</p>
-        `;
-        
-        document.getElementById('modaleContenuto').innerHTML = testoCompleto;
+    // SE C'È UNA FRAZIONE (es. 35/8)
+    if (numeroElemento.includes('/')) {
+        const parti = numeroElemento.split('/');
+        const numComposto = parti[0].trim();
+        const numBase = parti[1].trim();
+
+        let datiComposto = databaseArchetipi[numComposto];
+        let datiBase = databaseArchetipi[numBase];
+
+        // Sottotitolo con i due nomi
+        let sottotitolo = [];
+        if (datiComposto) sottotitolo.push(datiComposto.nome);
+        if (datiBase) sottotitolo.push(datiBase.nome);
+        document.getElementById('modaleSottotitolo').innerText = sottotitolo.join(' e ');
+
+        let htmlContenuto = "";
+
+        // 1. BLOCCO VIBRAZIONE COMPOSTA (es. 35)
+        if (datiComposto) {
+            htmlContenuto += `
+                <div style="border-bottom: 2px dashed rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #f39c12; margin-bottom: 8px;">✨ Vibrazione Composta (${numComposto})</h4>
+                    <p style="margin-bottom: 10px;"><strong>Chiave di Sblocco Evolutivo:</strong><br>${datiComposto.sblocco || datiComposto.Sblocco || 'Descrizione non disponibile.'}</p>
+                    <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px; margin-bottom: 8px;"><strong>✨ Espressione in Luce:</strong><br>${datiComposto.luce || 'Non specificata.'}</p>
+                    <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px;"><strong>⚠️ Espressione in Ombra:</strong><br>${datiComposto.ombra || 'Non specificata.'}</p>
+                </div>
+            `;
+        }
+
+        // 2. BLOCCO ARCHETIPO DI BASE (es. 8)
+        if (datiBase) {
+            htmlContenuto += `
+                <div>
+                    <h4 style="color: #f39c12; margin-bottom: 8px;">🏛️ Archetipo di Base (${numBase})</h4>
+                    <p style="margin-bottom: 10px;"><strong>Chiave di Sblocco Evolutivo:</strong><br>${datiBase.sblocco || datiBase.Sblocco || 'Descrizione non disponibile.'}</p>
+                    <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px; margin-bottom: 8px;"><strong>✨ Espressione in Luce:</strong><br>${datiBase.luce || 'Non specificata.'}</p>
+                    <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px;"><strong>⚠️ Espressione in Ombra:</strong><br>${datiBase.ombra || 'Non specificata.'}</p>
+                </div>
+            `;
+        }
+
+        document.getElementById('modaleContenuto').innerHTML = htmlContenuto;
         document.getElementById('modaleApprofondimento').style.display = 'flex';
+
     } else {
-        console.log("Nessun archetipo trovato nel database Caldeo per il valore:", numeroElemento);
+        // GESTIONE PER NUMERO SINGOLO (Comportamento Standard)
+        let numeroRidotto = isNaN(numeroElemento) || numeroElemento > 9 
+            ? riduciMonocifraStretta(numeroElemento) 
+            : numeroElemento;
+
+        let datiArchetipo = databaseArchetipi[numeroElemento] || databaseArchetipi[numeroRidotto];
+        
+        if (datiArchetipo) {
+            document.getElementById('modaleSottotitolo').innerText = datiArchetipo.nome;
+            
+            let testoCompleto = `
+                <p><strong>Chiave di Sblocco Evolutivo:</strong><br>${datiArchetipo.sblocco || datiArchetipo.Sblocco || 'Descrizione non disponibile.'}</p>
+                <p style="color: #196f3d; background-color: #d4efdf; padding: 10px; border-radius: 6px; margin-bottom: 8px;"><strong>✨ Espressione in Luce:</strong><br>${datiArchetipo.luce || 'Non specificata.'}</p>
+                <p style="color: #943126; background-color: #fadbd8; padding: 10px; border-radius: 6px;"><strong>⚠️ Espressione in Ombra:</strong><br>${datiArchetipo.ombra || 'Non specificata.'}</p>
+            `;
+            
+            document.getElementById('modaleContenuto').innerHTML = testoCompleto;
+            document.getElementById('modaleApprofondimento').style.display = 'flex';
+        }
     }
 }
 
