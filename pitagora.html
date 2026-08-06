@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numerosophia - Analisi Professionale Integrata</title>
     
     <link rel="manifest" href="manifest.json">
@@ -35,51 +35,150 @@
             justify-content: center; 
             align-items: center;
             min-height: 100vh;
-            min-height: 100dvh; /* Ottimizzato per barre di navigazione mobile iOS/Android */
+            min-height: 100dvh; /* Ottimizzato per barre di navigazione mobile */
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.14) 0%, transparent 65%),
-                radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px) 0 0 / 40px 40px,
-                radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px) 20px 20px / 60px 60px;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: -1;
-        }
+        body::before{
 
-        /* CONTAINER ADATTIVO AMPLIATO PER EVITARE STRABORDAMENTI */
-        .container { 
-            background: #0C316F; 
-            padding: 30px 25px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
-            width: 95%;
-            max-width: 880px; /* <--- Portato a 880px per dare ampio spazio alle card della mappa numerologica */
-            margin: 0 auto;
-            border: 1px solid rgba(212, 175, 55, 0.25); 
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
+content:"";
+
+position:fixed;
+
+left:0;
+top:0;
+
+width:100%;
+height:100%;
+
+background:
+
+radial-gradient(circle at 50% 15%,
+rgba(255,214,120,.08),
+transparent 40%),
+
+radial-gradient(circle at 20% 80%,
+rgba(255,255,255,.03),
+transparent 30%),
+
+radial-gradient(circle at 80% 30%,
+rgba(255,255,255,.02),
+transparent 25%);
+
+opacity:1;
+
+pointer-events:none;
+
+z-index:-2;
+
+}
+
+      .container{
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(180deg,
+        rgba(38,77,145,.96) 0%,
+        rgba(18,54,113,.98) 45%,
+        rgba(10,38,84,1) 100%);
+
+    padding:34px 22px;
+
+    border-radius:24px;
+
+    max-width:800px;
+    width:100%;
+
+    border:1px solid rgba(255,220,145,.20);
+
+    box-shadow:
+        0 30px 60px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.12),
+        inset 0 -1px 0 rgba(255,220,145,.10);
+
+    backdrop-filter:blur(3px);
+}
+
+.container::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:120px;
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        rgba(255,255,255,.16),
+        rgba(255,255,255,0)
+    );
+
+    pointer-events:none;
+}
+
+.container::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    left:50%;
+    top:-320px;
+
+    transform:translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(circle,
+    rgba(255,214,120,.12),
+    transparent 70%);
+
+    pointer-events:none;
+}
         
-        /* Titolo principale fluido con clamp */
-        h1 {
-            font-family: 'Cinzel', serif; 
-            font-weight: 400;
-            font-size: clamp(20px, 5vw, 28px);
-            letter-spacing: clamp(2px, 1vw, 4px); 
-            margin: 0 0 10px 0;
-            background: linear-gradient(to bottom, #ebd197 0%, #bca060 50%, #997d3f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.9));
-            text-align: center;
-            width: 100%;
-            word-wrap: break-word;
-        }
+        /* Titolo principale */
+       h1{
+
+font-family:'Cinzel',serif;
+
+font-size:34px;
+
+letter-spacing:6px;
+
+font-weight:600;
+
+margin:0 0 12px;
+
+text-align:center;
+
+background:
+linear-gradient(
+180deg,
+#fff4cf,
+#f4d47c 40%,
+#d0a14f 70%,
+#9b6f28 100%);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+text-shadow:
+
+0 0 20px rgba(255,210,110,.18);
+
+}
         
         /* Sottotitolo e distanziamento dal form */
         .subtitle {
@@ -91,7 +190,7 @@
             margin-bottom: 20px !important;
             display: block !important;
             font-style: italic;
-            font-size: clamp(14px, 3.5vw, 16px);
+            font-size: 16px;
             letter-spacing: 0.5px;
             color: #a69f95;
         }
@@ -125,26 +224,6 @@
             margin: 0 10px;
             box-shadow: 0 0 6px rgba(212, 175, 55, 0.8);
             flex-shrink: 0;
-        }
-
-        /* GRIGLIA FORM RESPONSIVE */
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            width: 100%;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
         }
 
         /* ETICHETTE (LABEL) IN STILE CINZEL/DORATO */
@@ -207,7 +286,6 @@
         button:hover { background: #765f45; }
         .btn-secondary { background: #14223a; color: #c4beb3; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: 15px; }
         .btn-secondary:hover { background: #1c2f4f; color: #f5f2eb; }
-        
         .risultati { margin-top: 40px; border-top: 1px solid rgba(142, 115, 85, 0.2); padding-top: 25px; display: none; }
         .sezione-titolo { font-size: 18px; color: #d4af37; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(142, 115, 85, 0.3); padding-bottom: 6px; margin-top: 35px; margin-bottom: 15px; font-weight: 600; }
         
@@ -215,34 +293,9 @@
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
-            width: 100%;
-            box-sizing: border-box;
         }
         
-        .card { 
-            background: #0f192b; 
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            padding: 18px; 
-            border-radius: 10px; 
-            border-left: 4px solid #8e7355; 
-            box-sizing: border-box;
-            overflow: hidden; /* Previene la fuoriuscita del testo */
-            word-wrap: break-word;
-        }
-
-        /* Regola per le card a tutta larghezza (es. blocco "IO") */
-        .card.full-width, .card-full {
-            grid-column: span 2;
-        }
-
-        /* GESTIONE RESPONSIVE DELLE IMMAGINI DELLE CARTE */
-        .card img, img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto 10px auto;
-        }
-
+        .card { background: #0f192b; border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 10px; border-left: 4px solid #8e7355; }
         .card h3 { margin: 0 0 8px 0; font-size: 14px; color: #c4beb3; text-transform: uppercase; letter-spacing: 0.5px; }
         .numero-evidenziato { font-size: 22px; font-weight: bold; color: #d4af37; margin-bottom: 5px; }
         .archetipo-nome { font-weight: bold; color: #e8e3d9; font-size: 15px; display: block; margin-bottom: 5px; }
@@ -255,38 +308,24 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* --- MEDIA QUERY PER TABLET (769px - 1024px) --- */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                max-width: 720px !important; 
-                padding: 35px 30px !important;
-            }
-
-            .grid-cards {
-                gap: 18px !important;
-            }
-        }
-
-        /* --- MEDIA QUERY PER SMARTPHONE E SCHERMI STRETTI (Fino a 768px) --- */
+        /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
         @media (max-width: 768px) {
             body {
-                padding: 12px 8px;
+                padding: 10px 5px;
+            }
+
+            h1 {
+                font-size: 22px;
+                letter-spacing: 2px;
             }
             
             .container {
                 width: 100% !important;
                 max-width: 100% !important;
-                padding: 22px 14px !important;
+                padding: 20px 15px !important;
             }
 
-            /* Incolonna i campi su schermi molto stretti (<380px) */
-            @media (max-width: 380px) {
-                .form-row {
-                    grid-template-columns: 1fr !important;
-                }
-            }
-
-            /* Passa la griglia dei risultati a colonna singola per smartphone */
+            /* Passa la griglia a colonna singola per smartphone e schermi stretti */
             .grid-cards, [class*="grid"] {
                 grid-template-columns: 1fr !important;
                 gap: 12px !important;
@@ -326,7 +365,7 @@
                 font-size: 14px !important;
             }
         }
-    </style>
+    </style> 
 
     <script>
         function autoEspandi(textarea) {
@@ -338,7 +377,7 @@
             document.getElementById('modaleApprofondimento').style.display = 'none';
         }
     </script>
-    <script>
+ <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -363,7 +402,39 @@
   
     <div class="header-logo">
         <!-- Tetraktys Dorata Luminosa con Effetto Bagliore -->
-        <svg viewBox="0 0 100 100" class="main-sacred-symbol" style="width: 95px; height: 95px; display: block; margin: 0 auto 15px auto; filter: drop-shadow(0px 0px 6px rgba(255, 223, 112, 0.7));">
+        <svg viewBox="0 0 100 100" class="main-sacred-symbol" style="
+width:120px;
+height:120px;
+display:block;
+margin:0 auto 20px auto;
+filter:
+drop-shadow(0 0 10px rgba(255,220,120,.9))
+drop-shadow(0 0 25px rgba(255,220,120,.45));
+animation:pulseTetraktys 6s ease-in-out infinite;
+">
+
+@keyframes pulseTetraktys{
+
+0%,100%{
+
+transform:scale(1);
+
+filter:
+drop-shadow(0 0 10px rgba(255,220,120,.7));
+
+}
+
+50%{
+
+transform:scale(1.04);
+
+filter:
+drop-shadow(0 0 18px rgba(255,220,120,1))
+drop-shadow(0 0 35px rgba(255,220,120,.65));
+
+}
+
+}
             <!-- Fila 1 (1 punto) -->
             <circle cx="50" cy="18" r="4.5" fill="#ffdf70" />
 
@@ -391,28 +462,28 @@
             <div class="gold-divider-diamond"></div>
         </div>
 
-        <!-- FORM COMPATTO E RESPONSIVE CON CSS GRID -->
-        <div class="form-container">
+        <!-- FORM COMPATTO SU DUE RIGHE -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
             
             <!-- RIGA 1: Nome e Cognome affiancati -->
-            <div class="form-row">
-                <div class="form-group">
+            <div style="display: flex; gap: 12px; width: 100%;">
+                <div style="flex: 1; display: flex; flex-direction: column;">
                     <label for="nome">Nome:</label>
                     <textarea id="nome" class="input-flessibile" placeholder="Es. Mario" oninput="autoEspandi(this)"></textarea>
                 </div>
-                <div class="form-group">
+                <div style="flex: 1; display: flex; flex-direction: column;">
                     <label for="cognome">Cognome:</label>
                     <textarea id="cognome" class="input-flessibile" placeholder="Es. Rossi" oninput="autoEspandi(this)"></textarea>
                 </div>
             </div>
 
             <!-- RIGA 2: Data di Nascita e Anno Personale -->
-            <div class="form-row">
-                <div class="form-group">
+            <div style="display: flex; gap: 12px; width: 100%;">
+                <div style="flex: 1.2; display: flex; flex-direction: column;">
                     <label for="dataNascita">Data di Nascita:</label>
                     <input type="text" id="dataNascita" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" style="text-align: center; height: 45px;">
                 </div>
-                <div class="form-group">
+                <div style="flex: 0.8; display: flex; flex-direction: column;">
                     <label for="annoCorrente">Anno:</label>
                     <input type="number" id="annoCorrente" placeholder="2026" value="2026" style="text-align: center; height: 45px;">
                 </div>
@@ -421,7 +492,7 @@
         </div>
         
         <!-- RIGA UNICA OTTIMIZZATA PER TUTTI I PULSANTI -->
-        <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin: 20px auto 0 auto; width: 100%; max-width: 400px; padding: 0 5px;">
+        <div style="display: flex; gap: 6px; justify-content: center; align-items: center; margin: 20px auto 0 auto; width: 100%; max-width: 400px; padding: 0 5px;">
             
             <!-- 1. Freccia Torna alla Scelta -->
             <a href="index.html" class="btn-home" style="margin: 0; padding: 0; font-size: 15px; display: flex; align-items: center; justify-content: center; width: 40px; height: 42px; min-width: 40px; box-sizing: border-box; text-decoration: none;">⬅</a>
@@ -430,7 +501,20 @@
             <button id="btnCopia" class="btn-secondary" onclick="copiaMappaInAppunti()" style="display: none; margin: 0; padding: 0 12px; font-size: 12px; font-weight: bold; cursor: pointer; letter-spacing: 0.5px; height: 42px; width: fit-content; line-height: 42px; box-sizing: border-box;">COPIA</button>
             
             <!-- 3. Tasto Calcola (Centro) -->
-            <button onclick="eseguiCalcoloCompleto()" style="display: block; margin: 0; padding: 0 16px; background: #8e7355; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px; height: 42px; width: fit-content; min-width: 100px; box-sizing: border-box;">CALCOLA</button>
+            <button onclick="eseguiCalcoloCompleto()" style="display: block; margin: 0; padding: 0 16px; background:
+linear-gradient(
+180deg,
+#d7b67a,
+#b38a53,
+#8d683f); 
+
+box-shadow:
+
+0 8px 18px rgba(0,0,0,.45),
+
+0 0 20px rgba(255,205,110,.18);
+
+color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px; height: 42px; width: fit-content; min-width: 100px; box-sizing: border-box;">CALCOLA</button>
             
             <!-- 4. Tasto Salva (Appare a destra di Calcola - Solo icona) -->
             <button id="btnSalva" type="button" onclick="salvaNelDatabase()" style="display: none; margin: 0; padding: 0; background: #8e7355; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; transition: background 0.2s; width: 40px; height: 42px; min-width: 40px; line-height: 42px; box-sizing: border-box;">💾</button>
