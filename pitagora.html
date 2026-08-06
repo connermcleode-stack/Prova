@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Numerosophia - Analisi Professionale Integrata</title>
     
     <link rel="manifest" href="manifest.json">
@@ -35,7 +35,7 @@
             justify-content: center; 
             align-items: center;
             min-height: 100vh;
-            min-height: 100dvh; /* Ottimizzato per barre di navigazione mobile */
+            min-height: 100dvh; /* Ottimizzato per barre di navigazione mobile iOS/Android */
         }
 
         body::before {
@@ -51,22 +51,26 @@
             z-index: -1;
         }
 
+        /* CONTAINER ADATTIVO AMPLIATO PER EVITARE STRABORDAMENTI */
         .container { 
             background: #0C316F; 
-            padding: 30px 20px; 
+            padding: 30px 25px; 
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
-            max-width: 800px; 
-            width: 100%; 
+            width: 95%;
+            max-width: 880px; /* <--- Portato a 880px per dare ampio spazio alle card della mappa numerologica */
+            margin: 0 auto;
             border: 1px solid rgba(212, 175, 55, 0.25); 
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         
-        /* Titolo principale */
+        /* Titolo principale fluido con clamp */
         h1 {
             font-family: 'Cinzel', serif; 
             font-weight: 400;
-            font-size: 28px;
-            letter-spacing: 4px; 
+            font-size: clamp(20px, 5vw, 28px);
+            letter-spacing: clamp(2px, 1vw, 4px); 
             margin: 0 0 10px 0;
             background: linear-gradient(to bottom, #ebd197 0%, #bca060 50%, #997d3f 100%);
             -webkit-background-clip: text;
@@ -87,7 +91,7 @@
             margin-bottom: 20px !important;
             display: block !important;
             font-style: italic;
-            font-size: 16px;
+            font-size: clamp(14px, 3.5vw, 16px);
             letter-spacing: 0.5px;
             color: #a69f95;
         }
@@ -121,6 +125,26 @@
             margin: 0 10px;
             box-shadow: 0 0 6px rgba(212, 175, 55, 0.8);
             flex-shrink: 0;
+        }
+
+        /* GRIGLIA FORM RESPONSIVE */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
         }
 
         /* ETICHETTE (LABEL) IN STILE CINZEL/DORATO */
@@ -183,6 +207,7 @@
         button:hover { background: #765f45; }
         .btn-secondary { background: #14223a; color: #c4beb3; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: 15px; }
         .btn-secondary:hover { background: #1c2f4f; color: #f5f2eb; }
+        
         .risultati { margin-top: 40px; border-top: 1px solid rgba(142, 115, 85, 0.2); padding-top: 25px; display: none; }
         .sezione-titolo { font-size: 18px; color: #d4af37; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(142, 115, 85, 0.3); padding-bottom: 6px; margin-top: 35px; margin-bottom: 15px; font-weight: 600; }
         
@@ -190,9 +215,34 @@
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
+            width: 100%;
+            box-sizing: border-box;
         }
         
-        .card { background: #0f192b; border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 10px; border-left: 4px solid #8e7355; }
+        .card { 
+            background: #0f192b; 
+            border: 1px solid rgba(212, 175, 55, 0.2); 
+            padding: 18px; 
+            border-radius: 10px; 
+            border-left: 4px solid #8e7355; 
+            box-sizing: border-box;
+            overflow: hidden; /* Previene la fuoriuscita del testo */
+            word-wrap: break-word;
+        }
+
+        /* Regola per le card a tutta larghezza (es. blocco "IO") */
+        .card.full-width, .card-full {
+            grid-column: span 2;
+        }
+
+        /* GESTIONE RESPONSIVE DELLE IMMAGINI DELLE CARTE */
+        .card img, img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
         .card h3 { margin: 0 0 8px 0; font-size: 14px; color: #c4beb3; text-transform: uppercase; letter-spacing: 0.5px; }
         .numero-evidenziato { font-size: 22px; font-weight: bold; color: #d4af37; margin-bottom: 5px; }
         .archetipo-nome { font-weight: bold; color: #e8e3d9; font-size: 15px; display: block; margin-bottom: 5px; }
@@ -205,24 +255,38 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px 5px;
+        /* --- MEDIA QUERY PER TABLET (769px - 1024px) --- */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                max-width: 720px !important; 
+                padding: 35px 30px !important;
             }
 
-            h1 {
-                font-size: 22px;
-                letter-spacing: 2px;
+            .grid-cards {
+                gap: 18px !important;
+            }
+        }
+
+        /* --- MEDIA QUERY PER SMARTPHONE E SCHERMI STRETTI (Fino a 768px) --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px 8px;
             }
             
             .container {
                 width: 100% !important;
                 max-width: 100% !important;
-                padding: 20px 15px !important;
+                padding: 22px 14px !important;
             }
 
-            /* Passa la griglia a colonna singola per smartphone e schermi stretti */
+            /* Incolonna i campi su schermi molto stretti (<380px) */
+            @media (max-width: 380px) {
+                .form-row {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            /* Passa la griglia dei risultati a colonna singola per smartphone */
             .grid-cards, [class*="grid"] {
                 grid-template-columns: 1fr !important;
                 gap: 12px !important;
@@ -262,7 +326,7 @@
                 font-size: 14px !important;
             }
         }
-    </style> 
+    </style>
 
     <script>
         function autoEspandi(textarea) {
@@ -274,7 +338,7 @@
             document.getElementById('modaleApprofondimento').style.display = 'none';
         }
     </script>
- <script>
+    <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -327,28 +391,28 @@
             <div class="gold-divider-diamond"></div>
         </div>
 
-        <!-- FORM COMPATTO SU DUE RIGHE -->
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- FORM COMPATTO E RESPONSIVE CON CSS GRID -->
+        <div class="form-container">
             
             <!-- RIGA 1: Nome e Cognome affiancati -->
-            <div style="display: flex; gap: 12px; width: 100%;">
-                <div style="flex: 1; display: flex; flex-direction: column;">
+            <div class="form-row">
+                <div class="form-group">
                     <label for="nome">Nome:</label>
                     <textarea id="nome" class="input-flessibile" placeholder="Es. Mario" oninput="autoEspandi(this)"></textarea>
                 </div>
-                <div style="flex: 1; display: flex; flex-direction: column;">
+                <div class="form-group">
                     <label for="cognome">Cognome:</label>
                     <textarea id="cognome" class="input-flessibile" placeholder="Es. Rossi" oninput="autoEspandi(this)"></textarea>
                 </div>
             </div>
 
             <!-- RIGA 2: Data di Nascita e Anno Personale -->
-            <div style="display: flex; gap: 12px; width: 100%;">
-                <div style="flex: 1.2; display: flex; flex-direction: column;">
+            <div class="form-row">
+                <div class="form-group">
                     <label for="dataNascita">Data di Nascita:</label>
                     <input type="text" id="dataNascita" inputmode="numeric" placeholder="Es. 15/04/1983" maxlength="10" style="text-align: center; height: 45px;">
                 </div>
-                <div style="flex: 0.8; display: flex; flex-direction: column;">
+                <div class="form-group">
                     <label for="annoCorrente">Anno:</label>
                     <input type="number" id="annoCorrente" placeholder="2026" value="2026" style="text-align: center; height: 45px;">
                 </div>
@@ -357,7 +421,7 @@
         </div>
         
         <!-- RIGA UNICA OTTIMIZZATA PER TUTTI I PULSANTI -->
-        <div style="display: flex; gap: 6px; justify-content: center; align-items: center; margin: 20px auto 0 auto; width: 100%; max-width: 400px; padding: 0 5px;">
+        <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin: 20px auto 0 auto; width: 100%; max-width: 400px; padding: 0 5px;">
             
             <!-- 1. Freccia Torna alla Scelta -->
             <a href="index.html" class="btn-home" style="margin: 0; padding: 0; font-size: 15px; display: flex; align-items: center; justify-content: center; width: 40px; height: 42px; min-width: 40px; box-sizing: border-box; text-decoration: none;">⬅</a>
@@ -435,24 +499,24 @@
                     </div>
                 </div>
 
-                <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb;">I 3 Grandi Cicli Evolutivi (Il Clima di Vita)</div>
-                <div class="grid-cards" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
-                    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <h3 style="font-size:12px;">Ciclo Formativo<br>(Mese)</h3>
-                        <div id="numCicloForm" class="numero-evidenziato" style="color: #16a085; font-size:18px;"></div>
-                        <div id="descCicloForm" style="font-size:12px;"></div>
-                    </div>
-                    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <h3 style="font-size:12px;">Ciclo Produttivo<br>(Giorno)</h3>
-                        <div id="numCicloProd" class="numero-evidenziato" style="color: #16a085; font-size:18px;"></div>
-                        <div id="descCicloProd" style="font-size:12px;"></div>
-                    </div>
-                    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <h3 style="font-size:12px;">Ciclo Conclusivo<br>(Anno)</h3>
-                        <div id="numCicloConc" class="numero-evidenziato" style="color: #16a085; font-size:18px;"></div>
-                        <div id="descCicloConc" style="font-size:12px;"></div>
-                    </div>
-                </div>
+               <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb;">I 3 Grandi Cicli Evolutivi (Il Clima di Vita)</div>
+<div class="grid-cards" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
+        <h3 style="font-size:13px;">Ciclo Formativo<br>(Mese)</h3>
+        <div id="numCicloForm" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+        <div id="descCicloForm"></div>
+    </div>
+    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
+        <h3 style="font-size:13px;">Ciclo Produttivo<br>(Giorno)</h3>
+        <div id="numCicloProd" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+        <div id="descCicloProd"></div>
+    </div>
+    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
+        <h3 style="font-size:13px;">Ciclo Conclusivo<br>(Anno)</h3>
+        <div id="numCicloConc" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+        <div id="descCicloConc"></div>
+    </div>
+</div>
                 <div id="infoEtaGrandiCicli" style="font-size: 13px; font-style: italic; color: #7f8c8d; margin-top: 8px; text-align: center;"></div>
 
                 <div class="sezione-titolo" style="color: #2980b9; border-bottom-color: #d4e6f1;">I 4 Cicli di Realizzazione</div>
@@ -621,7 +685,7 @@ const databaseArchetipi = {
     mantra: "La vera armonia nasce quando il cuore accoglie gli altri senza smettere di ascoltare sé stesso."
 },
 3: {
-    nome: "Il Giullare (Creatore e Comunicatore)",
+    nome: "Il Giullare (Artista e Comunicatore)",
 
     significato: "Il Giullare rappresenta la gioia di vivere, la creatività e il potere della comunicazione. È l'archetipo dell'espressione spontanea, capace di trasformare idee, emozioni ed esperienze in parole, immagini, musica o arte. Ama esplorare la vita con curiosità e leggerezza, portando entusiasmo ovunque vada. La sua missione è ispirare gli altri attraverso il sorriso, l'immaginazione e la capacità di vedere nuove possibilità anche nelle situazioni più difficili.",
 
@@ -651,7 +715,7 @@ const databaseArchetipi = {
     mantra: "La creatività è il linguaggio con cui l'anima trasforma la vita in meraviglia."
 },
 4: {
-    nome: "Il Costruttore (Architetto della Realtà)",
+    nome: "Il Costruttore (Organizzato e concreto)",
 
     significato: "Il Costruttore rappresenta la stabilità, la disciplina e la capacità di trasformare le idee in risultati concreti. È l'archetipo della solidità, del lavoro costante e della responsabilità. Costruisce con pazienza, metodo e perseveranza, creando fondamenta destinate a durare nel tempo. La sua missione è dare forma al caos attraverso l'ordine, dimostrando che ogni grande realizzazione nasce da piccoli passi compiuti con dedizione e coerenza.",
 
@@ -711,7 +775,7 @@ const databaseArchetipi = {
     mantra: "La vera libertà non consiste nel cambiare continuamente strada, ma nel camminare con consapevolezza verso ciò che dà significato alla propria vita."
 },
 6: {
-    nome: "L'Angelo Custode (Il Nutritore e il Mediatore)",
+    nome: "L'Angelo Custode (Protettivo e Mediatore)",
 
     significato: "L'Angelo Custode manifesta la necessità di mediare continuamente tra le esigenze concrete della vita e le aspirazioni dello spirito. Guidato dall'amore, dalla responsabilità e dal valore della famiglia, desidera influire positivamente sul proprio ambiente, diffondendo armonia, bellezza e accoglienza. Ha una forte vocazione all'insegnamento, alla cura e alla difesa di chi soffre o è nel bisogno, manifestando un profondo senso estetico e il desiderio innato di far emergere il potenziale e i talenti altrui.",
 
@@ -741,7 +805,7 @@ const databaseArchetipi = {
     mantra: "Prendendomi cura di me stesso con rispetto e fermezza, posso offrire agli altri un amore autentico, libero e rigenerante."
 },
 7: {
-    nome: "Il Saggio (Il Ricercatore e il Filosofo)",
+    nome: "Il Saggio (Filosofo e Mistico)",
 
     significato: "Il Saggio rappresenta l'archetipo dell'intellettuale e del ricercatore di verità, spinto da una profonda esigenza di conoscenza e misticismo. Perfetto equilibrio tra scienza e metafisica, analizza la realtà con rigore, intuizione e sensibilità, cercando risposte ai grandi misteri dell'esistenza. Riservato, selettivo ed elegante, necessita di momenti di solitudine e contemplazione per ricaricare la propria energia ed elevare la propria consapevolezza al di sopra del caos quotidiano.",
 
@@ -771,7 +835,7 @@ const databaseArchetipi = {
     mantra: "La mia ricerca della verità mi apre all'umiltà, connettendo la luce della mia mente con la saggezza del cuore."
 },
 8: {
-    nome: "Il Sovrano (Il Manager e il Leader Pragmatico)",
+    nome: "Il Sovrano (Realizzatore e Stratega)",
 
     significato: "Il Sovrano è l'archetipo dell'ambizione, dell'efficienza e della maestria nel mondo materiale. Dotato di un'eccezionale forza psicofisica e di un pragmatismo lucido, sa trasformare le idee in risultati concreti e tangibili. Come tramite tra il mondo dei principi e quello delle forme, assume spontaneamente ruoli di guida e responsabilità per portare ordine, abbondanza ed equilibrio nel proprio 'regno', amministrando le risorse con grande capacità strategica.",
 
@@ -801,7 +865,7 @@ const databaseArchetipi = {
     mantra: "Il mio vero potere nasce dall'armonia tra mente e cuore, e lo metto al servizio dell'abbondanza e del bene comune."
 },
 9: {
-    nome: "Il Liberatore (L'Ispiratore e l'Umanitario)",
+    nome: "Il Liberatore (Ispiratore e Umanitario)",
 
     significato: "Il Liberatore è l'archetipo della saggezza universale, del carisma e della compassione incondizionata. Come un 'inviato dello spirito', canalizza l'energia cosmica attraverso la creatività, l'arte e la parola per risvegliare le coscienze e liberarle dalle illusioni del materiale. Guidato da un profondo senso di fratellanza, attira naturalmente le persone in cerca di guida e sollievo, facendosi tramite di un amore puro che trascende i confini dell'ego e del singolo nucleo familiare.",
 
@@ -831,7 +895,7 @@ const databaseArchetipi = {
     mantra: "Perdonando il passato e lasciando andare le resistenze dell'ego, divento canale di amore incondizionato, armonia e vera libertà per me e per il mondo."
 },
 11: {
-    nome: "Il Genio (L'Ispiratore e il Visionario)",
+    nome: "Il Genio (Ispiratore e Visionario)",
 
     significato: "L'11 è il primo dei numeri Maestri e rappresenta un tramite tra il piano umano e la mente cosmica. Poetico, intuitivo e proiettato verso il futuro, è l'archetipo del visionario e dell'artista-guaritore che porta risveglio, ispirazione e rivelazione al mondo. Spesso segnato fin dall'infanzia da un senso di diversità o da una profonda ferita emotiva, ha la capacità di trasmutare le proprie sofferenze in saggezza e creatività, agendo come catalizzatore per l'evoluzione collettiva.",
 
@@ -861,7 +925,7 @@ const databaseArchetipi = {
     mantra: "Accetto e celebro la mia unicità: sono un canale di luce e trasformo le mie esperienze in ispirazione per il pianeta."
 },
 22: {
-    nome: "Il Creatore (L'Architetto Celeste e il Mastro Costruttore)",
+    nome: "Il Creatore (Architetto Celeste e Mastro Costruttore)",
 
     significato: "Il 22 è il secondo numero Maestro, evoluzione spirituale del 4 e sintesi della sensibilità del doppio 2. È l'archetipo dell'Architetto Celeste: unisce l'ispirazione e la visione intuitiva a una straordinaria capacità di pragmatismo e concretizzazione. Dotato di un'energia elettrizzante e quasi illimitata, il Creatore ha la missione di canalizzare il pensiero creativo per realizzare opere ambiziose, grandi infrastrutture, progetti sociali o soluzioni d'avanguardia a beneficio dell'intera collettività.",
 
@@ -891,7 +955,7 @@ const databaseArchetipi = {
     mantra: "Allineo la mia mente e la mia forza alla Sorgente universale per dare forma concreta a progetti che portano prosperità e armonia nel mondo."
 },
 33: {
-    nome: "Il Maestro (La Guida Spirituale e l'Amore Cristico)",
+    nome: "Il Maestro (Guida Spirituale e Amore Cristico)",
 
     significato: "Il 33 è il terzo numero Maestro (sintesi del 3 e del 6, nota anche come 'vibrazione di Cristo') e rappresenta l'archetipo dell'amore incondizionato e della guida spirituale. Profondamente compassionevole e guidato da una vera e propria missione di servizio, il Maestro partecipa direttamente alla sofferenza del mondo con totale dedizione. Agisce come specchio e testimone di verità, ispirando gli altri a realizzare il proprio potenziale attraverso l'esempio, la coerenza e un'incrollabile fede nello spirito.",
 
@@ -921,7 +985,7 @@ const databaseArchetipi = {
     mantra: "Sintonizzando il cuore sulla frequenza dell'amore incondizionato, sono uno specchio di luce e saggezza che guida attraverso l'esempio."
 },
 44: {
-    nome: "Lo Sciamano (Il Guaritore e il Custode della Terra)",
+    nome: "Lo Sciamano (Guaritore e Custode della Terra)",
 
     significato: "Il 44 è il numero Maestro superiore, evoluzione del 4 e dell'8, e rappresenta l'archetipo dello Sciamano: il guaritore olistico e il custode della Terra. Fortemente radicato nella realtà fisica e dotato di un'inesauribile riserva di energia vitale, unisce la forza pragmatica del corpo alla profonda saggezza della psiche. Avendo appreso a guarire le proprie ferite interiori attraverso dolorose traversate dell'inconscio, ha la missione di ripristinare l'equilibrio mente-corpo e difendere l'integrità del pianeta, degli ecosistemi e dei più deboli.",
 
@@ -1511,9 +1575,9 @@ function compilaSchedaOmbra(valoreOmbra) {
     // Costruzione dei quadranti uniformati allo stile compilaScheda
     return `
         <div class="scheda-ombra-container" style="text-align: left;">
-            <span class="info-responso" style="color: #e74c3c; font-weight: bold; font-style: italic; display: block; margin-bottom: 8px; font-size: 16px;">
-                ${nome}
-            </span>
+            <span class="archetipo-nome" style="display: block; margin-bottom: 4px; font-weight: bold;">
+    Archetipo: ${nome}
+</span>
 
             <!-- 1. ⚠️ SFIDA PRINCIPALE -->
             <div style="background-color: #3a1c1d; border-left: 4px solid #c0392b; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
@@ -1547,9 +1611,9 @@ function compilaSchedaOmbra(valoreOmbra) {
             </div>` : ''}
 
             <!-- 6. 🌱 CONSIGLIO PRATICO -->
-            <div style="background-color: #1b3320; border-left: 4px solid #16a085; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
-                <strong style="color: #1abc9c; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🌱 Consiglio Pratico</strong>
-                <div style="color: #e8f8f5; font-size: 13px; line-height: 1.4; font-style: italic;">"${consiglio}"</div>
+            <div style="background-color: #342816; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+                <strong style="color: #f1c40f; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🌱 Consiglio Pratico</strong>
+                <div style="color: #fdebd0; font-size: 13px; line-height: 1.4; font-style: italic;">"${consiglio}"</div>
             </div>
 
             <!-- 7. 🔮 MANTRA DI TRASFORMAZIONE -->
@@ -1561,7 +1625,27 @@ function compilaSchedaOmbra(valoreOmbra) {
         </div>
     `;
 }
+function creaAnteprimaOmbra(numeroOmbra) {
+    if (!numeroOmbra) return '';
+    
+    // Recupera l'archetipo/ombra dal database esistente
+    let num = parseInt(numeroOmbra, 10);
+    let d = (typeof databaseOmbreMazzo !== 'undefined' && databaseOmbreMazzo[num]) || 
+            (typeof databaseArchetipi !== 'undefined' && databaseArchetipi[num]) || null;
+    
+    // Se trova il nome usa quello, altrimenti usa il numero
+    let nomeArchetipo = d && d.nome ? d.nome : `Ombra ${num}`;
 
+    // Restituisce la stessa identica struttura grafica delle schede in alto
+    return `
+        <div class="scheda-preview">
+            <span class="archetipo-nome" style="display: block; font-weight: bold; margin-bottom: 4px;">
+                Archetipo: ${nomeArchetipo}
+            </span>
+            <small style="color: #888; font-style: italic;">→ Clicca qui per leggere l'analisi completa</small>
+        </div>
+    `;
+}
 document.addEventListener("DOMContentLoaded", function() {
     const inputData = document.getElementById('dataNascita');
     if (inputData) {
@@ -1664,6 +1748,11 @@ function salvaNelDatabase() {
     const oGiov = document.getElementById('numOmbraGiov')?.innerText || "";
     const oMat = document.getElementById('numOmbraMat')?.innerText || "";
     const oPrinc = document.getElementById('numOmbraPrinc')?.innerText || "";
+    
+    document.getElementById('descOmbraGiov').innerHTML = creaAnteprimaOmbra(oGiov);
+    document.getElementById('descOmbraMat').innerHTML = creaAnteprimaOmbra(oMat);
+    document.getElementById('descOmbraPrinc').innerHTML = creaAnteprimaOmbra(oPrinc);
+
     const ombre = `Giovinezza: ${oGiov} | Maturità: ${oMat} | Principale: ${oPrinc}`;
 
 
