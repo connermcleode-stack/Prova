@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lignaggio Familiare - Numerosophia</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Cormorant+Garamond:ital,wght=0,400;0,600;1,400&family=Montserrat:wght=300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Sfondo Grigio Elegante */
+            --bg-color: #1a1918;
+            --bg-gradient-center: #2d2b28;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa7c11;
+            --card-bg: rgba(35, 33, 30, 0.7);
+            --card-border: rgba(212, 175, 55, 0.25);
+            --input-bg: rgba(20, 19, 18, 0.85);
+            --text-muted: #b3ad9e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 16px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Sfondo Grigio Elegante */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 50% 25%, var(--bg-gradient-center) 0%, var(--bg-color) 70%),
+                radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px) 0 0 / 32px 32px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin: 0 auto;
+        }
+
+        .header-section {
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .page-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            border: 1px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+        }
+
+        .page-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--gold-primary);
+            fill: none;
+            stroke-width: 1.2;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            font-size: clamp(22px, 6vw, 28px);
+            letter-spacing: 3px;
+            background: linear-gradient(to bottom, #ebd197 0%, #bca060 50%, #997d3f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #e0dbd1;
+        }
+
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 12px 0;
+            width: 100%;
+        }
+
+        .gold-divider::before, .gold-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to var(--dir, right), transparent, var(--gold-dark));
+            max-width: 60px;
+        }
+        .gold-divider::before { --dir: right; }
+        .gold-divider::after { --dir: left; }
+
+        .gold-divider svg {
+            width: 8px;
+            height: 8px;
+            fill: var(--gold-primary);
+            margin: 0 8px;
+        }
+
+        /* Form Scheda */
+        .card-form {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px 16px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.05), 0 4px 18px rgba(0,0,0,0.4);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Contenitore Pulsanti Affiancati */
+        .actions-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-home-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 38px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .btn-home-arrow svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--gold-primary);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .btn-home-arrow:active {
+            transform: scale(0.95);
+            border-color: var(--gold-primary);
+        }
+
+        .btn-calculate {
+            flex-grow: 1;
+            height: 38px;
+            background: linear-gradient(135deg, #aa7c11 0%, #d4af37 50%, #aa7c11 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0 16px;
+            color: #0b0a08;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-calculate:active {
+            transform: scale(0.98);
+        }
+
+        /* Contenitore Risultati Generale */
+        .results-container {
+            display: none;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        /* Schede dei singoli Rami */
+        .lineage-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .result-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            letter-spacing: 1.5px;
+            text-align: center;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 6px;
+        }
+
+        .result-item {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .result-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+
+        .highlight-row {
+            background: rgba(212, 175, 55, 0.05);
+            margin: 4px -8px -4px -8px;
+            padding: 8px 8px;
+            border-radius: 6px;
+        }
+
+        footer {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .version {
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.25);
+            text-transform: uppercase;
+        }
+    </style>
+
+    <!-- Inclusione dello script di calcolo esterno -->
+    <script src="calcoli.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrato!'))
+                    .catch(err => console.error('Errore SW:', err));
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header-section">
+            <div class="page-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v18M8 6h8M6 11h12M9 16h6" stroke-linecap="round" />
+                    <circle cx="12" cy="3" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="8" cy="6" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="16" cy="6" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="6" cy="11" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="18" cy="11" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="9" cy="16" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="15" cy="16" r="1.5" fill="var(--gold-primary)" />
+                    <circle cx="12" cy="21" r="1.5" fill="var(--gold-primary)" />
+                </svg>
+            </div>
+            <h1>LIGNAGGIO FAMILIARE</h1>
+            <p class="subtitle">L'eredità profonda dei tuoi antenati</p>
+            
+            <div class="gold-divider">
+                <svg viewBox="0 0 10 10"><polygon points="5,0 10,5 5,10 0,5"/></svg>
+            </div>
+        </div>
+
+        <!-- FORM INPUT -->
+        <div class="card-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fatherSurname">Cognome Padre</label>
+                    <input type="text" id="fatherSurname" placeholder="Es. Rossi" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="motherSurname">Cognome Madre</label>
+                    <input type="text" id="motherSurname" placeholder="Es. Bianchi" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <a href="index.html" class="btn-home-arrow" aria-label="Torna alla Home">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </a>
+                <button type="button" class="btn-calculate" onclick="calculateLineage()">Calcola</button>
+            </div>
+        </div>
+
+        <!-- CONTENITORE RISULTATI DINAMICI -->
+        <div class="results-container" id="results">
+            
+            <!-- RAMO PATERNO -->
+            <div id="paternalCard" class="lineage-card">
+                <div class="result-title">Lignaggio Paterno</div>
+                <div class="result-item">
+                    <span class="result-label">Vocali (Anima)</span>
+                    <span class="result-value" id="patVoc">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Consonanti (Persona)</span>
+                    <span class="result-value" id="patCons">-</span>
+                </div>
+                <div class="result-item highlight-row">
+                    <span class="result-label" style="color: var(--gold-light); font-weight: 500;">Totale Paterno</span>
+                    <span class="result-value" id="patTot">-</span>
+                </div>
+            </div>
+
+            <!-- RAMO MATERNO -->
+            <div id="maternalCard" class="lineage-card">
+                <div class="result-title">Lignaggio Materno</div>
+                <div class="result-item">
+                    <span class="result-label">Vocali (Anima)</span>
+                    <span class="result-value" id="matVoc">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Consonanti (Persona)</span>
+                    <span class="result-value" id="matCons">-</span>
+                </div>
+                <div class="result-item highlight-row">
+                    <span class="result-label" style="color: var(--gold-light); font-weight: 500;">Totale Materno</span>
+                    <span class="result-value" id="matTot">-</span>
+                </div>
+            </div>
+
+            <!-- SINTESI GENERALE -->
+            <div id="synthesisCard" class="lineage-card" style="border-color: var(--gold-primary);">
+                <div class="result-title" style="color: var(--gold-primary);">Sintesi Ancestrale</div>
+                <div class="result-item">
+                    <span class="result-label" id="synthesisLabel">Integrazione Ramo Paterno + Materno</span>
+                    <span class="result-value" id="synthesisNum" style="font-size: 1.25rem;">-</span>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="gold-divider" style="margin: 0;">
+                <svg viewBox="0 0 10 10"><polygon points="5,0 10,5 5,10 0,5"/></svg>
+            </div>
+            <div class="version">Numerosophia v1.0</div>
+        </footer>
+
+    </div>
+
+    <script>
+        function calculateLineage() {
+            const father = document.getElementById('fatherSurname').value.trim();
+            const mother = document.getElementById('motherSurname').value.trim();
+
+            if (!father && !mother) {
+                alert("Inserisci almeno un cognome (padre o madre).");
+                return;
+            }
+
+            const patCard = document.getElementById('paternalCard');
+            const matCard = document.getElementById('maternalCard');
+            const synthLabel = document.getElementById('synthesisLabel');
+
+            let fatherRes = null;
+            let motherRes = null;
+
+            // Elaborazione Cognome Padre
+            if (father) {
+                patCard.style.display = 'block';
+                if (typeof calcolaDettaglioPitagorico === 'function') {
+                    fatherRes = calcolaDettaglioPitagorico(father);
+                } else {
+                    fatherRes = { vocali: '1', consonanti: '7', totale: '8' }; // Fallback dimostrativo
+                }
+                document.getElementById('patVoc').innerText = fatherRes.vocali;
+                document.getElementById('patCons').innerText = fatherRes.consonanti;
+                document.getElementById('patTot').innerText = fatherRes.totale;
+            } else {
+                patCard.style.display = 'none';
+            }
+
+            // Elaborazione Cognome Madre
+            if (mother) {
+                matCard.style.display = 'block';
+                if (typeof calcolaDettaglioPitagorico === 'function') {
+                    motherRes = calcolaDettaglioPitagorico(mother);
+                } else {
+                    motherRes = { vocali: '3', consonanti: '1', totale: '4' }; // Fallback dimostrativo
+                }
+                document.getElementById('matVoc').innerText = motherRes.vocali;
+                document.getElementById('matCons').innerText = motherRes.consonanti;
+                document.getElementById('matTot').innerText = motherRes.totale;
+            } else {
+                matCard.style.display = 'none';
+            }
+
+            // Calcolo Sintesi Ancestrale
+            if (father && mother) {
+                synthLabel.innerText = "Integrazione Ramo Paterno + Materno";
+                if (typeof calcolaPitagorico === 'function') {
+                    document.getElementById('synthesisNum').innerText = calcolaPitagorico(father + mother);
+                } else if (fatherRes && motherRes) {
+                    document.getElementById('synthesisNum').innerText = (parseInt(fatherRes.totale) + parseInt(motherRes.totale)) % 9 || 9;
+                }
+            } else if (father) {
+                synthLabel.innerText = "Radice Unica Lignaggio Paterno";
+                document.getElementById('synthesisNum').innerText = fatherRes ? fatherRes.totale : '-';
+            } else {
+                synthLabel.innerText = "Radice Unica Lignaggio Materno";
+                document.getElementById('synthesisNum').innerText = motherRes ? motherRes.totale : '-';
+            }
+
+            // Mostra il contenitore risultati
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
