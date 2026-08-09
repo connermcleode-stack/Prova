@@ -165,13 +165,21 @@
         }
 
         label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gold-light);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
+    	    font-size: 0.65rem;
+    	    text-transform: uppercase;
+    	    letter-spacing: 1px;
+    	    color: var(--gold-light);
+    	    margin-bottom: 6px;
+    	    font-weight: 500;
+    	    line-height: 1.3; /* Aumenta leggermente lo spazio tra le due righe */
+    	    display: block;
+	}
+
+	label span {
+    	    font-size: 0.55rem; /* Un po' più piccolo rispetto al titolo */
+    	    opacity: 0.8;       /* Effetto visivo più morbido per la parentesi */
+    	    text-transform: uppercase;
+	}
 
         input[type="text"] {
             width: 100%;
@@ -295,7 +303,6 @@
             border-bottom: none;
         }
 
-        /* Effetto per indicare che il risultato è cliccabile */
         .riga-cliccabile {
             cursor: pointer;
             transition: background-color 0.2s ease;
@@ -334,7 +341,7 @@
 
         @keyframes compariModale {
             from { 
-                transform: scale(0.8); 
+                transform: scale(0.92); 
                 opacity: 0; 
             }
             to { 
@@ -343,7 +350,88 @@
             }
         }
 
-        /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
+        /* STILI CARTA E SEZIONI GRAFICHE NELLA MODALE (Pitagora style) */
+        .card-image-container {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .card-image {
+            max-width: 140px;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .section-box {
+            background: rgba(20, 24, 33, 0.6);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--gold-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .section-box.archetipo-box {
+            border-left-color: #d4af37;
+            background: rgba(45, 38, 20, 0.35);
+        }
+
+        .section-box.dono-box {
+            border-left-color: #4a90e2;
+            background: rgba(20, 35, 55, 0.45);
+        }
+
+        .section-box.ombra-box {
+            border-left-color: #e67e22;
+            background: rgba(45, 28, 18, 0.45);
+        }
+
+        .section-box.integrazione-box {
+            border-left-color: #2ecc71;
+            background: rgba(18, 40, 28, 0.45);
+        }
+
+        .section-title-modale {
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .archetipo-box .section-title-modale { color: #f3e5ab; }
+        .dono-box .section-title-modale { color: #7cb5ec; }
+        .ombra-box .section-title-modale { color: #f39c12; }
+        .integrazione-box .section-title-modale { color: #2ecc71; }
+
+        .section-text-modale {
+            font-size: 0.83rem;
+            line-height: 1.5;
+            color: #e0dbd1;
+        }
+
+        /* Scrollbar personalizzata per la modale */
+        #modaleContenuto::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #modaleContenuto::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        #modaleContenuto::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 4px;
+        }
+
+        /* --- MEDIA QUERY PER DISPOSITIVI MOBILI --- */
         @media (max-width: 768px) {
             body {
                 padding: 10px 5px;
@@ -358,16 +446,6 @@
                 width: 100% !important;
                 max-width: 100% !important;
                 padding: 20px 15px !important;
-            }
-
-            .grid-cards, [class*="grid"] {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-            }
-            
-            .card, .grid-cards div {
-                grid-column: span 1 !important;
-                width: 100% !important;
             }
 
             #modaleApprofondimento {
@@ -385,7 +463,7 @@
             #modaleApprofondimento span[onclick] {
                 top: 8px !important;
                 right: 12px !important;
-                font-size: 32px !important;
+                font-size: 28px !important;
                 padding: 5px;
             }
 
@@ -396,6 +474,10 @@
 
             #modaleSottotitolo {
                 font-size: 14px !important;
+            }
+
+            .card-image {
+                max-width: 110px;
             }
         }
     </style>
@@ -415,32 +497,186 @@
 </head>
 <body>
 
-<!-- Modale di Approfondimento per Lignaggio Familiare -->
-<div id="modaleApprofondimento" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center;">
-    <div style="background-color: #0c1524; border: 1px solid rgba(212, 175, 55, 0.3); padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 5px 25px rgba(0,0,0,0.8); position: relative; animation: compariModale 0.3s ease;">
-        <span onclick="chiudiModale()" style="position: absolute; top: 12px; right: 18px; font-size: 24px; font-weight: bold; cursor: pointer; color: #a69f95;">&times;</span>
-        <h2 id="modaleTitolo" style="color: #d4af37; font-family: 'Cinzel', serif; margin-top: 0; margin-bottom: 5px;">Titolo</h2>
-        <h4 id="modaleSottotitolo" style="color: #a69f95; margin-top: 0; margin-bottom: 15px; font-style: italic;">Sottotitolo</h4>
-        <div id="modaleContenuto" style="font-size: 14px; line-height: 1.6; color: #e8e3d9; max-height: 400px; overflow-y: auto; padding-right: 5px;"></div>
+<!-- Modale di Approfondimento per Lignaggio Familiare (Grafica Pitagora) -->
+<div id="modaleApprofondimento" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(5, 8, 14, 0.85); align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+    <div style="background-color: #0d121c; border: 1px solid rgba(212, 175, 55, 0.35); padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.9); position: relative; animation: compariModale 0.3s ease;">
+        <span onclick="chiudiModale()" style="position: absolute; top: 12px; right: 18px; font-size: 24px; font-weight: bold; cursor: pointer; color: #a69f95; transition: color 0.2s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#a69f95'">&times;</span>
+        <h2 id="modaleTitolo" style="color: #d4af37; font-family: 'Cinzel', serif; margin-top: 0; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Titolo</h2>
+        <h4 id="modaleSottotitolo" style="color: #a69f95; margin-top: 0; margin-bottom: 16px; font-style: italic; font-weight: 400;">Sottotitolo</h4>
+        <div id="modaleContenuto" style="max-height: 65vh; overflow-y: auto; padding-right: 6px;"></div>
     </div>
 </div>
 
     <div class="container">
 
         <div class="header-section">
-            <div class="page-icon">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 3v18M8 6h8M6 11h12M9 16h6" stroke-linecap="round" />
-                    <circle cx="12" cy="3" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="8" cy="6" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="16" cy="6" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="6" cy="11" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="18" cy="11" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="9" cy="16" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="15" cy="16" r="1.5" fill="var(--gold-primary)" />
-                    <circle cx="12" cy="21" r="1.5" fill="var(--gold-primary)" />
-                </svg>
-            </div>
+            <!-- Simbolo Albero del Lignaggio -->
+<div class="header-logo">
+    <svg viewBox="0 0 100 100"
+         class="main-sacred-symbol"
+         style="width: 95px; height: 95px;"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+            <!-- Bagliore dorato -->
+            <filter id="treeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="1.8" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+
+        <!-- Cerchio esterno -->
+        <circle
+            cx="50"
+            cy="50"
+            r="27"
+            fill="none"
+            stroke="#c9a227"
+            stroke-width="0.8"
+            opacity="0.75"
+        />
+
+        <!-- Albero -->
+        <g
+            fill="none"
+            stroke="#d4af37"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            filter="url(#treeGlow)"
+        >
+
+            <!-- TRONCO -->
+            <path
+                d="M50 73
+                   C49 64, 49 56, 50 48
+                   C50 42, 50 37, 50 31"
+                stroke-width="2.2"
+            />
+
+            <!-- RAMO SINISTRO PRINCIPALE -->
+            <path
+                d="M50 52
+                   C44 48, 38 44, 34 37"
+                stroke-width="1.7"
+            />
+
+            <!-- RAMO DESTRO PRINCIPALE -->
+            <path
+                d="M50 52
+                   C56 48, 62 44, 66 37"
+                stroke-width="1.7"
+            />
+
+            <!-- RAMO SINISTRO ALTO -->
+            <path
+                d="M50 43
+                   C46 39, 42 35, 40 30"
+                stroke-width="1.4"
+            />
+
+            <!-- RAMO DESTRO ALTO -->
+            <path
+                d="M50 43
+                   C54 39, 58 35, 60 30"
+                stroke-width="1.4"
+            />
+
+            <!-- PICCOLI RAMI ESTERNI -->
+            <path
+                d="M38 44
+                   C34 43, 31 40, 29 37"
+                stroke-width="1.2"
+            />
+
+            <path
+                d="M62 44
+                   C66 43, 69 40, 71 37"
+                stroke-width="1.2"
+            />
+
+            <!-- RAMETTI SUPERIORI -->
+            <path
+                d="M40 31
+                   C37 29, 35 26, 35 23"
+                stroke-width="1.1"
+            />
+
+            <path
+                d="M60 31
+                   C63 29, 65 26, 65 23"
+                stroke-width="1.1"
+            />
+
+            <!-- RADICI -->
+            <path
+                d="M50 67
+                   C45 69, 41 72, 37 77"
+                stroke-width="1.4"
+            />
+
+            <path
+                d="M50 67
+                   C55 69, 59 72, 63 77"
+                stroke-width="1.4"
+            />
+
+            <path
+                d="M47 70
+                   C43 74, 39 76, 34 77"
+                stroke-width="1.1"
+            />
+
+            <path
+                d="M53 70
+                   C57 74, 61 76, 66 77"
+                stroke-width="1.1"
+            />
+
+            <path
+                d="M50 69
+                   C50 73, 50 76, 48 80"
+                stroke-width="1.1"
+            />
+
+        </g>
+
+        <!-- FOGLIE / NODI DELLA DISCENDENZA -->
+        <g fill="#d4af37" filter="url(#treeGlow)">
+
+            <!-- cima -->
+            <circle cx="50" cy="27" r="2.1"/>
+
+            <!-- ramo sinistro alto -->
+            <circle cx="39" cy="28" r="1.7"/>
+
+            <!-- ramo destro alto -->
+            <circle cx="61" cy="28" r="1.7"/>
+
+            <!-- ramo sinistro -->
+            <circle cx="34" cy="36" r="1.8"/>
+
+            <!-- ramo destro -->
+            <circle cx="66" cy="36" r="1.8"/>
+
+            <!-- estremità -->
+            <circle cx="29" cy="36" r="1.5"/>
+            <circle cx="71" cy="36" r="1.5"/>
+
+        </g>
+
+        <!-- Piccolo punto centrale -->
+        <circle
+            cx="50"
+            cy="50"
+            r="1.8"
+            fill="#d4af37"
+        />
+
+    </svg>
+</div>
             <h1>LIGNAGGIO FAMILIARE</h1>
             <p class="subtitle">L'eredità profonda dei tuoi antenati</p>
             
@@ -453,11 +689,11 @@
         <div class="card-form">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="fatherSurname">Cognome Padre</label>
+                    <label for="fatherSurname">Cognome Padre <br><span>(Energia maschile)</span></label>
                     <input type="text" id="fatherSurname" placeholder="Es. Rossi" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="motherSurname">Cognome Madre</label>
+                    <label for="motherSurname">Cognome Madre <br><span>(Energia femminile)</span></label>
                     <input type="text" id="motherSurname" placeholder="Es. Bianchi" autocomplete="off">
                 </div>
             </div>
@@ -531,11 +767,11 @@
                 materno: {
                     dono: "Forza interiore, autonomia emotiva, spinta al riscatto personale e coraggio.",
                     sfidaOmbra: "Durezza difensiva, rifiuto della vulnerabilità e senso di autosufficienza forzata.",
-                    integrazione: "Affidarsi alla propria forza senza dover dimostrare costantemente il proprio valore.",
-   	       }
+                    integrazione: "Affidarsi alla propria forza senza dover dimostrare costantemente il proprio valore."
+                }
             },
             2: {
-                archetipo: "Il Custode / Il Mediatore",
+                archetipo: "Il Fanciullo (Empatico e Mediatore)",
                 paterno: {
                     dono: "Capacità diplomatica, senso dell'alleanza, protezione silenziosa e spirito di collaborazione.",
                     sfidaOmbra: "Tendenza alla passività, dipendenza dalle approvazioni esterne o rinuncia all'azione.",
@@ -544,11 +780,11 @@
                 materno: {
                     dono: "Accoglienza viscerale, intuito empatico, nutrimento emotivo e grande sensibilità.",
                     sfidaOmbra: "Ipersensibilità, tendenza al ricatto affettivo o fusionalità che annulla i confini.",
-                    integrazione: "Cuidare l'altro senza smarrire se stessi."
+                    integrazione: "Guidare l'altro senza smarrire sé stessi."
                 }
             },
             3: {
-                archetipo: "Il Creatore / L'Espressivo",
+                archetipo: "Il Giullare (Artista e Comunicatore)",
                 paterno: {
                     dono: "Visibilità, talento comunicativo, carisma sociale e visione ottimistica della vita.",
                     sfidaOmbra: "Superficialità, tendenza al dramma o dispersione delle energie in troppi progetti.",
@@ -561,7 +797,7 @@
                 }
             },
 	    4: {
-                archetipo: "Il Costruttore / L'Ancora",
+                archetipo: "Il Costruttore (Organizzato e concreto)",
                 paterno: {
                     dono: "Senso del dovere, stabilità, concretezza, capacità di dare struttura e radici solide.",
                     sfidaOmbra: "Rigidità, eccessivo attaccamento al lavoro, resistenza al cambiamento o ostinazione.",
@@ -574,7 +810,7 @@
                 }
             },
             5: {
-                archetipo: "Il Ricercatore / Il Viaggiatore",
+                archetipo: "Il Cercatore (Esploratore e Spirito Libero)",
                 paterno: {
                     dono: "Spirito di libertà, capacità di adattamento, apertura all'innovazione e gusto per l'avventura.",
                     sfidaOmbra: "Incostanza, paura dei legami legati alla responsabilità o dispersione di risorse.",
@@ -587,7 +823,7 @@
                 }
             },
             6: {
-                archetipo: "L'Angelo Custode / L'Armonizzatore",
+                archetipo: "L'Angelo Custode (Protettivo e Mediatore)",
                 paterno: {
                     dono: "Responsabilità verso la comunità, senso di giustizia, guida protettiva e amore per la casa.",
                     sfidaOmbra: "Iper-controllo, tendenza a giudicare o perfezionismo rigido applicato agli altri.",
@@ -600,22 +836,23 @@
                 }
             },
             7: {
-                archetipo: "Il Saggio / L'Acrobata del Pensiero",
+                archetipo: "Il Saggio (Filosofo e Mistico)",
+
                 paterno: {
                     dono: "Profondità d'analisi, rigore mentale, ricerca della verità e inclinazione spirituale.",
                     sfidaOmbra: "Isolamento, distacco emotivo, scetticismo difensivo o freddezza relazionale.",
                     integrazione: "Coltivare la sapienza senza chiudersi alla condivisione emotiva."
                 },
                 materno: {
-                    dono: "Intuizione sottile, saggezza interiore, sensibilità spirituale e capacita d'ascolto.",
-                    sfidaOmbra: "Chiusura in se stesse, tendenza all'incomprensione o sfiducia verso il mondo.",
+                    dono: "Intuizione sottile, saggezza interiore, sensibilità spirituale e capacità d'ascolto.",
+                    sfidaOmbra: "Tendenza a chiudersi in sé stesse, difficoltà a sentirsi comprese o sfiducia verso il mondo.",
                     integrazione: "Fidarsi del proprio intuito mantenendo un contatto attivo con la realtà."
                 }
             },
             8: {
-                archetipo: "Il Sovrano / L'Alchimista",
+                archetipo: "Il Sovrano (Realizzatore e Stratega)",
                 paterno: {
-                    dono: "Autautorevolezza, capacità gestionali, manifestazione materiale e senso del potere personale.",
+                    dono: "Autorevolezza, capacità gestionali, manifestazione materiale e senso del potere personale.",
                     sfidaOmbra: "Lotta per il potere, attaccamento allo status, materialismo o autoritarismo.",
                     integrazione: "Esercitare la forza e la leadership al servizio del bene comune."
                 },
@@ -626,7 +863,7 @@
                 }
             },
             9: {
-                archetipo: "Il Guida / Il Filantropo",
+                archetipo: "Il Liberatore (Ispiratore e Umanitario)",
                 paterno: {
                     dono: "Visione universale, compassione, capacità di ispirare e spirito di servizio.",
                     sfidaOmbra: "Disillusione, tendenza a portare i pesi del mondo o idealismo ingenuo.",
@@ -639,10 +876,10 @@
                 }
             },
 	    11: {
-                archetipo: "Il Maestro Spirituale / L'Illuminato",
+                archetipo: "Il Genio (Ispiratore e Visionario)",
                 paterno: {
                     dono: "Visione profetica, intuizione fulminea, capacità di ispirare le masse e fare da ponte tra visibile e invisibile.",
-                    sfidaOmbra: "Tensione nervosa estrema, sovraccarico sensoriale, paura della pazzia o tendenza a svalutare la propria percezione.",
+                    sfidaOmbra: "Tensione nervosa estrema, sovraccarico sensoriale, timore di non riuscire a comprendere o gestire la propria sensibilità.",
                     integrazione: "Fidarsi delle proprie intuizioni trasformandole in una guida pratica e comprensibile."
                 },
                 materno: {
@@ -652,7 +889,7 @@
                 }
             },
             22: {
-                archetipo: "Il Creatore del Mondo / Il Costruttore Maestro",
+                archetipo: "Il Creatore (Architetto Celeste e Mastro Costruttore)",
                 paterno: {
                     dono: "Capacità di tradurre grandi ideali e visioni utopiche in strutture concrete di beneficio collettivo.",
                     sfidaOmbra: "Ansia da prestazione su scala monumentale, paura del fallimento, rigidità o manipolazione per scopi personali.",
@@ -665,7 +902,7 @@
                 }
             },
             33: {
-                archetipo: "Il Maestro D'Amore / Il Guaritore Universale",
+                archetipo: "Il Maestro (Guida Spirituale e Amore Cristico)",
                 paterno: {
                     dono: "Servizio disinteressato, guida compassionevole, carisma protettivo e capacità di elevare il morale collettivo.",
                     sfidaOmbra: "Complesso del Salvatore, tendenza al martirio, pretesa di perfezione negli altri o sacrificio infruttuoso.",
@@ -678,7 +915,7 @@
                 }
             },
             44: {
-                archetipo: "Il Maestro Guida / Il Custode della Terra",
+                archetipo: "Lo Sciamano (Guaritore e Custode della Terra)",
                 paterno: {
                     dono: "Capacità di dominare la materia a livelli elevati, governance etica, straordinaria resilienza e visione d'insieme.",
                     sfidaOmbra: "Eccessivo peso materiale, inclinazione al controllo assoluto, inflessibilità o abuso di autorità.",
@@ -691,7 +928,7 @@
                 }
             },
 	    13: {
-                archetipo: "La Morte e la Rinascita / Il Trasformatore",
+                archetipo: "L'Alchimista (Prova Karmica del Costruttore)",
                 paterno: {
                     dono: "Grande capacità di lavoro, resilienza incrollabile di fronte alle avversità e talento per la ristrutturazione profonda.",
                     sfidaOmbra: "Lotta contro il cambiamento, tendenza alla rigidità o sensazione di dover fare sempre una fatica immane per ottenere risultati.",
@@ -704,7 +941,7 @@
                 }
             },
             14: {
-                archetipo: "La Temperanza / Il Custode dell'Equilibrio",
+                archetipo: "L'Amante (Prova Karmica del Cercatore)",
                 paterno: {
                     dono: "Adattabilità, capacità di mediazione, gestione dei cambiamenti improvvisi e ricerca dell'armonia.",
                     sfidaOmbra: "Tendenza agli eccessi, impulsività, fuga dalle responsabilità o difficoltà a mantenere una direzione costante.",
@@ -717,7 +954,7 @@
                 }
             },
             16: {
-                archetipo: "La Torre / Il Risvegliato",
+                archetipo: "Il Perfezionista (Prova Karmica del Saggio)",
                 paterno: {
                     dono: "Profonda intuizione, capacità di smantellare le illusioni e ricerca di una verità autentica e incrollabile.",
                     sfidaOmbra: "Orgoglio, paura del crollo delle proprie certezze, rigidità dogmatica o tendenza ad attirare eventi improvvisi per cambiare.",
@@ -730,7 +967,7 @@
                 }
             },
             19: {
-                archetipo: "Il Sole / Il Riscatto del Potere",
+                archetipo: "Il Condottiero (Prova karmica del Guerriero)",
                 paterno: {
                     dono: "Carisma, indipendenza, luce personale, capacità di guidare ed essere di esempio agli altri.",
                     sfidaOmbra: "Egoismo, difficoltà ad accettare l'aiuto esterno, abuso di autorità o senso di solitudine al vertice.",
@@ -743,12 +980,6 @@
                 }
             },  
         };
-
-        // Ridimensionamento automatico del campo testo
-        function autoEspandi(textarea) {
-            textarea.style.height = '45px';
-            textarea.style.height = textarea.scrollHeight + 'px';
-        }
 
         // Funzioni Gestione Modale
         function apriModale(titolo, sottotitolo, contenuto) {
@@ -775,7 +1006,7 @@
             }
         });
 
-        // Funzione per mostrare la descrizione al click sui risultati
+        // Funzione per mostrare la descrizione al click sui risultati con layout Pitagora
         function mostraDescrizione(ramo, voce, idElemento) {
             const valore = document.getElementById(idElemento).innerText.trim();
             if (valore === '-' || valore === '') return;
@@ -786,16 +1017,44 @@
 
             let contenutoHTML = "";
 
+            // Immagine della Carta
+            contenutoHTML += `
+                <div class="card-image-container">
+                    <img src="carte/${num}.jpg" alt="Carta ${num}" class="card-image" onerror="this.onerror=null; this.src='carte/${num}.png'; this.onerror=function(){this.style.display='none';}">
+                </div>
+            `;
+
             if (dati && dati[chiaveRamo]) {
                 const info = dati[chiaveRamo];
-                contenutoHTML = `
-                    <p style="margin-bottom: 10px;"><strong>Archetipo:</strong> ${dati.archetipo}</p>
-                    <p style="margin-bottom: 8px;"><strong>Dono Ereditato:</strong> ${info.dono}</p>
-                    <p style="margin-bottom: 8px;"><strong>Sfida / Ombra:</strong> ${info.sfidaOmbra}</p>
-                    <p><strong>Integrazione:</strong> ${info.integrazione}</p>
+
+                contenutoHTML += `
+                    <div class="section-box archetipo-box">
+                        <div class="section-title-modale">✨ Archetipo</div>
+                        <div class="section-text-modale">${dati.archetipo}</div>
+                    </div>
+
+                    <div class="section-box dono-box">
+                        <div class="section-title-modale">🎁 Dono Ereditato</div>
+                        <div class="section-text-modale">${info.dono}</div>
+                    </div>
+
+                    <div class="section-box ombra-box">
+                        <div class="section-title-modale">⚠️ Sfida / Ombra</div>
+                        <div class="section-text-modale">${info.sfidaOmbra}</div>
+                    </div>
+
+                    <div class="section-box integrazione-box">
+                        <div class="section-title-modale">🌱 Integrazione</div>
+                        <div class="section-text-modale">${info.integrazione}</div>
+                    </div>
                 `;
             } else {
-                contenutoHTML = `<p>Descrizione in fase di preparazione per il numero <strong>${valore}</strong> (${ramo}).</p>`;
+                contenutoHTML += `
+                    <div class="section-box archetipo-box">
+                        <div class="section-title-modale">ℹ️ Info</div>
+                        <div class="section-text-modale">Descrizione in fase di preparazione per il numero <strong>${valore}</strong> (${ramo}).</div>
+                    </div>
+                `;
             }
 
             apriModale(`${voce} (${ramo})`, `Numero ${valore}`, contenutoHTML);
@@ -814,7 +1073,7 @@
             const patCard = document.getElementById('paternalCard');
             const matCard = document.getElementById('maternalCard');
 
-            // Funzione di calcolo interna/fallback che dialoga con calcoli.js
+            // Funzione di calcolo interna che dialoga con calcoli.js
             function elaboraRamo(cognome) {
                 if (typeof calcolaStringaNumerica === 'function') {
                     const res = calcolaStringaNumerica(cognome);
