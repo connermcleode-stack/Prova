@@ -268,55 +268,185 @@ function eseguiCalcoloCompleto() {
             if (document.getElementById('numCicloConc')) document.getElementById('numCicloConc').innerText = format(cConc);
             if (document.getElementById('descCicloConc')) document.getElementById('descCicloConc').innerHTML = compilaSchedaSicura(cConc);
 
-            if (document.getElementById('numCiclo1')) document.getElementById('numCiclo1').innerText = format(p1);
-            if (document.getElementById('etaCiclo1')) document.getElementById('etaCiclo1').innerText = `Da 0 a ${fineC1} anni`;
-            if (document.getElementById('descCiclo1')) document.getElementById('descCiclo1').innerHTML = compilaSchedaSicura(p1);
+            
+// Cerca il database sotto tutte le possibili variabili note
+const tPitagora = window.TESTI_PITAGORA || window.TESTI_CICLI || (typeof TESTI_CICLI !== 'undefined' ? TESTI_CICLI : null);
 
-            if (document.getElementById('numCiclo2')) document.getElementById('numCiclo2').innerText = format(p2);
-            if (document.getElementById('etaCiclo2')) document.getElementById('etaCiclo2').innerText = `Da ${fineC1 + 1} a ${fineC2} anni`;
-            if (document.getElementById('descCiclo2')) document.getElementById('descCiclo2').innerHTML = compilaSchedaSicura(p2);
+// --- 1° CICLO DI REALIZZAZIONE (p1) ---
+if (document.getElementById('numCiclo1')) document.getElementById('numCiclo1').innerText = format(p1);
+if (document.getElementById('etaCiclo1')) document.getElementById('etaCiclo1').innerText = `Da 0 a ${fineC1} anni`;
+if (document.getElementById('descCiclo1')) {
+    const anteprima = compilaSchedaSicura(p1);
+    const testoEsteso = ottieniTestoEstesoCiclo(p1, 'ciclo1');
+    document.getElementById('descCiclo1').innerHTML = anteprima;
+    
+    const card = document.getElementById('descCiclo1').closest('.card');
+    if (card) {
+        const vecchio = card.querySelector('.testo-segreto');
+        if (vecchio) vecchio.remove();
+        card.insertAdjacentHTML('beforeend', `<div class="testo-segreto" style="display:none;">${testoEsteso}</div>`);
+    }
+}
 
-            if (document.getElementById('numCiclo3')) document.getElementById('numCiclo3').innerText = format(p3);
-            if (document.getElementById('etaCiclo3')) document.getElementById('etaCiclo3').innerText = `Da ${fineC2 + 1} a ${fineC3} anni`;
-            if (document.getElementById('descCiclo3')) document.getElementById('descCiclo3').innerHTML = compilaSchedaSicura(p3);
+// --- 2° CICLO DI REALIZZAZIONE (p2) ---
+if (document.getElementById('numCiclo2')) document.getElementById('numCiclo2').innerText = format(p2);
+if (document.getElementById('etaCiclo2')) document.getElementById('etaCiclo2').innerText = `Da ${fineC1 + 1} a ${fineC2} anni`;
+if (document.getElementById('descCiclo2')) {
+    const anteprima = compilaSchedaSicura(p2);
+    const testoEsteso = ottieniTestoEstesoCiclo(p2, 'ciclo2');
+    document.getElementById('descCiclo2').innerHTML = anteprima;
+    
+    const card = document.getElementById('descCiclo2').closest('.card');
+    if (card) {
+        const vecchio = card.querySelector('.testo-segreto');
+        if (vecchio) vecchio.remove();
+        card.insertAdjacentHTML('beforeend', `<div class="testo-segreto" style="display:none;">${testoEsteso}</div>`);
+    }
+}
 
-            if (document.getElementById('numCiclo4')) document.getElementById('numCiclo4').innerText = format(p4);
-            if (document.getElementById('etaCiclo4')) document.getElementById('etaCiclo4').innerText = `Da ${fineC3 + 1} anni in poi`;
-            if (document.getElementById('descCiclo4')) document.getElementById('descCiclo4').innerHTML = compilaSchedaSicura(p4);
+// --- 3° CICLO DI REALIZZAZIONE (p3) ---
+if (document.getElementById('numCiclo3')) document.getElementById('numCiclo3').innerText = format(p3);
+if (document.getElementById('etaCiclo3')) document.getElementById('etaCiclo3').innerText = `Da ${fineC2 + 1} a ${fineC3} anni`;
+if (document.getElementById('descCiclo3')) {
+    const anteprima = compilaSchedaSicura(p3);
+    const testoEsteso = ottieniTestoEstesoCiclo(p3, 'ciclo3');
+    document.getElementById('descCiclo3').innerHTML = anteprima;
+    
+    const card = document.getElementById('descCiclo3').closest('.card');
+    if (card) {
+        const vecchio = card.querySelector('.testo-segreto');
+        if (vecchio) vecchio.remove();
+        card.insertAdjacentHTML('beforeend', `<div class="testo-segreto" style="display:none;">${testoEsteso}</div>`);
+    }
+}
 
-            function ottieniNomeImmagineOmbra(valoreOmbra) {
-                return (valoreOmbra === 0 || valoreOmbra === 9) ? 'ombra9' : 'ombra' + valoreOmbra;
-            }
-            const dbOmbre = window.databaseOmbreMazzo || {};
-            const nomeGiov = dbOmbre[oGiov] ? dbOmbre[oGiov].nome : 'Ombra';
-            const nomeMat = dbOmbre[oMat] ? dbOmbre[oMat].nome : 'Ombra';
-            const nomePrinc = dbOmbre[oPrinc] ? dbOmbre[oPrinc].nome : 'Ombra';
+// --- 4° CICLO DI REALIZZAZIONE (p4) ---
+if (document.getElementById('numCiclo4')) document.getElementById('numCiclo4').innerText = format(p4);
+if (document.getElementById('etaCiclo4')) document.getElementById('etaCiclo4').innerText = `Da ${fineC3 + 1} anni in poi`;
+if (document.getElementById('descCiclo4')) {
+    const anteprima = compilaSchedaSicura(p4);
+    const testoEsteso = ottieniTestoEstesoCiclo(p4, 'ciclo4');
+    document.getElementById('descCiclo4').innerHTML = anteprima;
+    
+    const card = document.getElementById('descCiclo4').closest('.card');
+    if (card) {
+        const vecchio = card.querySelector('.testo-segreto');
+        if (vecchio) vecchio.remove();
+        card.insertAdjacentHTML('beforeend', `<div class="testo-segreto" style="display:none;">${testoEsteso}</div>`);
+    }
+}
+function ottieniNomeImmagineOmbra(valoreOmbra) {
+    return (valoreOmbra === 0 || valoreOmbra === 9) ? 'ombra9' : 'ombra' + valoreOmbra;
+}
 
-            const ombreSetup = [
-                { idNum: 'numOmbraGiov', idDesc: 'descOmbraGiov', valore: oGiov, nome: nomeGiov },
-                { idNum: 'numOmbraMat', idDesc: 'descOmbraMat', valore: oMat, nome: nomeMat },
-                { idNum: 'numOmbraPrinc', idDesc: 'descOmbraPrinc', valore: oPrinc, nome: nomePrinc }
-            ];
+// Mappa diretta per i nomi delle ombre se i database non sono pronti
+const nomiOmbreDefault = {
+    1: "Il Ribelle (L'ombra del Guerriero)",
+    2: "L'Orfano (L'ombra del Fanciullo)",
+    3: "Lo Straniero (L'ombra del Giullare)",
+    4: "Il Prigioniero (L'ombra del Costruttore)",
+    5: "Il Girovago (L'ombra del Cercatore)",
+    6: "Il Martire (L'ombra dell'Angelo Custode)",
+    7: "Il Solitario (L'ombra del Saggio)",
+    8: "Il Tiranno (L'ombra del Sovrano)",
+    9: "L'Angelo caduto (L'ombra del Liberatore)"
+};
 
-            ombreSetup.forEach(ombra => {
-                const imgNome = ottieniNomeImmagineOmbra(ombra.valore);
-                if (document.getElementById(ombra.idNum)) document.getElementById(ombra.idNum).innerText = ombra.valore;
-                if (document.getElementById(ombra.idDesc)) {
-                    document.getElementById(ombra.idDesc).innerHTML = `
-                        <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 70px; display: block; margin: 8px auto; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.5);">
-                        <div style="text-align: center; margin-top: 10px; font-style: italic; font-weight: bold; color: #c5a059; font-size: 13px;">
-                            Archetipo: ${ombra.nome}
-                        </div>
-                        <div style="text-align: center; font-size: 11px; color: #888; margin-top: 4px; font-style: italic;">
-                            → Clicca qui per leggere l'analisi completa
-                        </div>
-                        <div class="testo-segreto" style="display: none;">
-                            <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 140px; display: block; margin: 10px auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
-                            ${typeof compilaSchedaOmbra === 'function' ? compilaSchedaOmbra(ombra.valore) : 'Sfida evolutiva.'}
-                        </div>
-                    `;
-                }
-            });
+/**
+ * Restituisce il contenuto HTML completo ed esteso (con immagine della carta) per il Modal/Popup del Ciclo
+ */
+function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
+    const tPitagora = window.TESTI_PITAGORA || window.TESTI_CICLI || (typeof TESTI_PITAGORA !== 'undefined' ? TESTI_PITAGORA : null);
+    
+    if (!tPitagora) return compilaSchedaSicura(valoreNumero);
+
+    const valStr = String(valoreNumero).trim();
+    const valNum = parseInt(valoreNumero, 10);
+    const valBase = typeof riduciMonocifraStretta === 'function' ? riduciMonocifraStretta(valoreNumero) : valNum;
+
+    const archetipo = tPitagora[valStr] || tPitagora[valNum] || tPitagora[valBase] ||
+                      tPitagora?.cicli?.[valStr] || tPitagora?.cicli?.[valNum] || tPitagora?.cicli?.[valBase];
+
+    const c = archetipo?.cicli?.[chiaveCiclo];
+
+    // Percorso e nome file della carta (es. "immagini/1.png" oppure semplicemente "${valNum}.png" se le carte sono nella stessa cartella)
+    // Se le tue carte sono dentro una cartella specifica (es. carte/ o img/), aggiungi il percorso davanti a ${valNum}
+    const percorsoCarta = `carte/${valNum}.png`;
+
+    if (archetipo && c) {
+        return `
+            <div class="modal-ciclo-esteso" style="text-align: center;">
+                <div style="margin-bottom: 15px;">
+                    <img src="${percorsoCarta}" alt="Carta ${archetipo.nome}" style="max-width: 140px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                </div>
+                <h3 style="color: #d69e2e; margin-bottom: 6px;">${archetipo.nome}</h3>
+                <h5 style="font-style: italic; color: #a0aec0; margin-bottom: 12px;">${archetipo.sottotitolo}</h5>
+                <p style="margin-bottom: 16px; line-height: 1.5; text-align: left;">${archetipo.introduzione}</p>
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 12px 0;">
+                <h4 style="color: #ecc94b; margin-bottom: 8px; text-align: left;">${c.titolo}</h4>
+                <p style="margin-bottom: 10px; text-align: left;"><strong>Lezioni:</strong> ${c.lezioni}</p>
+                <p style="text-align: left;"><strong>Potenziali:</strong> ${c.potenziali}</p>
+            </div>
+        `;
+    }
+
+    return compilaSchedaSicura(valoreNumero);
+}
+
+function estraiEtichettaOmbra(valore) {
+    let num = parseInt(valore, 10);
+    
+    // 1. Controlla prima se esiste nei database trasversali
+    let d = (window.databaseOmbreMazzo && (window.databaseOmbreMazzo[num] || window.databaseOmbreMazzo[valore])) || 
+            (window.databaseArchetipi && (window.databaseArchetipi[num] || window.databaseArchetipi[valore])) || null;
+
+    if (d) {
+        let nome = d.nome || "";
+        let titolo = d.titolo || d.sottotitolo || "";
+        
+        // Se d ha sia nome sia titolo e nome non è genericamente "Ombra X"
+        if (nome && !nome.toLowerCase().includes("ombra")) {
+            return titolo ? `${nome} (${titolo})` : nome;
+        }
+    }
+
+    // 2. Se il database non restituisce un testo valido, usa la mappa predefinita integrata
+    return nomiOmbreDefault[num] || `Ombra ${num}`;
+}
+
+const ombreSetup = [
+    { idNum: 'numOmbraGiov', idDesc: 'descOmbraGiov', valore: oGiov },
+    { idNum: 'numOmbraMat', idDesc: 'descOmbraMat', valore: oMat },
+    { idNum: 'numOmbraPrinc', idDesc: 'descOmbraPrinc', valore: oPrinc }
+];
+
+ombreSetup.forEach(ombra => {
+    const imgNome = ottieniNomeImmagineOmbra(ombra.valore);
+    const etichettaCompleta = estraiEtichettaOmbra(ombra.valore);
+
+    if (document.getElementById(ombra.idNum)) {
+        document.getElementById(ombra.idNum).innerText = ombra.valore;
+    }
+
+    if (document.getElementById(ombra.idDesc)) {
+        document.getElementById(ombra.idDesc).innerHTML = `
+            <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 75px; display: block; margin: 8px auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            
+            <div class="info-responso" style="text-align: center; margin-top: 12px; font-weight: bold; color: #ffffff; font-size: 15px; font-style: normal; line-height: 1.3;">
+                Archetipo: ${etichettaCompleta}
+            </div>
+            
+            <div style="text-align: center; font-size: 12px; color: #a0aec0; margin-top: 6px;">
+                ➔ Clicca qui per leggere l'analisi completa
+            </div>
+
+            <div class="testo-segreto" style="display: none;">
+                <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 140px; display: block; margin: 10px auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+                ${typeof compilaSchedaOmbra === 'function' ? compilaSchedaOmbra(ombra.valore) : 'Sfida evolutiva.'}
+            </div>
+        `;
+    }
+});
 
             testoCopiaGlobale += `Giorno di Nascita Isolato: ${format(giornoIsolato)}\n`;
             testoCopiaGlobale += `Numero del Destino (Cammino di Vita): ${format(destino)}\n`;

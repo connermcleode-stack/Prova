@@ -1,4 +1,4 @@
-const CACHE_NAME = 'numerosophia-cache-v3';
+const CACHE_NAME = 'numerosophia-cache-v4';
 
 // Elenco completo di file dell'app + tutte le 27 carte
 const FILES_TO_CACHE = [
@@ -6,10 +6,12 @@ const FILES_TO_CACHE = [
   './index.html',
   './caldea.html',
   './pitagora.html',
+  './testi_pitagora.html',
   './archivio.html',
   './compatibilita.html',
   './condividi-compatibilita.html',
   './relazioni-karmiche.html',
+  './lignaggio-familiare.html',
   './style.css',
   './app.js',
   './calcoli.js',
