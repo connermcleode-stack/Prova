@@ -353,44 +353,83 @@ const nomiOmbreDefault = {
 };
 
 /**
- * Restituisce il contenuto HTML completo ed esteso (con immagine della carta) per il Modal/Popup del Ciclo
+ * Restituisce il contenuto HTML completo ed esteso per il Modal del Ciclo.
+ * Gestisce correttamente percorsi immagini, fallback su base monocifra e numeri karmici/maestri.
  */
 function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
-    const tPitagora = window.TESTI_PITAGORA || window.TESTI_CICLI || (typeof TESTI_PITAGORA !== 'undefined' ? TESTI_PITAGORA : null);
-    
-    if (!tPitagora) return compilaSchedaSicura(valoreNumero);
+    try {
+        // PERCORSO DELLE TUE IMMAGINI: cambia se sono in una cartella (es. 'immagini/' o 'carte/')
+        const CARTELLA = 'carte/';
 
-    const valStr = String(valoreNumero).trim();
-    const valNum = parseInt(valoreNumero, 10);
-    const valBase = typeof riduciMonocifraStretta === 'function' ? riduciMonocifraStretta(valoreNumero) : valNum;
+        const tPitagora = window.TESTI_PITAGORA || window.TESTI_CICLI || (typeof TESTI_PITAGORA !== 'undefined' ? TESTI_PITAGORA : null);
+        const valStr = String(valoreNumero || '').trim();
+        if (!valStr) return compilaSchedaSicura(valoreNumero);
 
-    const archetipo = tPitagora[valStr] || tPitagora[valNum] || tPitagora[valBase] ||
-                      tPitagora?.cicli?.[valStr] || tPitagora?.cicli?.[valNum] || tPitagora?.cicli?.[valBase];
+        // Estrazione parti (es. "13/4" -> numOriginale: "13", baseMonocifra: "4")
+        let numOriginale = valStr;
+        let baseMonocifra = valStr;
 
-    const c = archetipo?.cicli?.[chiaveCiclo];
+        if (valStr.includes('/')) {
+            const parti = valStr.split('/');
+            numOriginale = parti[0].trim();
+            baseMonocifra = parti[1].trim();
+        } else if (valStr.length > 1 && !['11', '22', '33'].includes(valStr)) {
+            const somma = valStr.split('').reduce((a, b) => parseInt(a || 0) + parseInt(b || 0), 0);
+            baseMonocifra = String(somma);
+        }
 
-    // Percorso e nome file della carta (es. "immagini/1.png" oppure semplicemente "${valNum}.png" se le carte sono nella stessa cartella)
-    // Se le tue carte sono dentro una cartella specifica (es. carte/ o img/), aggiungi il percorso davanti a ${valNum}
-    const percorsoCarta = `carte/${valNum}.png`;
+        if (!tPitagora) return compilaSchedaSicura(valoreNumero);
 
-    if (archetipo && c) {
+        const sorgente = tPitagora.cicli || tPitagora;
+
+        // Cerca l'archetipo nei testi (prova prima il numero completo, poi il karmico, infine la base)
+        let archetipo = sorgente[valStr] || 
+                        sorgente[numOriginale] || 
+                        sorgente[parseInt(numOriginale, 10)] || 
+                        sorgente[baseMonocifra] || 
+                        sorgente[parseInt(baseMonocifra, 10)];
+
+        if (!archetipo) return compilaSchedaSicura(valoreNumero);
+
+        // Cerca il blocco del ciclo specifico
+        let c = archetipo.cicli ? archetipo.cicli[chiaveCiclo] : null;
+
+        // Se l'archetipo karmico (es. 13 o 16) non ha la sezione del ciclo specificata,
+        // recupera la descrizione del ciclo dall'archetipo di BASE monocifra (es. 4 o 7)
+        if (!c && numOriginale !== baseMonocifra) {
+            const archetipoBase = sorgente[baseMonocifra] || sorgente[parseInt(baseMonocifra, 10)];
+            if (archetipoBase && archetipoBase.cicli) {
+                c = archetipoBase.cicli[chiaveCiclo];
+            }
+        }
+
+        if (!c) return compilaSchedaSicura(valoreNumero);
+
+        // Costruzione percorsi immagini sicuri
+        const srcPrincipale = CARTELLA ? `${CARTELLA}${numOriginale}.png` : `${numOriginale}.png`;
+        const srcFallback = CARTELLA ? `${CARTELLA}${baseMonocifra}.png` : `${baseMonocifra}.png`;
+
         return `
             <div class="modal-ciclo-esteso" style="text-align: center;">
                 <div style="margin-bottom: 15px;">
-                    <img src="${percorsoCarta}" alt="Carta ${archetipo.nome}" style="max-width: 140px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    <img src="${srcPrincipale}" 
+                         onerror="this.onerror=null; this.src='${srcFallback}';" 
+                         alt="Carta ${archetipo.nome}" 
+                         style="max-width: 140px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
                 </div>
-                <h3 style="color: #d69e2e; margin-bottom: 6px;">${archetipo.nome}</h3>
-                <h5 style="font-style: italic; color: #a0aec0; margin-bottom: 12px;">${archetipo.sottotitolo}</h5>
-                <p style="margin-bottom: 16px; line-height: 1.5; text-align: left;">${archetipo.introduzione}</p>
+                <h3 style="color: #d69e2e; margin-bottom: 6px;">${archetipo.nome} ${valStr.includes('/') ? '(' + valStr + ')' : ''}</h3>
+                <h5 style="font-style: italic; color: #a0aec0; margin-bottom: 12px;">${archetipo.sottotitolo || ''}</h5>
+                <p style="margin-bottom: 16px; line-height: 1.5; text-align: left;">${archetipo.introduzione || ''}</p>
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 12px 0;">
-                <h4 style="color: #ecc94b; margin-bottom: 8px; text-align: left;">${c.titolo}</h4>
-                <p style="margin-bottom: 10px; text-align: left;"><strong>Lezioni:</strong> ${c.lezioni}</p>
-                <p style="text-align: left;"><strong>Potenziali:</strong> ${c.potenziali}</p>
+                <h4 style="color: #ecc94b; margin-bottom: 8px; text-align: left;">${c.titolo || ''}</h4>
+                <p style="margin-bottom: 10px; text-align: left;"><strong>Lezioni:</strong> ${c.lezioni || ''}</p>
+                <p style="text-align: left;"><strong>Potenziali:</strong> ${c.potenziali || ''}</p>
             </div>
         `;
+    } catch (e) {
+        console.error("Errore ottieniTestoEstesoCiclo:", e);
+        return compilaSchedaSicura(valoreNumero);
     }
-
-    return compilaSchedaSicura(valoreNumero);
 }
 
 function estraiEtichettaOmbra(valore) {
