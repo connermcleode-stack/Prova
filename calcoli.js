@@ -292,62 +292,54 @@ function apriModalGiorno(giorno) {
         numeroCarta = somma;
     }
 
-    const contenutoHTML = `
-        <div class="dettaglio-giorno" style="text-align: left; padding: 5px 5px 15px 5px;">
-            
+    // Impostiamo direttamente il titolo e i contenuti usando gli ID nativi della modale del tuo sito
+    const titoloModale = document.getElementById('modaleTitolo');
+    const sottotitoloModale = document.getElementById('modaleSottotitolo');
+    const contenutoModale = document.getElementById('modaleContenuto');
+    const modaleContainer = document.getElementById('modaleApprofondimento');
+
+    if (titoloModale) {
+        titoloModale.innerText = `${archetipo.toUpperCase()} (GIORNO ${giorno})`;
+    }
+    
+    if (sottotitoloModale) {
+        sottotitoloModale.innerHTML = "";
+    }
+
+    if (contenutoModale) {
+        contenutoModale.innerHTML = `
             <div style="text-align: center; margin-bottom: 20px;">
                 <img src="carte/${numeroCarta}.png" alt="${archetipo}" style="max-width: 130px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
             </div>
 
-            <div style="background: rgba(212, 175, 55, 0.06); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-                <h4 style="color: #d4af37; margin-top: 0; margin-bottom: 8px; font-size: 1em;">🏛️ SOTTOTITOLO</h4>
-                <p style="margin: 0; font-style: italic; opacity: 0.9;">${t.sottotitolo}</p>
+            <div style="background: rgba(212, 175, 55, 0.06); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: left;">
+                <h4 style="color: #d4af37; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">🏛️ SOTTOTITOLO</h4>
+                <p style="margin: 0; font-style: italic; opacity: 0.9; font-size: 0.95em; line-height: 1.4;">${t.sottotitolo}</p>
             </div>
 
-            <div style="background: rgba(30, 58, 138, 0.25); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-                <h4 style="color: #60a5fa; margin-top: 0; margin-bottom: 8px; font-size: 1em;">✨ SIGNIFICATO</h4>
-                <p style="margin: 0; line-height: 1.5;">${t.introduzione}</p>
+            <div style="background: rgba(30, 58, 138, 0.25); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: left;">
+                <h4 style="color: #60a5fa; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">✨ SIGNIFICATO</h4>
+                <p style="margin: 0; line-height: 1.5; font-size: 0.95em;">${t.introduzione}</p>
             </div>
 
-            <div style="background: rgba(185, 28, 28, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-                <h4 style="color: #f87171; margin-top: 0; margin-bottom: 8px; font-size: 1em;">⚠️ PUNTI DEBOLI</h4>
-                <p style="margin: 0; line-height: 1.5;">${t.puntiDeboli}</p>
+            <div style="background: rgba(185, 28, 28, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: left;">
+                <h4 style="color: #f87171; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">⚠️ PUNTI DEBOLI</h4>
+                <p style="margin: 0; line-height: 1.5; font-size: 0.95em;">${t.puntiDeboli}</p>
             </div>
 
-            <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 8px; padding: 15px;">
-                <h4 style="color: #34d399; margin-top: 0; margin-bottom: 8px; font-size: 1em;">💼 PROFESSIONI IDEALI</h4>
-                <p style="margin: 0; line-height: 1.5;">${t.professioniIdeali}</p>
+            <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 8px; padding: 15px; text-align: left;">
+                <h4 style="color: #34d399; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">💼 PROFESSIONI IDEALI</h4>
+                <p style="margin: 0; line-height: 1.5; font-size: 0.95em;">${t.professioniIdeali}</p>
             </div>
-
-        </div>
-    `;
-
-    // Creazione o recupero diretto del box a schermo con la X posizionata in assoluto in alto a destra
-    let modalDiv = document.getElementById('modalDinamicoGiorno');
-    if (!modalDiv) {
-        modalDiv = document.createElement('div');
-        modalDiv.id = 'modalDinamicoGiorno';
-        document.body.appendChild(modalDiv);
+        `;
     }
 
-    modalDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; z-index:9999; backdrop-filter: blur(4px);";
-    
-    modalDiv.innerHTML = `
-        <div style="background:#0b1d3a; color:#fff; padding:30px 25px 25px 25px; border-radius:12px; max-width:550px; width:90%; max-height:85vh; overflow-y:auto; border:1px solid #d4af37; position:relative; box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
-            <button onclick="document.getElementById('modalDinamicoGiorno.style.display='none'; document.getElementById('modalDinamicoGiorno').remove();" style="position:absolute; top:12px; right:15px; background:none; border:none; color:#d4af37; font-size:26px; cursor:pointer; font-weight:bold; line-height:1; z-index:99;">&times;</button>
-            <h3 style="color:#d4af37; margin-top:0; margin-right:35px; margin-bottom:15px; text-align:center; font-size:1.2em; letter-spacing:0.5px;">${archetipo} (Giorno ${giorno})</h3>
-            <div style="border-bottom:1px solid rgba(212, 175, 55, 0.3); margin-bottom:20px;"></div>
-            ${contenutoHTML}
-        </div>
-    `;
-    modalDiv.style.display = 'flex';
+    if (modaleContainer) {
+        modaleContainer.style.display = 'flex';
+    }
 }
 
 window.apriModalGiorno = apriModalGiorno;
-
-// Rendi la funzione visibile globalmente per l'evento onclick nell'HTML
-window.apriModalGiorno = apriModalGiorno;
-
             if (document.getElementById('numCammino')) document.getElementById('numCammino').innerText = format(destino);
             if (document.getElementById('descCammino')) document.getElementById('descCammino').innerHTML = compilaSchedaSicura(destino);
             
