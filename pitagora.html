@@ -204,6 +204,86 @@
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+/* Layout flessibile per la riga superiore della card (Titolo + Numero) */
+.card-header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+/* Gestione dell'età / sottotitolo sotto l'intestazione */
+.card-sottotitolo {
+    font-weight: bold;
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-bottom: 6px;
+}
+
+/* Allinea e ridimensiona il titolo h3 della card */
+.card-header-flex h3 {
+    margin: 0;
+    font-size: 11.5px;
+    white-space: nowrap;
+    flex: 1;
+}
+
+/* Ridimensiona il numero in alto a destra */
+.card-header-flex .numero-evidenziato {
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* --- STILI PER LE CARTE E ANTEPRIME GENERATE DA JS --- */
+.anteprima-card {
+    text-align: center;
+    cursor: pointer;
+}
+
+.img-carta {
+    width: 75px; /* Dimensione carte nelle schede principali */
+    height: auto;
+    margin: 10px auto;
+    display: block;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Uniforma tutti i titoli degli archetipi (panna, senza corsivo) */
+.anteprima-card .titolo-archetipo,
+.anteprima-card .titolo-archetipo *,
+.anteprima-card h4,
+.anteprima-card i,
+.archetipo-nome {
+    color: #ebd197 !important;
+    font-style: normal !important;
+    font-weight: 600;
+    margin: 8px 0 4px 0;
+    font-size: 15px;
+    display: block;
+}
+
+.anteprima-card .testo-clicca {
+    font-size: 0.85em;
+    opacity: 0.8;
+    margin-top: 4px;
+    color: #a69f95;
+}
+
+/* Limita la dimensione di qualsiasi carta/immagine all'interno dei popup/modali */
+#modaleApprofondimento img,
+.testo-segreto img,
+.modal-ciclo-esteso img {
+    max-width: 130px !important;
+    height: auto !important;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
         /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
         @media (max-width: 768px) {
@@ -376,26 +456,26 @@
         <div id="risultati" class="risultati">
             
             <div id="bloccoAnagrafica" style="display:none;">
-                <div class="sezione-titolo">I Numeri Fondamentali (Dall'Anagrafica)</div>
+                <div class="sezione-titolo" style="color: #8e7355; border-bottom-color: #d4e6f1; text-align: center; margin-top: 40px;">I Numeri Fondamentali (Dall'Anagrafica)</div>
                 <div class="grid-cards">
-                    <div class="card" style="border-left-color: #8e7355; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Anima (Chi sei dentro)</h3>
-                            <div id="numAnima" class="numero-evidenziato" style="color: #8e7355; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #8e7355;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Anima (Chi sei dentro)</h3>
+                            <div id="numAnima" class="numero-evidenziato" style="color: #8e7355;"></div>
                         </div>
                         <div id="descAnima"></div>
                     </div>
-                    <div class="card" style="border-left-color: #8e7355; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Persona (Come appari)</h3>
-                            <div id="numPersona" class="numero-evidenziato" style="color: #8e7355; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #8e7355;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Persona (Come appari)</h3>
+                            <div id="numPersona" class="numero-evidenziato" style="color: #8e7355;"></div>
                         </div>
                         <div id="descPersona"></div>
                     </div>
-                    <div class="card" style="grid-column: span 2; border-left-color: #8e7355; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Io (Il Talento Nativo)</h3>
-                            <div id="numEspressione" class="numero-evidenziato" style="color: #8e7355; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #8e7355;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Io (Il Talento Nativo)</h3>
+                            <div id="numEspressione" class="numero-evidenziato" style="color: #8e7355;"></div>
                         </div>
                         <div id="descEspressione"></div>
                     </div>
@@ -403,157 +483,146 @@
             </div>
 
             <div id="bloccoData" style="display:none;">
-                <div class="sezione-titolo" style="color: #e67e22;">Destino e Carattere (Dalla Data)</div>
+                <div class="sezione-titolo" style="color: #e67e22; border-bottom-color: #d4e6f1; text-align: center; margin-top: 40px;">Destino e Carattere (Dalla Data)</div>
                 <div class="grid-cards">
-                    <div class="card" style="border-left-color: #e67e22; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Giorno di Nascita</h3>
-                            <div id="numGiornoIsolato" class="numero-evidenziato" style="color: #e67e22; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #e67e22;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Giorno di Nascita</h3>
+                            <div id="numGiornoIsolato" class="numero-evidenziato" style="color: #e67e22;"></div>
                         </div>
                         <div id="descGiornoIsolato"></div>
                     </div>
-                    <div class="card" style="border-left-color: #e67e22; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Destino</h3>
-                            <div id="numCammino" class="numero-evidenziato" style="color: #e67e22; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #e67e22;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Destino</h3>
+                            <div id="numCammino" class="numero-evidenziato" style="color: #e67e22;"></div>
                         </div>
                         <div id="descCammino"></div>
                     </div>
-                    <div class="card" style="border-left-color: #e67e22; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Anno Personale</h3>
-                            <div id="numAnnoPers" class="numero-evidenziato" style="color: #e67e22; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #e67e22;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Anno Personale</h3>
+                            <div id="numAnnoPers" class="numero-evidenziato" style="color: #e67e22;"></div>
                         </div>
                         <div id="descAnnoPers"></div>
                     </div>
-                    <div class="card" style="border-left-color: #e67e22; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Giorno Personale</h3>
-                            <div id="numGiornoPers" class="numero-evidenziato" style="color: #e67e22; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #e67e22;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Giorno Personale</h3>
+                            <div id="numGiornoPers" class="numero-evidenziato" style="color: #e67e22;"></div>
                         </div>
                         <div id="descGiornoPers"></div>
                     </div>
                 </div>
 
-               <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb;">I 3 Grandi Cicli Evolutivi (Il Clima di Vita)</div>
-<div class="grid-cards" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
-    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <h3 style="font-size:13px;">Ciclo Formativo<br>(Mese)</h3>
-        <div id="numCicloForm" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+               <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb; text-align: center; margin-top: 40px;">I 3 Grandi Cicli Evolutivi (Il Clima di Vita)</div>
+<div class="grid-cards">
+    <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this)">
+    <div class="card-header-flex">
+        <h3>Ciclo Formativo<br>(Mese)</h3>
+        <div id="numCicloForm" class="numero-evidenziato" style="color: #16a085;"></div>
+    </div>
+	<div id="etaCicloForm" class="card-sottotitolo"></div>
         <div id="descCicloForm"></div>
     </div>
-    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <h3 style="font-size:13px;">Ciclo Produttivo<br>(Giorno)</h3>
-        <div id="numCicloProd" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+   
+ <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this)">
+    <div class="card-header-flex">
+        <h3>Ciclo Produttivo<br>(Giorno)</h3>
+        <div id="numCicloProd" class="numero-evidenziato" style="color: #16a085;"></div>
+    </div>
+	<div id="etaCicloProd" class="card-sottotitolo"></div>
         <div id="descCicloProd"></div>
     </div>
-    <div class="card" style="border-left-color: #16a085; padding: 12px; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <h3 style="font-size:13px;">Ciclo Conclusivo<br>(Anno)</h3>
-        <div id="numCicloConc" class="numero-evidenziato" style="color: #16a085; font-size:20px;"></div>
+   
+ <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this)">
+    <div class="card-header-flex">
+        <h3>Ciclo Conclusivo<br>(Anno)</h3>
+        <div id="numCicloConc" class="numero-evidenziato" style="color: #16a085;"></div>
+    </div>
+	<div id="etaCicloConc" class="card-sottotitolo"></div>
         <div id="descCicloConc"></div>
     </div>
 </div>
                 <div id="infoEtaGrandiCicli" style="font-size: 13px; font-style: italic; color: #7f8c8d; margin-top: 8px; text-align: center;"></div>
 
-           <div class="sezione-titolo" style="color: #2980b9; border-bottom-color: #d4e6f1;">I 4 Cicli di Realizzazione</div>
+           <div class="sezione-titolo" style="color: #2980b9; border-bottom-color: #d4e6f1; text-align: center; margin-top: 40px;">I 4 Cicli di Realizzazione</div>
 <div class="grid-cards">
-    <div class="card" style="border-left-color: #2980b9; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px; width: 100%;">
-            <h3 style="margin: 0; font-size: 13px; flex: 1; line-height: 1.2;">1° Picco: Ciclo Formativo</h3>
-            <div id="numCiclo1" class="numero-evidenziato" style="color: #2980b9; font-size: 20px; font-weight: bold; margin: 0; line-height: 1; flex-shrink: 0;"></div>
-        </div>
-        <div id="etaCiclo1" style="font-weight: bold; font-size: 12px; color: #7f8c8d; margin-bottom: 6px;"></div>
-        <div id="descCiclo1"></div>
+   <div class="card" style="border-left-color: #2980b9;" onclick="apriApprofondimento(this)">
+    <div class="card-header-flex">
+        <h3>1° - Ciclo Formativo</h3>
+        <div id="numCiclo1" class="numero-evidenziato" style="color: #2980b9;"></div>
     </div>
-    <div class="card" style="border-left-color: #2980b9; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px; width: 100%;">
-            <h3 style="margin: 0; font-size: 13px; flex: 1; line-height: 1.2;">2° Picco: Ciclo della Crescita</h3>
-            <div id="numCiclo2" class="numero-evidenziato" style="color: #2980b9; font-size: 20px; font-weight: bold; margin: 0; line-height: 1; flex-shrink: 0;"></div>
+    <div id="etaCiclo1" class="card-sottotitolo"></div>
+    <div id="descCiclo1"></div>
+</div>
+    
+    <div class="card" style="border-left-color: #2980b9;" onclick="apriApprofondimento(this)">
+        <div class="card-header-flex">
+            <h3>2° - Ciclo della Crescita</h3>
+            <div id="numCiclo2" class="numero-evidenziato" style="color: #2980b9;"></div>
         </div>
-        <div id="etaCiclo2" style="font-weight: bold; font-size: 12px; color: #7f8c8d; margin-bottom: 6px;"></div>
+        <div id="etaCiclo2" class="card-sottotitolo"></div>
         <div id="descCiclo2"></div>
     </div>
-    <div class="card" style="border-left-color: #2980b9; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px; width: 100%;">
-            <h3 style="margin: 0; font-size: 13px; flex: 1; line-height: 1.2;">3° Picco: Ciclo della Produttività</h3>
-            <div id="numCiclo3" class="numero-evidenziato" style="color: #2980b9; font-size: 20px; font-weight: bold; margin: 0; line-height: 1; flex-shrink: 0;"></div>
+    
+    <div class="card" style="border-left-color: #2980b9;" onclick="apriApprofondimento(this)">
+        <div class="card-header-flex">
+            <h3>3° - Ciclo della Produttività</h3>
+            <div id="numCiclo3" class="numero-evidenziato" style="color: #2980b9;"></div>
         </div>
-        <div id="etaCiclo3" style="font-weight: bold; font-size: 12px; color: #7f8c8d; margin-bottom: 6px;"></div>
+        <div id="etaCiclo3" class="card-sottotitolo"></div>
         <div id="descCiclo3"></div>
     </div>
-    <div class="card" style="border-left-color: #2980b9; cursor: pointer;" onclick="apriApprofondimento(this)">
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px; width: 100%;">
-            <h3 style="margin: 0; font-size: 13px; flex: 1; line-height: 1.2;">4° Picco: Ciclo della Raccolta</h3>
-            <div id="numCiclo4" class="numero-evidenziato" style="color: #2980b9; font-size: 20px; font-weight: bold; margin: 0; line-height: 1; flex-shrink: 0;"></div>
+    
+    <div class="card" style="border-left-color: #2980b9;" onclick="apriApprofondimento(this)">
+        <div class="card-header-flex">
+            <h3>4° - Ciclo della Raccolta</h3>
+            <div id="numCiclo4" class="numero-evidenziato" style="color: #2980b9;"></div>
         </div>
-        <div id="etaCiclo4" style="font-weight: bold; font-size: 12px; color: #7f8c8d; margin-bottom: 6px;"></div>
+        <div id="etaCiclo4" class="card-sottotitolo"></div>
         <div id="descCiclo4"></div>
     </div>
 </div>
 
-                <div class="sezione-titolo">Le Ombre (Sfide Evolutive)</div>
+                <div class="sezione-titolo" style="color: #c0392b; border-bottom-color: #d4e6f1; text-align: center; margin-top: 40px;">Le Ombre (Sfide Evolutive)</div>
                 <div class="grid-cards">
-                    <div class="card" style="border-left-color: #c0392b; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Ombra Giovinezza</h3>
-                            <div id="numOmbraGiov" class="numero-evidenziato" style="color: #c0392b; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #c0392b;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Ombra Giovinezza</h3>
+                            <div id="numOmbraGiov" class="numero-evidenziato" style="color: #c0392b;"></div>
                         </div>
                         <div id="descOmbraGiov"></div>
                     </div>
-                    <div class="card" style="border-left-color: #c0392b; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Ombra Maturità</h3>
-                            <div id="numOmbraMat" class="numero-evidenziato" style="color: #c0392b; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #c0392b;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Ombra Maturità</h3>
+                            <div id="numOmbraMat" class="numero-evidenziato" style="color: #c0392b;"></div>
                         </div>
                         <div id="descOmbraMat"></div>
                     </div>
-                    <div class="card" style="grid-column: span 2; border-left-color: #c0392b; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Ombra Principale</h3>
-                            <div id="numOmbraPrinc" class="numero-evidenziato" style="color: #c0392b; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
+                    <div class="card" style="border-left-color: #c0392b;" onclick="apriApprofondimento(this)">
+                        <div class="card-header-flex">
+                            <h3>Ombra Principale</h3>
+                            <div id="numOmbraPrinc" class="numero-evidenziato" style="color: #c0392b;"></div>
                         </div>
                         <div id="descOmbraPrinc"></div>
                     </div>
                 </div>
             </div>
 
-            <div id="sezioneQuintessenza" style="display:none;">
-                <div class="sezione-titolo" style="color: #8e44ad; border-bottom-color: #e8daef; text-align: center; margin-top: 40px;">IL PUNTO D'ARRIVO</div>
-                <div class="grid-cards" style="grid-template-columns: 1fr;">
-                    <div class="card" style="border-left-color: #8e44ad; text-align: center; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <h3 style="color: #8e44ad;">La Quintessenza (L'Armonia Finale)</h3>
-                        <div id="numQuintessenza" class="numero-evidenziato" style="color: #8e44ad; font-size: 32px; margin: 10px 0; font-weight: bold;"></div>
-                        <div id="descQuintessenza" style="text-align: left; max-width: 600px; margin: 0 auto;"></div>
-                    </div>
-                </div>
+           <div id="sezioneQuintessenza" style="display:none;">
+    <div class="sezione-titolo" style="color: #8e44ad; border-bottom-color: #e8daef; text-align: center; margin-top: 40px;">Il Punto d'Arrivo</div>
+    <div class="grid-cards">
+        <div class="card" style="border-left-color: #8e44ad;" onclick="apriApprofondimento(this)">
+            <div class="card-header-flex">
+                <h3>Quintessenza (Armonia Finale)</h3>
+                <div id="numQuintessenza" class="numero-evidenziato" style="color: #8e44ad;"></div>
             </div>
-
-            <div id="sezioneSoprannome" style="display:none; margin-top: 40px;">
-                <div class="sezione-titolo" style="color: #d35400; border-bottom-color: #f3ebe1;">L'Energia Acquisita (Solo Soprannome)</div>
-                <div class="grid-cards">
-                    <div class="card" style="border-left-color: #d35400; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Anima del Soprannome</h3>
-                            <div id="numAnimaSop" class="numero-evidenziato" style="color: #d35400; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
-                        </div>
-                        <div id="descAnimaSop"></div>
-                    </div>
-                    <div class="card" style="border-left-color: #d35400; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Persona del Soprannome</h3>
-                            <div id="numPersonaSop" class="numero-evidenziato" style="color: #d35400; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
-                        </div>
-                        <div id="descPersonaSop"></div>
-                    </div>
-                    <div class="card" style="grid-column: span 2; border-left-color: #e67e22; cursor: pointer;" onclick="apriApprofondimento(this)">
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; width: 100%;">
-                            <h3 style="margin: 0; font-size: 13px; white-space: nowrap;">Espressione del Soprannome</h3>
-                            <div id="numEspressioneSop" class="numero-evidenziato" style="color: #e67e22; font-size: 20px; font-weight: bold; margin: 0; line-height: 1;"></div>
-                        </div>
-                        <div id="descEspressioneSop"></div>
-                    </div>
-                </div>
-            </div>
+            <div id="descQuintessenza"></div>
+        </div>
+    </div>
+</div>
 
         </div>
     </div>
@@ -1072,6 +1141,36 @@ const databaseOmbreMazzo = {
     consiglio: "Smetti di essere come gli altri ti vogliono: non puoi piacere a tutti e va bene così. Ritagliati momenti di silenzio per entrare in contatto con il tuo centro, impara a dire chiaramente cosa provi e canalizza la tua creatività portando a termine un progetto alla volta.",
 
     mantra_trasformazione: "Tolgo la maschera ed esprimo la mia vera essenza. Sono degno di amore e rispetto semplicemente per quello che sono."
+},
+4: {
+    nome: "Il Prigioniero (L'Ombra del Costruttore)",
+
+    sfida_principale: "Superare l'ansia di base, il senso d'insicurezza e la paura dell'ignoto legati alle radici e alla famiglia d'origine. La ferita del Prigioniero nasce da un'infanzia vissuta in un clima di instabilità o, al contrario, da un'educazione troppo rigida che ha compromesso l'equilibrio psicosomatico e l'istinto di sopravvivenza, spingendo a cercare freneticamente certezze esterne.",
+
+    manifestazione_inconscia: "Costruzione di barriere mentali, rigidità e iper-controllo per proteggersi dal timore della disintegrazione. Oscilla tra un'adesione incondizionata alle regole (Super-Io dominante) e la ribellione totale. Può manifestare stakanovismo esasperato, stress cronico, paura della mancanza economica anche in condizioni agiate, e una resistenza ostinata al cambiamento che lo confina in routine o contesti alienanti, fino a possibili improvvise eruzioni emotive.",
+
+    risorsa_nascosta: "Straordinaria forza di volontà, determinazione, senso pratico, disciplina, capacità organizzativa e attitudine a costruire fondamenta solide ed equilibrate, fruibili appieno quando abbandona il bisogno ossessivo di controllo.",
+
+    strategia_integrazione: "Sostituire il dovere con la scelta libera, lasciar andare il bisogno di controllo e fidarsi dell'esistenza. Trasformare gli schemi mentali ripetitivi, svincolarsi dai condizionamenti del passato, far fluire le risorse (anche economiche) e aprirsi all'imprevisto con spirito di avventura.",
+
+    fasi_risoluzione: [
+        {
+            fase: "1. Resistenza e Controllo",
+            descrizione: "Sperimenta un'ansia profonda legata alla sopravvivenza. Si rifugia in routine rigide, iper-lavoro e barriere difensive, rimanendo prigioniero di schemi mentali ed abitudini che limitano la sua libertà."
+        },
+        {
+            fase: "2. Presa di Coscienza",
+            descrizione: "Riconosce che i muri difensivi e la paura del futuro dipendono da ferite dell'infanzia e non da minacce reali. Prende atto dei propri automatismi e comprende di essere l'unico creatore dei propri limiti."
+        },
+        {
+            fase: "3. Integrazione del Costruttore",
+            descrizione: "Sostituisce il 'devo' con il 'posso', abbandona la rigidità e impara a fidarsi della vita. Canalizza la disciplina e la determinazione per edificare una stabilità reale, flessibile e libera."
+        }
+    ],
+
+    consiglio: "Smetti di essere schiavo del 'devo': concediti la libertà di scegliere e di fidarti della vita. Alleggerisci il tuo spazio e la tua mente lasciando andare il passato, e impara a far fluire l'energia senza la paura di perdere il controllo.",
+
+    mantra_trasformazione: "Lascio andare il bisogno di controllo e mi fido della vita. Sono libero di creare la mia realtà su fondamenta di gioia e sicurezza interiore."
 },
 5: {
     nome: "Il Girovago (L'Ombra del Cercatore)",
@@ -1770,25 +1869,38 @@ function apriApprofondimento(elementoCard) {
     if (bloccoGenitore) {
         const h3 = bloccoGenitore.querySelector('h3');
         if (h3) {
-            titoloSezione = h3.innerText;
+            const cloneH3 = h3.cloneNode(true);
+            const numInside = cloneH3.querySelector('.numero-evidenziato, div');
+            if (numInside) numInside.remove();
+            titoloSezione = cloneH3.innerText.trim();
         } else {
             const label = bloccoGenitore.querySelector('strong, .label');
-            if (label) titoloSezione = label.innerText;
+            if (label) titoloSezione = label.innerText.trim();
         }
     }
 
     let numeroEvidenziato = "";
     if (bloccoGenitore) {
         const numEl = bloccoGenitore.querySelector('.numero-evidenziato, [id^="num"]');
-        if (numEl) {
-            numeroEvidenziato = ` (${numEl.innerText})`;
+        if (numEl && numEl.innerText.trim() !== "") {
+            // Qui prendiamo il testo pulito SENZA parentesi
+            numeroEvidenziato = numEl.innerText.trim();
         }
     }
 
+    const titoloModaleEl = document.getElementById('modaleTitolo');
+    
+    // Gestione specifica per la Quintessenza e per tutte le altre sezioni
+    if (titoloSezione.toLowerCase().includes("quintessenza")) {
+        titoloModaleEl.innerHTML = `Quintessenza ${numeroEvidenziato}<br><span style="font-size: 14px; font-weight: normal; opacity: 0.85;">(Armonia Finale)</span>`;
+    } else {
+        let stringaNum = numeroEvidenziato ? ` ${numeroEvidenziato}` : "";
+        titoloModaleEl.innerText = `${titoloSezione}${stringaNum}`;
+    }
+
+    document.getElementById('modaleSottotitolo').innerHTML = "";
     const testoSegretoEl = elementoCard.querySelector('.testo-segreto');
     if (testoSegretoEl) {
-        document.getElementById('modaleTitolo').innerText = `${titoloSezione}${numeroEvidenziato}`;
-        document.getElementById('modaleSottotitolo').innerHTML = "";
         document.getElementById('modaleContenuto').innerHTML = testoSegretoEl.innerHTML;
         document.getElementById('modaleApprofondimento').style.display = 'flex';
     }

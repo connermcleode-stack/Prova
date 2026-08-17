@@ -265,14 +265,14 @@ if (document.getElementById('descGiornoIsolato') && sorgenteTesti && sorgenteTes
         numeroCarta = somma;
     }
 
-    // Percorso blindato: cartella "carte/", nome numerico, formato ".png"
-    document.getElementById('descGiornoIsolato').innerHTML = `
-        <div class="anteprima-card" style="text-align: center; cursor: pointer;" onclick="apriModalGiorno(${g})">
-            <img src="carte/${numeroCarta}.png" alt="${archetipoG}" class="img-carta" style="width: 90px; max-width: 100px; height: auto; margin: 10px auto; display: block; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);" onerror="this.style.display='none';">
-            <h4 style="margin: 8px 0 4px 0;">Archetipo: ${archetipoG} (Giorno ${g})</h4>
-            <p style="font-size: 0.85em; opacity: 0.8; margin-top: 4px;">➔ Clicca qui per leggere l'analisi completa</p>
-        </div>
-    `;
+// Percorso blindato: cartella "carte/", nome numerico, formato ".png"
+document.getElementById('descGiornoIsolato').innerHTML = `
+    <div class="anteprima-card" onclick="apriModalGiorno(${g})">
+        <img src="carte/${numeroCarta}.png" alt="${archetipoG}" class="img-carta" onerror="this.style.display='none';">
+        <h4 class="titolo-archetipo">Archetipo: ${archetipoG}</h4>
+        <p class="testo-clicca">➔ Clicca qui per leggere l'analisi completa</p>
+    </div>
+`;
 }
 
 function apriModalGiorno(giorno) {
@@ -352,9 +352,9 @@ window.apriModalGiorno = apriModalGiorno;
             const fineC1 = 36 - riduciMonocifraStretta(destino);
             const fineC2 = fineC1 + 9;
             const fineC3 = fineC2 + 9;
-            if (document.getElementById('infoEtaGrandiCicli')) {
-                document.getElementById('infoEtaGrandiCicli').innerText = `Fasce: Formativo (0 a ${fineC1} anni) | Produttivo (${fineC1 + 1} a ${fineC2} anni) | Conclusivo (da ${fineC2 + 1} anni)`;
-            }
+            if (document.getElementById('etaCicloForm')) document.getElementById('etaCicloForm').innerText = `Da 0 a ${fineC1} anni`;
+	    if (document.getElementById('etaCicloProd')) document.getElementById('etaCicloProd').innerText = `Da ${fineC1 + 1} a ${fineC2} anni`;
+	    if (document.getElementById('etaCicloConc')) document.getElementById('etaCicloConc').innerText = `Da ${fineC2 + 1} anni in poi`;
 
             if (document.getElementById('numCicloForm')) document.getElementById('numCicloForm').innerText = format(cForm);
             if (document.getElementById('descCicloForm')) document.getElementById('descCicloForm').innerHTML = compilaSchedaSicura(cForm);
@@ -566,18 +566,14 @@ ombreSetup.forEach(ombra => {
 
     if (document.getElementById(ombra.idDesc)) {
         document.getElementById(ombra.idDesc).innerHTML = `
-            <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 75px; display: block; margin: 8px auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-            
-            <div class="info-responso" style="text-align: center; margin-top: 12px; font-weight: bold; color: #ffffff; font-size: 15px; font-style: normal; line-height: 1.3;">
-                Archetipo: ${etichettaCompleta}
-            </div>
-            
-            <div style="text-align: center; font-size: 12px; color: #a0aec0; margin-top: 6px;">
-                ➔ Clicca qui per leggere l'analisi completa
+            <div class="anteprima-card">
+                <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" class="img-carta">
+                <h4 class="titolo-archetipo">Archetipo: ${etichettaCompleta}</h4>
+                <p class="testo-clicca">➔ Clicca qui per leggere l'analisi completa</p>
             </div>
 
             <div class="testo-segreto" style="display: none;">
-                <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" style="width: 140px; display: block; margin: 10px auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+                <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" class="img-carta-modale">
                 ${typeof compilaSchedaOmbra === 'function' ? compilaSchedaOmbra(ombra.valore) : 'Sfida evolutiva.'}
             </div>
         `;
