@@ -239,8 +239,13 @@
 
 /* --- STILI PER LE CARTE E ANTEPRIME GENERATE DA JS --- */
 .anteprima-card {
-    text-align: center;
+    text-align: center !important;
     cursor: pointer;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
 }
 
 .img-carta {
@@ -252,25 +257,38 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* Uniforma tutti i titoli degli archetipi (panna, senza corsivo) */
+/* Uniforma tutti i titoli degli archetipi (panna, centrati, senza corsivo) */
 .anteprima-card .titolo-archetipo,
-.anteprima-card .titolo-archetipo *,
 .anteprima-card h4,
-.anteprima-card i,
 .archetipo-nome {
     color: #ebd197 !important;
     font-style: normal !important;
     font-weight: 600;
-    margin: 8px 0 4px 0;
-    font-size: 15px;
-    display: block;
+    margin: 8px 0 4px 0 !important;
+    font-size: 15px !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: block !important;
 }
 
-.anteprima-card .testo-clicca {
-    font-size: 0.85em;
-    opacity: 0.8;
-    margin-top: 4px;
-    color: #a69f95;
+/* Gestione e centratura del sottotitolo tra parentesi */
+.anteprima-card .sottotitolo-archetipo {
+    display: block !important;
+    text-align: center !important;
+    color: #ebd197 !important;
+    font-weight: normal !important;
+    font-size: 0.9em !important;
+    margin-top: 3px !important;
+}
+
+.anteprima-card .testo-clicca,
+p.testo-clicca {
+    font-size: 12px !important;
+    opacity: 0.6 !important;
+    margin-top: 4px !important;
+    color: #a69f95 !important;
+    text-align: center !important;
+    display: block !important;
 }
 
 /* Limita la dimensione di qualsiasi carta/immagine all'interno dei popup/modali */
@@ -293,6 +311,15 @@
 .card i {
     color: #ebd197 !important;
     font-style: normal !important;
+}
+
+/* Forzatura centratura per le sezioni con span.info-responso (Anima, Persona, Destino, ecc.) */
+.card .info-responso,
+span.info-responso {
+    text-align: center !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 8px auto 4px auto !important;
 }
 
         /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
@@ -1530,7 +1557,7 @@ function compilaScheda(numero, compatta = false) {
             `;
         } else {
             // Fallback per vecchie stringhe semplici
-            titolo += ` <span style="color:#d35400; font-size:12px; display:block; margin-top:2px;">(Prova Karmica ${numeroPulito})</span>`;
+            titolo += ` <span style="color: #ff4d4d !important; font-size: 12px; display: block; margin-top: 2px;">(Prova Karmica ${numeroPulito})</span>`;
             schedaKarmicaHTML = `
                 <div style="background-color: #342816; border-left: 4px solid #d35400; padding: 12px; border-radius: 6px; margin-bottom: 15px; text-align: left;">
                     <strong style="color: #e67e22; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">⚠️ SFIDA DEL KARMA ${numeroPulito}</strong>
@@ -1561,6 +1588,9 @@ function compilaScheda(numero, compatta = false) {
     }
 
     // VERSIONE ESTESA STANDARD
+    // Formatta il titolo inserendo un <br> prima della parentesi aperta
+    let titoloFormattato = titolo ? titolo.replace(/\s*\(/, '<br>(') : '';
+
     return `
         <div class="ns-level-container card-cliccabile" onclick="apriApprofondimento(this)">
             <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
@@ -1568,7 +1598,7 @@ function compilaScheda(numero, compatta = false) {
             </div>
 
             <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                Archetipo: ${titolo}
+                Archetipo: ${titoloFormattato}
             </span>
             <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
 
@@ -1581,6 +1611,55 @@ function compilaScheda(numero, compatta = false) {
         </div>
     `;
 }
+
+// ============================================================
+// FUNZIONE ANTEPRIMA SCHEDE (Unificata e Sicura)
+// ============================================================
+function compilaSchedaSicura(valore) {
+    if (!valore && valore !== 0) return '';
+
+    let valStr = String(valore).trim();
+    let numOriginale = valStr.includes('/') ? valStr.split('/')[0].trim() : valStr;
+
+    // 1. Cerca nei database dei testi
+    let d = (window.databaseArchetipi && (window.databaseArchetipi[numOriginale] || window.databaseArchetipi[valore])) ||
+            (window.TESTI_PITAGORA && window.TESTI_PITAGORA[numOriginale]) || null;
+
+    let nomeGrezzo = d ? (d.nome || '') : `${valStr}`;
+    let titolo = d ? (d.titolo || d.sottotitolo || '') : '';
+
+    // 2. Elimina prefissi "Archetipo:" doppi
+    nomeGrezzo = nomeGrezzo.replace(/^Archetipo:\s*/i, '').replace(/^Archetipo\s*/i, '').trim();
+
+    // 3. Estrae sempre il sottotitolo tra parentesi se presente nel nome
+    if (nomeGrezzo.includes('(')) {
+        let parti = nomeGrezzo.split('(');
+        nomeGrezzo = parti[0].trim();
+        if (!titolo) {
+            titolo = parti[1].replace(')', '').trim();
+        }
+    }
+
+    if (!isNaN(nomeGrezzo)) nomeGrezzo = `Numero ${nomeGrezzo}`;
+
+    // 4. Se la funzione originale nel tuo file restituisce ancora <span class="info-responso">, 
+    // garantiamo che ci sia sempre un <br> prima della parentesi:
+    let testoConBr = titolo ? `<br><span class="sottotitolo-archetipo" style="display: block !important; text-align: center !important; font-weight: normal !important; font-size: 0.9em !important; margin-top: 3px !important; color: #ebd197 !important;">(${titolo})</span>` : '';
+
+    return `
+        <div class="anteprima-card" style="text-align: center !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; width: 100% !important;">
+            <img src="carte/${numOriginale}.png" alt="${nomeGrezzo}" class="img-carta" onerror="this.style.display='none';" style="margin: 10px auto !important; display: block !important;">
+            <h4 class="titolo-archetipo" style="text-align: center !important; margin: 8px 0 4px 0 !important; color: #ebd197 !important; font-style: normal !important; font-weight: 600 !important; font-size: 15px !important; width: 100% !important; display: block !important;">
+                Archetipo: ${nomeGrezzo}
+                ${testoConBr}
+            </h4>
+            <span style="font-size: 12px !important; opacity: 0.6 !important; margin-top: 4px !important; display: block !important; text-align: center !important;">➔ Clicca qui per leggere l'analisi completa</span>
+        </div>
+    `;
+}
+
+// Forza l'assegnazione globale per evitare che altre versioni la sovrascrivano
+window.compilaSchedaSicura = compilaSchedaSicura;
 
 function compilaSchedaOmbra(valoreOmbra) {
     // 1. Convertiamo valoreOmbra in numero puro

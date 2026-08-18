@@ -162,6 +162,7 @@ function eseguiCalcoloCompleto() {
     if (dataNascita) testoCopiaGlobale += `Data di Nascita: ${dataNascita}\n`;
     testoCopiaGlobale += `----------------------------------------------\n\n`;
 
+
     // 2. Calcoli sul Nome e Cognome (Dati Anagrafici)
     let datiTesto = { anima: "", persona: "", espressione: "" };
     if (nome || cognome) {
@@ -313,7 +314,7 @@ function apriModalGiorno(giorno) {
             </div>
 
             <div style="background: rgba(212, 175, 55, 0.06); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: left;">
-                <h4 style="color: #d4af37; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">🏛️ SOTTOTITOLO</h4>
+                <h4 style="color: #d4af37; margin-top: 0; margin-bottom: 8px; font-size: 0.95em;">🏛️ DOTI</h4>
                 <p style="margin: 0; font-style: italic; opacity: 0.9; font-size: 0.95em; line-height: 1.4;">${t.sottotitolo}</p>
             </div>
 
@@ -559,6 +560,9 @@ const ombreSetup = [
 ombreSetup.forEach(ombra => {
     const imgNome = ottieniNomeImmagineOmbra(ombra.valore);
     const etichettaCompleta = estraiEtichettaOmbra(ombra.valore);
+    
+    // Inserisce il <br> prima della parentesi aperta
+    const etichettaFormattata = etichettaCompleta ? etichettaCompleta.replace(/\s*\(/, '<br>(') : '';
 
     if (document.getElementById(ombra.idNum)) {
         document.getElementById(ombra.idNum).innerText = ombra.valore;
@@ -568,7 +572,7 @@ ombreSetup.forEach(ombra => {
         document.getElementById(ombra.idDesc).innerHTML = `
             <div class="anteprima-card">
                 <img src="carte/${imgNome}.png" alt="Ombra ${ombra.valore}" class="img-carta">
-                <h4 class="titolo-archetipo">Archetipo: ${etichettaCompleta}</h4>
+                <h4 class="titolo-archetipo">Archetipo: ${etichettaFormattata}</h4>
                 <p class="testo-clicca">➔ Clicca qui per leggere l'analisi completa</p>
             </div>
 
