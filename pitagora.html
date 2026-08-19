@@ -192,7 +192,7 @@
             gap: 15px; 
         }
         
-        .card { background: #0f192b; border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 10px; border-left: 4px solid #8e7355; }
+        .card { background: #0f192b; border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 10px; border-left: 4px solid #8e7355; text-align: center !important; }
         .card h3 { margin: 0 0 8px 0; font-size: 14px; color: #c4beb3; text-transform: uppercase; letter-spacing: 0.5px; }
         .numero-evidenziato { font-size: 22px; font-weight: bold; color: #d4af37; margin-bottom: 5px; }
         .archetipo-nome { font-weight: bold; color: #e8e3d9; font-size: 15px; display: block; margin-bottom: 5px; }
@@ -204,37 +204,46 @@
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+
 /* Layout flessibile per la riga superiore della card (Titolo + Numero) */
 .card-header-flex {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 4px;
+    justify-content: center;
+    flex-wrap: wrap; /* Permette il passaggio a capo se il titolo è lungo */
+    gap: 6px;
     margin-bottom: 2px;
     width: 100%;
 }
 
-/* Gestione dell'età / sottotitolo sotto l'intestazione */
-.card-sottotitolo {
-    font-weight: bold;
-    font-size: 11px;
-    color: #7f8c8d;
-    margin-bottom: 6px;
-}
-
-/* Allinea e ridimensiona il titolo h3 della card */
+/* Titolo della card: testo adattabile al contenitore */
 .card-header-flex h3 {
     margin: 0;
-    font-size: 11.5px;
-    white-space: nowrap;
-    flex: 1;
+    font-size: 11.5px !important;
+    white-space: normal !important; /* Permette al testo di andare a capo se non entra */
+    text-align: center !important;
+    flex: 0 1 auto;
+    word-break: break-word;
 }
 
-/* Ridimensiona il numero in alto a destra */
+/* Numero evidenziato affiancato al titolo */
 .card-header-flex .numero-evidenziato {
     font-size: 14px;
     line-height: 1;
     flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+/* Sottotitolo età: sempre centrato sotto l'intestazione */
+.card-sottotitolo {
+    display: block !important;
+    width: 100% !important;
+    font-weight: 500;
+    font-size: 11px !important;
+    color: #a69f95 !important;
+    margin-top: 2px !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
 }
 
 /* --- STILI PER LE CARTE E ANTEPRIME GENERATE DA JS --- */
@@ -1406,14 +1415,18 @@ function compilaScheda(numero, compatta = false) {
     let numeroPulito = numero.toString().includes('/') ? parseInt(numero.toString().split('/')[0], 10) : parseInt(numero, 10);
     let base = riduciMonocifraStretta(numeroPulito);
 
-    let chiaveFinestra = [11, 22, 33, 44].includes(numeroPulito) ? numeroPulito : base;
+    // FIX: Cerca prima il numero specifico (es. 19/13), poi i Maestri, poi la base monocifra
+    let chiaveFinestra = databaseArchetipi[numeroPulito] 
+        ? numeroPulito 
+        : ([11, 22, 33, 44].includes(numeroPulito) ? numeroPulito : base);
+
     let datiArchetipo = databaseArchetipi[chiaveFinestra];
 
     if (!datiArchetipo) return "<i style='color: #888;'>Scheda non disponibile.</i>";
 
     const imgCarta = `./carte/${numeroPulito}.png`;
 
-    let titolo = datiArchetipo.nome;
+    let titoloAnteprima = datiArchetipo.nome;
     let significatoTesto = datiArchetipo.significato || 'Descrizione non disponibile.';
     let luceTesto = datiArchetipo.luce || 'Non specificata.';
     let ombraTesto = datiArchetipo.ombra || 'Non specificata.';
@@ -1503,8 +1516,9 @@ function compilaScheda(numero, compatta = false) {
         let k = databaseKarmici[numeroPulito];
 
         if (typeof k === 'object') {
-            let nomeKarmico = k.nome || `Prova Karmica ${numeroPulito}`;
-            titolo += ` <span style="color:#d35400; font-size:12px; display:block; margin-top:2px;">(${nomeKarmico})</span>`;
+    let nomeKarmico = k.nome || `Prova Karmica ${numeroPulito}`;
+    titoloAnteprima = nomeKarmico;
+
 
             schedaKarmicaHTML = `
                 <div style="background: rgba(211, 84, 0, 0.08); border: 1px solid #d35400; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
@@ -1574,7 +1588,7 @@ function compilaScheda(numero, compatta = false) {
     if (compatta) {
         return `
             <div class="card-cliccabile" onclick="apriApprofondimento(this)" style="padding: 5px; cursor: pointer;">
-                <span class="archetipo-nome" style="font-weight: bold; color: var(--accent-gold);">${datiArchetipo.nome.split(' (')[0]}</span>
+                <span class="archetipo-nome" style="font-weight: bold; color: var(--accent-gold);">${titoloAnteprima}</span>
                 <div class="descrizione" style="font-size:12px; line-height:1.3; opacity: 0.8;">${luceTesto.substring(0, 80)}...</div>
                 
                 <div class="testo-segreto" style="display: none;">
@@ -1589,7 +1603,7 @@ function compilaScheda(numero, compatta = false) {
 
     // VERSIONE ESTESA STANDARD
     // Formatta il titolo inserendo un <br> prima della parentesi aperta
-    let titoloFormattato = titolo ? titolo.replace(/\s*\(/, '<br>(') : '';
+    let titoloFormattato = titoloAnteprima ? titoloAnteprima.replace(/\s*\(/, '<br>(') : '';
 
     return `
         <div class="ns-level-container card-cliccabile" onclick="apriApprofondimento(this)">
