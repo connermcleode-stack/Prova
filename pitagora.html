@@ -183,14 +183,16 @@
         button:hover { background: #765f45; }
         .btn-secondary { background: #14223a; color: #c4beb3; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: 15px; }
         .btn-secondary:hover { background: #1c2f4f; color: #f5f2eb; }
-        .risultati { margin-top: 40px; border-top: 1px solid rgba(142, 115, 85, 0.2); padding-top: 25px; display: none; }
-        .sezione-titolo { font-size: 18px; color: #d4af37; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(142, 115, 85, 0.3); padding-bottom: 6px; margin-top: 35px; margin-bottom: 15px; font-weight: 600; }
+        
+        /* RISULTATI E SEZIONE TITOLO (MODIFICATI PER RIDURRE LO SPAZIO) */
+        .risultati { margin-top: 15px; border-top: 1px solid rgba(142, 115, 85, 0.2); padding-top: 15px; display: none; }
+        .sezione-titolo { font-size: 18px; color: #d4af37; font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(142, 115, 85, 0.3); padding-bottom: 6px; margin-top: 15px; margin-bottom: 15px; font-weight: 600; }
         
         .grid-cards { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
-        }
+        } 
         
         .card { background: #0f192b; border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 10px; border-left: 4px solid #8e7355; text-align: center !important; }
         .card h3 { margin: 0 0 8px 0; font-size: 14px; color: #c4beb3; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -454,6 +456,7 @@ span.info-responso {
     font-weight: normal !important;
     font-size: 0.9em !important;
 }
+
 
         /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
         @media (max-width: 768px) {
@@ -1593,19 +1596,21 @@ function compilaScheda(numero, compatta = false) {
                     <div style="color: #fadbd8; font-size: 13px; line-height: 1.4;">${dati.ombra || 'Non specificata.'}</div>
                 </div>
 
-                <!-- 4. 🗝️ CHIAVE EVOLUTIVA -->
-                ${dati.chiave ? `
-                <div style="background-color: #342816; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
-                    <strong style="color: #f1c40f; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🗝️ Chiave Evolutiva</strong>
-                    <div style="color: #fdebd0; font-size: 13px; line-height: 1.4;">${dati.chiave}</div>
-                </div>` : ''}
+               <!-- 4. 🗝️ CHIAVE EVOLUTIVA -->
+${dati.chiave ? `
+<div style="background-color: #342816; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+    <strong style="color: #f1c40f; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">🗝️ Chiave Evolutiva</strong>
+    <div style="color: #fdebd0; font-size: 13px; line-height: 1.4;">${dati.chiave}</div>
+</div>` : ''}
 
-                <!-- 5. 📈 PERCORSO EVOLUTIVO -->
-                ${evoluzionevHTML ? `
-                <div style="background-color: #1a2a3a; border-left: 4px solid #2980b9; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
-                    <strong style="color: #3498db; display: block; margin-bottom: 8px; font-size: 13px; text-transform: uppercase;">📈 Percorso Evolutivo</strong>
-                    ${evoluzionevHTML}
-                </div>` : ''}
+<!-- 5. 📈 PERCORSO EVOLUTIVO -->
+${evoluzionevHTML ? `
+<div style="background-color: #1a2a3a; border-left: 4px solid #2980b9; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left;">
+    <strong style="color: #3498db; display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase;">📈 Percorso Evolutivo</strong>
+    <div style="color: #d6eaf8; font-size: 13px; line-height: 1.4;">
+        ${evoluzionevHTML}
+    </div>
+</div>` : ''}
 
                 <!-- 6. 🌱 CONSIGLIO PRATICO -->
                 ${dati.consiglio ? `
