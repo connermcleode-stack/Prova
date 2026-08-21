@@ -383,6 +383,33 @@
             letter-spacing: 1px;
         }
 
+/* Centra tutti gli elementi interni ai quadranti di compatibilità */
+#risultati-sinastria .ns-level-container,
+#risultati-sinastria .ns-level-container * {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Mantiene il testo centrato ed evita forzature di blocco a sinistra */
+#risultati-sinastria .ns-level-desc,
+#risultati-sinastria div[id*="res-"][id*="-testo"] {
+    text-align: center !important;
+}
+
+/* Correzione per il titolo del responso (span.info-responso) */
+#risultati-sinastria .info-responso,
+#risultati-sinastria div[onclick] span.info-responso {
+    display: block !important;
+    font-size: 0.95rem !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    text-align: center !important;
+    margin-bottom: 8px !important;
+}
+
         /* MEDIA QUERIES RESPONSIVE */
 
         @media (max-width: 600px) {
@@ -420,11 +447,12 @@
             }
         }
 
-        /* RESET ALLINEAMENTO E DIMENSIONI SOLO DENTRO LA SEZIONE DEI RISULTATI */
-        #risultati-sinastria div[onclick], 
-        #risultati-sinastria .ns-level-container div {
-            text-align: left;
-        }
+        /* Ridimensiona la scritta 'Clicca qui per leggere l'analisi completa' */
+#risultati-sinastria div[onclick] span[style*="opacity"] {
+    font-size: 0.75rem !important;
+    opacity: 0.8 !important;
+    letter-spacing: 0.5px;
+}
 
         #risultati-sinastria div[onclick] h1, #risultati-sinastria div[onclick] h2, 
         #risultati-sinastria div[onclick] h3, #risultati-sinastria div[onclick] h4,
@@ -598,7 +626,7 @@
 
             <!-- 1. LIVELLO DELL'IO -->
             <div class="ns-level-container">
-                <div class="ns-level-title">1. Il Livello dell'Io (L'Individualità)</div>
+                <div class="ns-level-title">1. Il Livello dell'Io<br>(L'Individualità)</div>
                 
                 <div class="ns-level-desc" style="margin-top: 10px; margin-bottom: 15px;">
                     Esprime la compatibilità nella vita di tutti i giorni, nel comportamento sociale, nell'azione concreta e nella gestione della personalità esteriore. Determina come le due individualità comunicano sul piano pratico, come gestiscono i propri confini e in che modo affrontano le dinamiche quotidiane o i potenziali conflitti nel mondo materiale.
@@ -621,7 +649,7 @@
 
             <!-- 2. LIVELLO DELL'ANIMA -->
             <div class="ns-level-container">
-                <div class="ns-level-title">2. Il Livello dell'Anima (La Risonanza Intima)</div>
+                <div class="ns-level-title">2. Il Livello dell'Anima<br>(La Risonanza Intima)</div>
                 
                 <div class="ns-level-desc" style="margin-top: 10px; margin-bottom: 15px;">
                     Rappresenta il piano più profondo, intimo e puro della relazione. Rivela l'affinità dei desideri nascosti, dei valori spirituali e delle motivazioni reali che attraggono i due esseri a livello essenziale. È lo spazio della vulnerabilità condivisa, del sentimento privo di maschere e del riconoscimento reciproco oltre le parole.
@@ -644,7 +672,7 @@
 
             <!-- 3. LIVELLO DEL DESTINO -->
             <div class="ns-level-container">
-                <div class="ns-level-title">3. Il Livello del Destino (Il Progetto Evolutivo)</div>
+                <div class="ns-level-title">3. Il Livello del Destino<br>(Il Progetto Evolutivo)</div>
                 
                 <div class="ns-level-desc" style="margin-top: 10px; margin-bottom: 15px;">
                     Rivela la sinergia e l'intreccio tra i rispettivi percorsi di vita. Esprime se i due sentieri evolutivi corrono paralleli, se si incrociano per una missione o un traguardo comune, o se i talenti archetipici di un partner fungono da catalizzatore e supporto per la realizzazione e il risveglio dei potenziali dell'altro.
@@ -1858,7 +1886,7 @@ function eseguiCalcoloAffinita() {
 
         document.getElementById('res-io-testo').innerHTML = `
             <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">1. Il Livello dell'Io (L'Individualità)</div>
+                <div class="ns-level-title">1. Il Livello dell'Io<br>(L'Individualità)</div>
                 
                 <!-- Miniature carte CENTRATE nell'anteprima -->
                 <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
@@ -1867,7 +1895,7 @@ function eseguiCalcoloAffinita() {
                 </div>
 
                 <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${ioP1} & ${ioP2}): ${titoloIo}
+                    Responso<br>(${ioP1} & ${ioP2}): ${titoloIo}
                 </span>
                 <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px; font-style: italic;">${sottotitoloIo}</div>
                 <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
@@ -1906,7 +1934,7 @@ function eseguiCalcoloAffinita() {
 
         document.getElementById('res-anima-testo').innerHTML = `
             <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">2. Il Livello dell'Anima (La Sintonia Profonda)</div>
+                <div class="ns-level-title">2. Il Livello dell'Anima<br>(La Sintonia Profonda)</div>
                 
                 <!-- Miniature carte CENTRATE nell'anteprima -->
                 <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
@@ -1915,7 +1943,7 @@ function eseguiCalcoloAffinita() {
                 </div>
 
                 <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${animaP1} & ${animaP2}): ${titoloAnima}
+                    Responso<br>(${animaP1} & ${animaP2}): ${titoloAnima}
                 </span>
                 <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
                 
@@ -1953,7 +1981,7 @@ function eseguiCalcoloAffinita() {
 
         document.getElementById('res-destino-testo').innerHTML = `
             <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">3. Il Livello del Destino (Il Progetto Evolutivo)</div>
+                <div class="ns-level-title">3. Il Livello del Destino<br>(Il Progetto Evolutivo)</div>
                 
                 <!-- Miniature carte CENTRATE nell'anteprima -->
                 <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
@@ -1962,7 +1990,7 @@ function eseguiCalcoloAffinita() {
                 </div>
 
                 <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso (${destinoP1} & ${destinoP2}): ${titoloDestino}
+                    Responso<br>(${destinoP1} & ${destinoP2}): ${titoloDestino}
                 </span>
                 <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
                 
