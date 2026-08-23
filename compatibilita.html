@@ -410,6 +410,179 @@
     margin-bottom: 8px !important;
 }
 
+/* Nasconde il blocco dei risultati al caricamento iniziale della pagina */
+#risultati-compatibilita {
+    display: none;
+}
+
+/* STILE POPUP COMPATIBILITÀ UNIFORMATO A PITAGORA (FINALE) */
+
+/* 1. Sfondo e Struttura Modale Principale */
+#modaleApprofondimento > div,
+#modaleApprofondimento .modal-content,
+#modaleApprofondimento .modale-contenuto {
+    background: #1a050b !important;
+    background-color: #1a050b !important;
+    color: #e0d0b0 !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9) !important;
+    padding: 24px 18px !important;
+}
+
+/* 2. Titolo e Sottotitolo del Popup */
+#modaleTitolo,
+#modaleApprofondimento h2,
+#modaleApprofondimento h3 {
+    color: #f3e5ab !important;
+    font-size: 1.25rem !important;
+    font-family: 'Cinzel', serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    text-align: center !important;
+    margin: 0 auto 8px auto !important;
+    display: block !important;
+}
+
+#modaleSottotitolo {
+    color: #d4af37 !important;
+    font-style: italic !important;
+    font-size: 0.95rem !important;
+    text-align: center !important;
+    margin: 0 auto 15px auto !important;
+    display: block !important;
+}
+
+/* 3. FORZA QUADRANTI SCURI SU OGNI BLOCCO DI TESTO */
+#modaleContenuto {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+#modaleContenuto p,
+#modaleContenuto > div,
+#modaleContenuto article,
+#modaleContenuto section,
+#modaleContenuto .box-suggerimento {
+    background: rgba(0, 0, 0, 0.45) !important;
+    background-color: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    
+    /* Font, Colore e Centratura Forzata */
+    text-align: center !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+    color: #e2e8f0 !important;
+}
+
+/* 4. Titoli interni ai Quadranti (DESCRIZIONE, COSA FARE, ecc.) */
+#modaleContenuto strong,
+#modaleContenuto b,
+#modaleContenuto h4,
+#modaleContenuto h5 {
+    display: block !important;
+    color: #f3e5ab !important;
+    font-family: 'Cinzel', serif !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    margin: 0 auto 8px auto !important;
+}
+
+/* Allineamento di sicurezza per qualsiasi elemento testuale interno */
+#modaleContenuto * {
+    text-align: center !important;
+}
+
+/* Tasto Chiusura X */
+#modaleApprofondimento .close,
+#modaleApprofondimento .chiudi-modale {
+    color: #d4af37 !important;
+    opacity: 0.9;
+}
+
+/* REGOLA PER I QUADRANTI GENERATI DA JS */
+#modaleContenuto .quadrante-modal {
+    background: rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin: 10px 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    color: #e2e8f0 !important;
+}
+
+#modaleContenuto .quadrante-modal * {
+    text-align: center !important;
+}
+
+/* SOVRASCRITTURA BOX SUGGERIMENTI E AVVERTIZE (STILE SCURO NOBILE) */
+
+/* 1. Box Verde (Cosa Fare / Suggerimento) */
+#modaleContenuto div[style*="background-color: #e8f5e9"],
+#modaleContenuto div[style*="background-color:#e8f5e9"],
+#modaleContenuto div[style*="background: #e8f5e9"],
+#modaleContenuto .box-suggerimento,
+#modaleContenuto .box-verde {
+    background: rgba(16, 38, 26, 0.75) !important;
+    background-color: rgba(16, 38, 26, 0.75) !important;
+    border: 1px solid rgba(74, 158, 110, 0.4) !important;
+    border-radius: 8px !important;
+    color: #cce3d5 !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    text-align: center !important;
+}
+
+#modaleContenuto div[style*="background-color: #e8f5e9"] strong,
+#modaleContenuto div[style*="background-color: #e8f5e9"] b {
+    color: #8ed6aa !important;
+    display: block !important;
+    margin-bottom: 6px !important;
+    text-align: center !important;
+}
+
+/* 2. Box Rosso (Cosa Evitare / Avvertenza) */
+#modaleContenuto div[style*="background-color: #ffebee"],
+#modaleContenuto div[style*="background-color:#ffebee"],
+#modaleContenuto div[style*="background: #ffebee"],
+#modaleContenuto .box-evitare,
+#modaleContenuto .box-rosso {
+    background: rgba(45, 12, 18, 0.75) !important;
+    background-color: rgba(45, 12, 18, 0.75) !important;
+    border: 1px solid rgba(190, 65, 80, 0.4) !important;
+    border-radius: 8px !important;
+    color: #f2d6d8 !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    text-align: center !important;
+}
+
+#modaleContenuto div[style*="background-color: #ffebee"] strong,
+#modaleContenuto div[style*="background-color: #ffebee"] b {
+    color: #e87c88 !important;
+    display: block !important;
+    margin-bottom: 6px !important;
+    text-align: center !important;
+}
+
+/* Forzo la centratura di tutto il testo contenuto nei box */
+#modaleContenuto div[style*="background"] * {
+    text-align: center !important;
+}
+
         /* MEDIA QUERIES RESPONSIVE */
 
         @media (max-width: 600px) {
@@ -454,16 +627,30 @@
     letter-spacing: 0.5px;
 }
 
-        #risultati-sinastria div[onclick] h1, #risultati-sinastria div[onclick] h2, 
-        #risultati-sinastria div[onclick] h3, #risultati-sinastria div[onclick] h4,
-        #risultati-sinastria div[onclick] p, #risultati-sinastria div[onclick] span,
-        #risultati-sinastria div[onclick] em, #risultati-sinastria div[onclick] i {
-            font-size: 1.1rem !important;
-            text-align: left !important;
-            line-height: 1.4 !important;
-            letter-spacing: normal !important;
-            display: block !important;
-        }
+       #risultati-sinastria div[onclick] h1, 
+#risultati-sinastria div[onclick] h2, 
+#risultati-sinastria div[onclick] h3, 
+#risultati-sinastria div[onclick] h4,
+#risultati-sinastria div[onclick] p, 
+#risultati-sinastria div[onclick] em, 
+#risultati-sinastria div[onclick] i {
+    font-size: 1.1rem !important;
+    text-align: left !important;
+    line-height: 1.4 !important;
+    letter-spacing: normal !important;
+    display: block !important;
+}
+
+/* Regola specifica per gli span per forzare la centratura */
+#risultati-sinastria div[onclick] span {
+    font-size: 12px !important;
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
     </style>
  <script>
         if ('serviceWorker' in navigator) {
@@ -643,15 +830,14 @@
                     </div>
                 </div>
 
-                <div id="res-io-testo" style="margin-top: 15px; padding: 12px; background: #1f1f1f; border: 1px dashed var(--accent-gold); border-radius: 4px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: justify;">
+                <div id="res-io-testo" style="margin-top: 15px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: center;"></div>
                 </div>
-            </div>
 
-            <!-- 2. LIVELLO DELL'ANIMA -->
-            <div class="ns-level-container">
+           <!-- 2. LIVELLO DELL'ANIMA -->
+            <div class="ns-level-container" style="text-align: center;">
                 <div class="ns-level-title">2. Il Livello dell'Anima<br>(La Risonanza Intima)</div>
                 
-                <div class="ns-level-desc" style="margin-top: 10px; margin-bottom: 15px;">
+                <div class="ns-level-desc" style="margin-top: 10px; margin-bottom: 15px; text-align: center;">
                     Rappresenta il piano più profondo, intimo e puro della relazione. Rivela l'affinità dei desideri nascosti, dei valori spirituali e delle motivazioni reali che attraggono i due esseri a livello essenziale. È lo spazio della vulnerabilità condivisa, del sentimento privo di maschere e del riconoscimento reciproco oltre le parole.
                 </div>
                 
@@ -666,8 +852,7 @@
                     </div>
                 </div>
 
-                <div id="res-anima-testo" style="margin-top: 15px; padding: 12px; background: #1f1f1f; border: 1px dashed var(--accent-gold); border-radius: 4px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: justify;">
-                </div>
+                <div id="res-anima-testo" style="margin-top: 15px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: center;"></div>
             </div>
 
             <!-- 3. LIVELLO DEL DESTINO -->
@@ -689,9 +874,8 @@
                     </div>
                 </div>
 
-                <div id="res-destino-testo" style="margin-top: 15px; padding: 12px; background: #1f1f1f; border: 1px dashed var(--accent-gold); border-radius: 4px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: justify;">
+                <div id="res-destino-testo" style="margin-top: 15px; font-style: italic; font-size: 0.95rem; line-height: 1.5; color: #f0e6d2; text-align: center;"></div>
                 </div>
-            </div>
 
         </div>
         
@@ -1859,156 +2043,147 @@ function eseguiCalcoloAffinita() {
     // Inizializziamo le variabili per l'esportazione
     let ioP1 = 0, ioP2 = 0, animaP1 = 0, animaP2 = 0, destinoP1 = 0, destinoP2 = 0;
 
-  // ==========================================
-    // 1. CALCOLO LIVELLO IO
-    // ==========================================
-    if (haTestoP1 && haTestoP2) {
-        ioP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'io');
-        ioP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'io');
-        document.getElementById('res-io-p1').innerText = ioP1;
-        document.getElementById('res-io-p2').innerText = ioP2;
-        
-        const testoIo = recuperaTestoAffinita('io', ioP1, ioP2);
-        const titoloIo = `${ottieniNomeArchetipo(ioP1)} & ${ottieniNomeArchetipo(ioP2)}`;
-        
-        let sottotitoloIo = "L'Incontro delle Personalità";
-        try {
-            if (typeof sottotitoliIo !== 'undefined') {
-                const chiaveIo = `${ioP1}-${ioP2}`;
-                const chiaveIoInv = `${ioP2}-${ioP1}`;
-                sottotitoloIo = sottotitoliIo[chiaveIo] || sottotitoliIo[chiaveIoInv] || sottotitoloIo;
-            }
-        } catch(e) {}
+// ==========================================
+// 1. CALCOLO LIVELLO IO
+// ==========================================
+if (haTestoP1 && haTestoP2) {
+    ioP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'io');
+    ioP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'io');
+    document.getElementById('res-io-p1').innerText = ioP1;
+    document.getElementById('res-io-p2').innerText = ioP2;
+    
+    const testoIo = recuperaTestoAffinita('io', ioP1, ioP2);
+    const titoloIo = `${ottieniNomeArchetipo(ioP1)} & ${ottieniNomeArchetipo(ioP2)}`;
+    
+    let sottotitoloIo = "L'Incontro delle Personalità";
+    try {
+        if (typeof sottotitoliIo !== 'undefined') {
+            const chiaveIo = `${ioP1}-${ioP2}`;
+            const chiaveIoInv = `${ioP2}-${ioP1}`;
+            sottotitoloIo = sottotitoliIo[chiaveIo] || sottotitoliIo[chiaveIoInv] || sottotitoloIo;
+        }
+    } catch(e) {}
 
-        // Percorsi immagini per il livello dell'Io
-        const imgIo1 = `./carte/${ioP1}.png`;
-        const imgIo2 = `./carte/${ioP2}.png`;
+    const imgIo1 = `./carte/${ioP1}.png`;
+    const imgIo2 = `./carte/${ioP2}.png`;
 
-        document.getElementById('res-io-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">1. Il Livello dell'Io<br>(L'Individualità)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgIo1}" alt="Carta ${ioP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgIo2}" alt="Carta ${ioP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso<br>(${ioP1} & ${ioP2}): ${titoloIo}
-                </span>
-                <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px; font-style: italic;">${sottotitoloIo}</div>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgIo1}" alt="Carta ${ioP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgIo2}" alt="Carta ${ioP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoIo}
-                </div>
+    document.getElementById('res-io-testo').innerHTML = `
+        <div class="card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
+            <!-- Miniature carte CENTRATE -->
+            <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
+                <img src="${imgIo1}" alt="Carta ${ioP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <img src="${imgIo2}" alt="Carta ${ioP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
             </div>
-        `;
-    } else {
-        document.getElementById('res-io-p1').innerText = "-";
-        document.getElementById('res-io-p2').innerText = "-";
-        document.getElementById('res-io-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Io.</i>";
-    }
 
-    // ==========================================
-    // 2. CALCOLO LIVELLO ANIMA
-    // ==========================================
-    if (haTestoP1 && haTestoP2) {
-        animaP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'anima');
-        animaP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'anima');
-        document.getElementById('res-anima-p1').innerText = animaP1;
-        document.getElementById('res-anima-p2').innerText = animaP2;
-        
-        const testoAnima = recuperaTestoAffinita('anima', animaP1, animaP2);
-        const titoloAnima = `${ottieniNomeArchetipo(animaP1)} & ${ottieniNomeArchetipo(animaP2)}`;
-        
-        // Percorsi immagini per il livello dell'Anima
-        const imgAnima1 = `./carte/${animaP1}.png`;
-        const imgAnima2 = `./carte/${animaP2}.png`;
-
-        document.getElementById('res-anima-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">2. Il Livello dell'Anima<br>(La Sintonia Profonda)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgAnima1}" alt="Carta ${animaP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgAnima2}" alt="Carta ${animaP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
+                Responso<br>(${ioP1} & ${ioP2}): ${titoloIo}
+            </span>
+            <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px; font-style: italic;">${sottotitoloIo}</div>
+            <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
+            
+            <!-- Contenuto segreto per popup -->
+            <div class="testo-segreto" style="display: none;">
+                <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
+                    <img src="${imgIo1}" alt="Carta ${ioP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                    <img src="${imgIo2}" alt="Carta ${ioP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
                 </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso<br>(${animaP1} & ${animaP2}): ${titoloAnima}
-                </span>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgAnima1}" alt="Carta ${animaP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgAnima2}" alt="Carta ${animaP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoAnima}
-                </div>
+                ${testoIo}
             </div>
-        `;
-    } else {
-        document.getElementById('res-anima-p1').innerText = "-";
-        document.getElementById('res-anima-p2').innerText = "-";
-        document.getElementById('res-anima-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Anima.</i>";
-    }
+        </div>
+    `;
+} else {
+    document.getElementById('res-io-p1').innerText = "-";
+    document.getElementById('res-io-p2').innerText = "-";
+    document.getElementById('res-io-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Io.</i>";
+}
 
-    // ==========================================
-    // 3. CALCOLO LIVELLO DESTINO
-    // ==========================================
-    if (p1Data && p2Data) {
-        destinoP1 = calcolaDestino(p1Data);
-        destinoP2 = calcolaDestino(p2Data);
-        document.getElementById('res-destino-p1').innerText = destinoP1;
-        document.getElementById('res-destino-p2').innerText = destinoP2;
-        
-        const testoDestino = recuperaTestoAffinita('destino', destinoP1, destinoP2);
-        const titoloDestino = `${ottieniNomeArchetipo(destinoP1)} & ${ottieniNomeArchetipo(destinoP2)}`;
-        
-        // Percorsi immagini per il livello del Destino
-        const imgDestino1 = `./carte/${destinoP1}.png`;
-        const imgDestino2 = `./carte/${destinoP2}.png`;
+// ==========================================
+// 2. CALCOLO LIVELLO ANIMA
+// ==========================================
+if (haTestoP1 && haTestoP2) {
+    animaP1 = calcolaNomeCognome(p1Nome, p1Cognome, 'anima');
+    animaP2 = calcolaNomeCognome(p2Nome, p2Cognome, 'anima');
+    document.getElementById('res-anima-p1').innerText = animaP1;
+    document.getElementById('res-anima-p2').innerText = animaP2;
+    
+    const testoAnima = recuperaTestoAffinita('anima', animaP1, animaP2);
+    const titoloAnima = `${ottieniNomeArchetipo(animaP1)} & ${ottieniNomeArchetipo(animaP2)}`;
+    
+    const imgAnima1 = `./carte/${animaP1}.png`;
+    const imgAnima2 = `./carte/${animaP2}.png`;
 
-        document.getElementById('res-destino-testo').innerHTML = `
-            <div class="ns-level-container card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
-                <div class="ns-level-title">3. Il Livello del Destino<br>(Il Progetto Evolutivo)</div>
-                
-                <!-- Miniature carte CENTRATE nell'anteprima -->
-                <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
-                    <img src="${imgDestino1}" alt="Carta ${destinoP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <img src="${imgDestino2}" alt="Carta ${destinoP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                </div>
-
-                <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                    Responso<br>(${destinoP1} & ${destinoP2}): ${titoloDestino}
-                </span>
-                <span style="font-size: 12px; opacity: 0.6; display: block;">➔ Clicca qui per leggere l'analisi completa</span>
-                
-                <!-- Contenuto segreto letto dal popup (carte fluide e sempre affiancate) -->
-                <div class="testo-segreto" style="display: none;">
-                    <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
-                        <img src="${imgDestino1}" alt="Carta ${destinoP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                        <img src="${imgDestino2}" alt="Carta ${destinoP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
-                    </div>
-                    ${testoDestino}
-                </div>
+    document.getElementById('res-anima-testo').innerHTML = `
+        <div class="card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
+            <!-- Miniature carte CENTRATE -->
+            <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
+                <img src="${imgAnima1}" alt="Carta ${animaP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <img src="${imgAnima2}" alt="Carta ${animaP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
             </div>
-        `;
-    } else {
-        document.getElementById('res-destino-p1').innerText = "-";
-        document.getElementById('res-destino-p2').innerText = "-";
-        document.getElementById('res-destino-testo').innerHTML = "<i style='color: #888;'>Inserisci la Data di Nascita di entrambi per calcolare il Destino.</i>";
-    }
+
+            <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
+                Responso<br>(${animaP1} & ${animaP2}): ${titoloAnima}
+            </span>
+            <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
+            
+            <!-- Contenuto segreto per popup -->
+            <div class="testo-segreto" style="display: none;">
+                <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
+                    <img src="${imgAnima1}" alt="Carta ${animaP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                    <img src="${imgAnima2}" alt="Carta ${animaP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                </div>
+                ${testoAnima}
+            </div>
+        </div>
+    `;
+} else {
+    document.getElementById('res-anima-p1').innerText = "-";
+    document.getElementById('res-anima-p2').innerText = "-";
+    document.getElementById('res-anima-testo').innerHTML = "<i style='color: #888;'>Inserisci il Nome o il Cognome per entrambi i profili per calcolare l'Anima.</i>";
+}
+
+// ==========================================
+// 3. CALCOLO LIVELLO DESTINO
+// ==========================================
+if (p1Data && p2Data) {
+    destinoP1 = calcolaDestino(p1Data);
+    destinoP2 = calcolaDestino(p2Data);
+    document.getElementById('res-destino-p1').innerText = destinoP1;
+    document.getElementById('res-destino-p2').innerText = destinoP2;
+    
+    const testoDestino = recuperaTestoAffinita('destino', destinoP1, destinoP2);
+    const titoloDestino = `${ottieniNomeArchetipo(destinoP1)} & ${ottieniNomeArchetipo(destinoP2)}`;
+    
+    const imgDestino1 = `./carte/${destinoP1}.png`;
+    const imgDestino2 = `./carte/${destinoP2}.png`;
+
+    document.getElementById('res-destino-testo').innerHTML = `
+        <div class="card-cliccabile" onclick="apriApprofondimentoCompatibilita(this)">
+            <!-- Miniature carte CENTRATE -->
+            <div class="carte-mini-container" style="display: flex; gap: 15px; margin: 15px 0; justify-content: center;">
+                <img src="${imgDestino1}" alt="Carta ${destinoP1}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <img src="${imgDestino2}" alt="Carta ${destinoP2}" class="mini-carta-archetipo" onerror="this.style.display='none';" style="width: 75px; height: auto; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            </div>
+
+            <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
+                Responso<br>(${destinoP1} & ${destinoP2}): ${titoloDestino}
+            </span>
+            <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
+            
+            <!-- Contenuto segreto per popup -->
+            <div class="testo-segreto" style="display: none;">
+                <div class="carte-popup-container" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; align-items: center;">
+                    <img src="${imgDestino1}" alt="Carta ${destinoP1}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                    <img src="${imgDestino2}" alt="Carta ${destinoP2}" style="width: 130px; max-width: 44%; height: auto; border-radius: 10px; border: 2px solid var(--accent-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                </div>
+                ${testoDestino}
+            </div>
+        </div>
+    `;
+} else {
+    document.getElementById('res-destino-p1').innerText = "-";
+    document.getElementById('res-destino-p2').innerText = "-";
+    document.getElementById('res-destino-testo').innerHTML = "<i style='color: #888;'>Inserisci la Data di Nascita di entrambi per calcolare il Destino.</i>";
+}
     // ==========================================================================
     // INTEGRAZIONE ESPORTAZIONE: SALVATAGGIO DEI DATI E GENERAZIONE DINAMICA PULSANTE
     // ==========================================================================
@@ -2112,13 +2287,40 @@ function eseguiCalcoloAffinita() {
 // GESTIONE POPUP COMPATIBILITÀ (STILE PITAGORA)
 // ==========================================
 function apriApprofondimentoCompatibilita(elementoCard) {
-    const titoloSezione = elementoCard.querySelector('.ns-level-title').innerText;
-    const infoResponso = elementoCard.querySelector('.info-responso').innerText;
-    const testoCompleto = elementoCard.querySelector('.testo-segreto').innerHTML;
+    const contenitorePadre = elementoCard.closest('.ns-level-container') || elementoCard.parentElement;
+    const elTitolo = contenitorePadre ? contenitorePadre.querySelector('.ns-level-title') : null;
+    
+    const titoloSezione = elTitolo ? elTitolo.innerText : 'Approfondimento Compatibilità';
+    
+    const elInfo = elementoCard.querySelector('.info-responso');
+    const infoResponso = elInfo ? elInfo.innerText : '';
+    
+    const elTesto = elementoCard.querySelector('.testo-segreto');
+    let testoGrezzo = elTesto ? elTesto.innerHTML : '';
+
+    // Dividiamo il testo dove inizia la sezione "COSA FARE" o "💡"
+    let htmlFormattato = '';
+    
+    if (testoGrezzo.includes('COSA FARE') || testoGrezzo.includes('💡')) {
+        // Separiamo la prima parte (descrizione) dalla seconda (consiglio)
+        const parti = testoGrezzo.split(/(?=COSA FARE|💡)/i);
+        
+        htmlFormattato = `
+            <div class="quadrante-modal">
+                ${parti[0]}
+            </div>
+            <div class="quadrante-modal">
+                ${parti.slice(1).join('')}
+            </div>
+        `;
+    } else {
+        // Se c'è solo un blocco di testo, creiamo un unico quadrante
+        htmlFormattato = `<div class="quadrante-modal">${testoGrezzo}</div>`;
+    }
     
     document.getElementById('modaleTitolo').innerText = titoloSezione;
     document.getElementById('modaleSottotitolo').innerText = infoResponso;
-    document.getElementById('modaleContenuto').innerHTML = testoCompleto;
+    document.getElementById('modaleContenuto').innerHTML = htmlFormattato;
     
     document.getElementById('modaleApprofondimento').style.display = 'flex';
 }
@@ -2130,10 +2332,10 @@ function chiudiModale() {
 window.onclick = function(event) {
     const modale = document.getElementById('modaleApprofondimento');
     const modaleArc = document.getElementById('modaleArchivio');
-    if (event.target == modale) {
+    if (event.target === modale) {
         modale.style.display = "none";
     }
-    if (event.target == modaleArc) {
+    if (modaleArc && event.target === modaleArc) {
         modaleArc.style.display = "none";
     }
 }
