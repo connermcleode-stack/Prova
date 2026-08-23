@@ -431,6 +431,16 @@
             border-radius: 4px;
         }
 
+/* FORZA IL BROWSER A NON INVERTIRE I COLORI DELLE CARTE SU MOBILE */
+img, 
+.mini-carta-archetipo, 
+.carte-mini-container img, 
+.carte-popup-container img {
+    color-scheme: normal !important;
+    forced-color-adjust: none !important;
+    filter: none !important;
+}
+
         /* --- MEDIA QUERY PER DISPOSITIVI MOBILI --- */
         @media (max-width: 768px) {
             body {

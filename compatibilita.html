@@ -583,6 +583,16 @@
     text-align: center !important;
 }
 
+/* FORZA IL BROWSER A NON INVERTIRE I COLORI DELLE CARTE SU MOBILE */
+img, 
+.mini-carta-archetipo, 
+.carte-mini-container img, 
+.carte-popup-container img {
+    color-scheme: normal !important;
+    forced-color-adjust: none !important;
+    filter: none !important;
+}
+
         /* MEDIA QUERIES RESPONSIVE */
 
         @media (max-width: 600px) {
@@ -2076,7 +2086,7 @@ if (haTestoP1 && haTestoP2) {
             </div>
 
             <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                Responso<br>(${ioP1} & ${ioP2}): ${titoloIo}
+                Responso<br>${titoloIo}
             </span>
             <div style="font-size: 13px; color: #7f8c8d; margin-bottom: 5px; font-style: italic;">${sottotitoloIo}</div>
             <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
@@ -2121,7 +2131,7 @@ if (haTestoP1 && haTestoP2) {
             </div>
 
             <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                Responso<br>(${animaP1} & ${animaP2}): ${titoloAnima}
+                Responso<br>${titoloAnima}
             </span>
             <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
             
@@ -2165,7 +2175,7 @@ if (p1Data && p2Data) {
             </div>
 
             <span class="info-responso" style="color: var(--accent-gold); font-weight: bold; font-style: italic; display: block; margin-bottom: 8px;">
-                Responso<br>(${destinoP1} & ${destinoP2}): ${titoloDestino}
+                Responso<br>${titoloDestino}
             </span>
             <span style="font-size: 12px; opacity: 0.6; display: block; text-align: center; width: 100%;">➔ Clicca qui per leggere l'analisi completa</span>
             

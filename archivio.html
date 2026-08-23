@@ -230,6 +230,16 @@
         .badge-pitagora { background-color: rgba(46, 125, 50, 0.2); color: #a3cfab; border: 1px solid rgba(46, 125, 50, 0.4); }
         .badge-caldea { background-color: rgba(123, 31, 162, 0.2); color: #e1bee7; border: 1px solid rgba(123, 31, 162, 0.4); }
 
+/* FORZA IL BROWSER A NON INVERTIRE I COLORI DELLE CARTE SU MOBILE */
+img, 
+.mini-carta-archetipo, 
+.carte-mini-container img, 
+.carte-popup-container img {
+    color-scheme: normal !important;
+    forced-color-adjust: none !important;
+    filter: none !important;
+}
+
         /* Smartphone e schermi piccoli */
         @media (max-width: 600px) {
             body { padding: 8px; }
