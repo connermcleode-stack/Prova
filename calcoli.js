@@ -233,7 +233,7 @@ function eseguiCalcoloCompleto() {
             oMat = Math.abs(rGiornoStretto - rAnnoStretto);
             oPrinc = Math.abs(oGiov - oMat);
 
-            annoPersonale = riduciNumero(rGiornoStretto + rMeseStretto + riduciMonocifraStretta(annoTarget), true);
+            annoPersonale = riduciMonocifraStretta(rGiornoStretto + rMeseStretto + riduciMonocifraStretta(annoTarget));
             
             const oggi = new Date();
             const rOggiGiorno = riduciMonocifraStretta(oggi.getDate());
@@ -267,10 +267,12 @@ if (document.getElementById('descGiornoIsolato') && sorgenteTesti && sorgenteTes
     }
 
 // Percorso blindato: cartella "carte/", nome numerico, formato ".png"
+const archetipoGFormattato = (archetipoG || '').replace(/\s*\(/, '<br>(');
+
 document.getElementById('descGiornoIsolato').innerHTML = `
     <div class="anteprima-card" onclick="apriModalGiorno(${g})">
         <img src="carte/${numeroCarta}.png" alt="${archetipoG}" class="img-carta" onerror="this.style.display='none';">
-        <h4 class="titolo-archetipo">Archetipo: ${archetipoG}</h4>
+        <h4 class="titolo-archetipo">Archetipo: ${archetipoGFormattato}</h4>
         <p class="testo-clicca">➔ Clicca qui per leggere l'analisi completa</p>
     </div>
 `;
@@ -282,6 +284,7 @@ function apriModalGiorno(giorno) {
 
     const t = sorgenteTesti.GIORNI_NASCITA[giorno];
     const archetipo = sorgenteTesti.ARCHETIPI_GIORNI[giorno] || "";
+    const archetipoFormattato = archetipo.replace(/\s*\(/, '<br>(');
 
     let numeroCarta = giorno;
     const karmiciEMaestri = [11, 13, 14, 16, 19, 22, 33, 44];
@@ -293,7 +296,7 @@ function apriModalGiorno(giorno) {
         numeroCarta = somma;
     }
 
-   // Impostiamo direttamente il titolo e i contenuti usando gli ID nativi della modale del tuo sito
+    // Impostiamo direttamente il titolo e i contenuti usando gli ID nativi della modale del tuo sito
     const titoloModale = document.getElementById('modaleTitolo');
     const sottotitoloModale = document.getElementById('modaleSottotitolo');
     const contenutoModale = document.getElementById('modaleContenuto');
@@ -307,14 +310,14 @@ function apriModalGiorno(giorno) {
         sottotitoloModale.innerHTML = "";
     }
 
- if (contenutoModale) {
+    if (contenutoModale) {
         contenutoModale.innerHTML = `
             <div style="text-align: center; margin-bottom: 20px;">
                 <img src="carte/${numeroCarta}.png" alt="${archetipo}" style="max-width: 130px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
             </div>
 
             <h3 class="archetipo-nome">
-                Archetipo: ${archetipo}
+                Archetipo: ${archetipoFormattato}
             </h3>
 
             <div style="background: rgba(212, 175, 55, 0.06); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center;">
@@ -460,7 +463,6 @@ const nomiOmbreDefault = {
  */
 function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
     try {
-        // PERCORSO DELLE TUE IMMAGINI: cambia se sono in una cartella (es. 'immagini/' o 'carte/')
         const CARTELLA = 'carte/';
 
         const tPitagora = window.TESTI_PITAGORA || window.TESTI_CICLI || (typeof TESTI_PITAGORA !== 'undefined' ? TESTI_PITAGORA : null);
@@ -484,7 +486,7 @@ function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
 
         const sorgente = tPitagora.cicli || tPitagora;
 
-        // Cerca l'archetipo nei testi (prova prima il numero completo, poi il karmico, infine la base)
+        // Cerca l'archetipo nei testi
         let archetipo = sorgente[valStr] || 
                         sorgente[numOriginale] || 
                         sorgente[parseInt(numOriginale, 10)] || 
@@ -496,8 +498,6 @@ function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
         // Cerca il blocco del ciclo specifico
         let c = archetipo.cicli ? archetipo.cicli[chiaveCiclo] : null;
 
-        // Se l'archetipo karmico (es. 13 o 16) non ha la sezione del ciclo specificata,
-        // recupera la descrizione del ciclo dall'archetipo di BASE monocifra (es. 4 o 7)
         if (!c && numOriginale !== baseMonocifra) {
             const archetipoBase = sorgente[baseMonocifra] || sorgente[parseInt(baseMonocifra, 10)];
             if (archetipoBase && archetipoBase.cicli) {
@@ -507,26 +507,56 @@ function ottieniTestoEstesoCiclo(valoreNumero, chiaveCiclo) {
 
         if (!c) return compilaSchedaSicura(valoreNumero);
 
-        // Costruzione percorsi immagini sicuri
+        // Costruzione percorsi immagini
         const srcPrincipale = CARTELLA ? `${CARTELLA}${numOriginale}.png` : `${numOriginale}.png`;
         const srcFallback = CARTELLA ? `${CARTELLA}${baseMonocifra}.png` : `${baseMonocifra}.png`;
 
+        // Formattazione nome Archetipo con a capo automatico prima della parentesi
+        const nomeBr = (archetipo.nome || '').replace(/\s*\(/, '<br>(');
+        const stringaNumero = valStr.includes('/') ? ` (${valStr})` : '';
+
         return `
             <div class="modal-ciclo-esteso">
-    <div style="margin-bottom: 15px;">
-        <img src="${srcPrincipale}" 
-             onerror="this.onerror=null; this.src='${srcFallback}';" 
-             alt="Carta ${archetipo.nome}" 
-             style="max-width: 140px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-    </div>
-    <h3 style="margin-bottom: 6px;">${archetipo.nome} ${valStr.includes('/') ? '(' + valStr + ')' : ''}</h3>
-    <h5 style="margin-bottom: 12px;">${archetipo.sottotitolo || ''}</h5>
-    <p style="margin-bottom: 16px; line-height: 1.5;">${archetipo.introduzione || ''}</p>
-    <hr style="border-color: rgba(255,255,255,0.1); margin: 12px 0;">
-    <h4 style="margin-bottom: 8px;">${c.titolo || ''}</h4>
-    <p style="margin-bottom: 10px;"><strong>Lezioni:</strong> ${c.lezioni || ''}</p>
-    <p><strong>Potenziali:</strong> ${c.potenziali || ''}</p>
-</div>
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <img src="${srcPrincipale}" 
+                         onerror="this.onerror=null; this.src='${srcFallback}';" 
+                         alt="Carta ${archetipo.nome}" 
+                         style="max-width: 130px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
+                </div>
+
+                <h3 class="archetipo-nome" style="text-align: center; margin-bottom: 6px;">
+                    Archetipo: ${nomeBr}${stringaNumero}
+                </h3>
+
+                ${archetipo.sottotitolo ? `
+                <h5 style="text-align: center; color: #d4af37; font-style: italic; margin-top: 0; margin-bottom: 15px; font-size: 0.95em;">
+                    ${archetipo.sottotitolo}
+                </h5>` : ''}
+
+                <!-- BOX 1: SIGNIFICATO (Blu) -->
+                ${archetipo.introduzione ? `
+                <div style="background: rgba(30, 58, 138, 0.25); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: center;">
+                    <h4 style="color: #60a5fa; margin-top: 0; margin-bottom: 8px; font-size: 0.95em; text-transform: uppercase;">✨ SIGNIFICATO</h4>
+                    <p style="margin: 0; line-height: 1.5; font-size: 0.95em; color: #e8e3d9;">
+                        ${archetipo.introduzione}
+                    </p>
+                </div>` : ''}
+
+                <!-- BOX 2: LEZIONI E POTENZIALI (Verde) -->
+                <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 8px; padding: 15px; text-align: left;">
+                    <h4 style="color: #34d399; margin-top: 0; margin-bottom: 8px; font-size: 0.95em; text-transform: uppercase; text-align: center;">
+                        ${c.titolo || 'Lezioni e Potenziali'}
+                    </h4>
+                    ${c.lezioni ? `
+                    <p style="margin: 0 0 8px 0; line-height: 1.5; font-size: 0.95em; color: #e8e3d9;">
+                        <strong>Lezioni:</strong> ${c.lezioni}
+                    </p>` : ''}
+                    ${c.potenziali ? `
+                    <p style="margin: 0; line-height: 1.5; font-size: 0.95em; color: #e8e3d9;">
+                        <strong>Potenziali:</strong> ${c.potenziali}
+                    </p>` : ''}
+                </div>
+            </div>
         `;
     } catch (e) {
         console.error("Errore ottieniTestoEstesoCiclo:", e);
@@ -1044,7 +1074,7 @@ function validaECalcolaRelazioneKarmica() {
   `;
   document.getElementById('descrizioneSintesi').innerText = info.testo;
 
-  // ==========================================================================
+ // ==========================================================================
   // CONFRONTI E RISPECCHIAMENTI
   // ==========================================================================
   let coincidenze = [];
@@ -1060,7 +1090,7 @@ function validaECalcolaRelazioneKarmica() {
     return x;
   };
 
-  // 1. Stessi Aspetti (Destino=Destino, Anima=Anima, Io=Io)
+  // 1. Stessi Aspetti (Destino=Destino, Anima=Anima, Persona=Persona)
   if (destinoA && destinoB && base(destinoA) === base(destinoB)) {
     coincidenze.push(`<strong>Stesso Destino (${destinoA}):</strong> ${pA} e ${pB} condividono la stessa direzione evolutiva.`);
   }
@@ -1068,7 +1098,7 @@ function validaECalcolaRelazioneKarmica() {
     coincidenze.push(`<strong>Stessa Anima (${animaA}):</strong> ${pA} e ${pB} condividono gli stessi desideri e motivazioni profonde.`);
   }
   if (ioA && ioB && base(ioA) === base(ioB)) {
-    coincidenze.push(`<strong>Stesso Io (${ioA}):</strong> ${pA} e ${pB} condividono la stessa modalità espressiva e personalità.`);
+    coincidenze.push(`<strong>Stesso Numero Persona (${ioA}):</strong> ${pA} e ${pB} condividono la stessa modalità espressiva e personalità.`);
   }
 
   // 2. Anima <-> Destino
@@ -1079,20 +1109,20 @@ function validaECalcolaRelazioneKarmica() {
     coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Destino di ${pA}</strong> (${destinoA})`);
   }
 
-  // 3. Anima <-> Io
+  // 3. Anima <-> Persona
   if (animaA && ioB && base(animaA) === base(ioB)) {
-    coincidenze.push(`L'<strong>Anima di ${pA}</strong> (${animaA}) = <strong>Io di ${pB}</strong> (${ioB})`);
+    coincidenze.push(`L'<strong>Anima di ${pA}</strong> (${animaA}) = <strong>Persona di ${pB}</strong> (${ioB})`);
   }
   if (animaB && ioA && base(animaB) === base(ioA)) {
-    coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Io di ${pA}</strong> (${ioA})`);
+    coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Persona di ${pA}</strong> (${ioA})`);
   }
 
-  // 4. Destino <-> Io
+  // 4. Destino <-> Persona
   if (destinoA && ioB && base(destinoA) === base(ioB)) {
-    coincidenze.push(`Il <strong>Destino di ${pA}</strong> (${destinoA}) = <strong>Io di ${pB}</strong> (${ioB})`);
+    coincidenze.push(`Il <strong>Destino di ${pA}</strong> (${destinoA}) = <strong>Persona di ${pB}</strong> (${ioB})`);
   }
   if (destinoB && ioA && base(destinoB) === base(ioA)) {
-    coincidenze.push(`Il <strong>Destino di ${pB}</strong> (${destinoB}) = <strong>Io di ${pA}</strong> (${ioA})`);
+    coincidenze.push(`Il <strong>Destino di ${pB}</strong> (${destinoB}) = <strong>Persona di ${pA}</strong> (${ioA})`);
   }
 
   // Rendering Box Rispecchiamento
