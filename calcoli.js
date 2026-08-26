@@ -1203,7 +1203,7 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
   console.log(`Persona A (${nomeCompletoA}): Destino=${destinoA}, Anima=${animaA}, Io=${ioA}`);
   console.log(`Persona B (${nomeCompletoB}): Destino=${destinoB}, Anima=${animaB}, Io=${ioB}`);
 
-  // ==========================================================================
+// ==========================================================================
   // CALCOLO E RENDERING INTEGRATO (Impronta + Ciclo per Destino, Anima e Io)
   // ==========================================================================
   const sommaDestini = (destinoA || 0) + (destinoB || 0);
@@ -1245,19 +1245,30 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
     costruisciDatiSezione(sommaIo, cicloIo, "IO (Espressione e Azione)")
   ];
 
-  // Identifica e sostituisce sia la card dell'impronta che quella del ciclo originaria
-  const elSintesi = document.getElementById('numeroSintesi');
+  // Nasconde l'eventuale card originaria del ciclo per evitare duplicati
   const elCiclo = document.getElementById('numeroCiclo');
-  
-  const cardPrincipale = elSintesi ? elSintesi.closest('.card') : null;
   const cardCicloOriginale = elCiclo ? elCiclo.closest('.card') : null;
-
-  // Se esiste la card del ciclo separata nell'HTML, la nascondiamo per evitare duplicazioni
   if (cardCicloOriginale) {
     cardCicloOriginale.style.display = 'none';
   }
 
-  if (cardPrincipale) {
+  // Cerca il contenitore dove inserire le card (o lo crea dinamico e riutilizzabile)
+  let contenitoreSintesi = document.getElementById('contenitoreSintesiDinamico');
+  
+  if (!contenitoreSintesi) {
+    const elSintesi = document.getElementById('numeroSintesi');
+    const cardOriginale = elSintesi ? elSintesi.closest('.card') : null;
+
+    if (cardOriginale) {
+      contenitoreSintesi = document.createElement('div');
+      contenitoreSintesi.id = 'contenitoreSintesiDinamico';
+      cardOriginale.parentNode.insertBefore(contenitoreSintesi, cardOriginale);
+      cardOriginale.remove(); // Rimuove la vecchia card singola una volta sola
+    }
+  }
+
+  // Genera ed eroga l'HTML fresco ad ogni ricalcolo
+  if (contenitoreSintesi) {
     let htmlGruppo = '';
 
     sezioni.forEach(s => {
@@ -1285,7 +1296,7 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
       `;
     });
 
-    cardPrincipale.outerHTML = htmlGruppo;
+    contenitoreSintesi.innerHTML = htmlGruppo;
   }
 
   // MANTIENI LA RIGA DEL CICLO SUBITO DOPO:
