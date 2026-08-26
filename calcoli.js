@@ -1204,7 +1204,7 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
   console.log(`Persona B (${nomeCompletoB}): Destino=${destinoB}, Anima=${animaB}, Io=${ioB}`);
 
 // ==========================================================================
-  // CALCOLO E RENDERING INTEGRATO (Impronta + Ciclo per Destino, Anima e Io)
+  // CALCOLO E RENDERING INTEGRATO (Con priorità personalizzata sui numeri)
   // ==========================================================================
   const sommaDestini = (destinoA || 0) + (destinoB || 0);
   const sommaAnime = (animaA || 0) + (animaB || 0);
@@ -1215,7 +1215,16 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
   const cicloAnima = riduciNumeroKarmico(sommaAnime);
   const cicloIo = riduciNumeroKarmico(sommaIo);
 
-  const costruisciDatiSezione = (sommaImpronta, numCiclo, etichetta) => {
+  // Funzione per calcolare il livello di priorità di un numero
+  const calcolaPesoPriorita = (numero) => {
+    const num = Number(numero);
+    if ([13, 14, 16, 19].includes(num)) return 1; // 1°: Karmici
+    if ([11, 22, 33].includes(num)) return 2;     // 2°: Maestri
+    if ([6, 7, 8, 9].includes(num)) return 3;     // 3°: 6, 7, 8, 9
+    return 4;                                     // 4°: Tutti gli altri
+  };
+
+  const costruisciDatiSezione = (sommaImpronta, numCiclo, etichetta, prioritaBase) => {
     // Gestione Impronta
     let numImp = riduciNumeroKarmico(sommaImpronta);
     if (!DESCRIZIONI_LEGAME[numImp]) {
@@ -1232,27 +1241,40 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
     let numCic = DESCRIZIONI_CICLO[numCiclo] ? numCiclo : riduciInSingolaOCifraMaestra(numCiclo);
     const descCic = DESCRIZIONI_CICLO[numCic] || `Numero di ciclo ${numCic}: definisce la frequenza evolutiva generale lungo il percorso comune della coppia.`;
 
+    // Assegnazione del peso di priorità in base al numero dell'Impronta
+    const peso = calcolaPesoPriorita(numImp);
+
     return {
       etichetta,
       impronta: { numero: numImp, ...infoImp },
-      ciclo: { numero: numCic, testo: descCic }
+      ciclo: { numero: numCic, testo: descCic },
+      peso,
+      prioritaBase // Preserva l'ordine naturale (Destino -> Anima -> Io) in caso di pari peso
     };
   };
 
-  const sezioni = [
-    costruisciDatiSezione(sommaDestini, cicloDestino, "DESTINO (Cammino Comune)"),
-    costruisciDatiSezione(sommaAnime, cicloAnima, "ANIMA (Affinità Profonda)"),
-    costruisciDatiSezione(sommaIo, cicloIo, "IO (Espressione e Azione)")
+  let sezioni = [
+    costruisciDatiSezione(sommaDestini, cicloDestino, "DESTINO (Cammino Comune)", 1),
+    costruisciDatiSezione(sommaAnime, cicloAnima, "ANIMA (Affinità Profonda)", 2),
+    costruisciDatiSezione(sommaIo, cicloIo, "IO (Espressione e Azione)", 3)
   ];
 
-  // Nasconde l'eventuale card originaria del ciclo per evitare duplicati
+  // ORDINAMENTO GERARCHICO RIGIDO
+  sezioni.sort((a, b) => {
+    if (a.peso !== b.peso) {
+      return a.peso - b.peso; // Ordina prima per fascia di importanza (1, poi 2, poi 3, poi 4)
+    }
+    return a.prioritaBase - b.prioritaBase; // A parità di fascia, mantiene l'ordine Destino -> Anima -> Io
+  });
+
+  // Nasconde la card originaria del ciclo per evitare duplicati
   const elCiclo = document.getElementById('numeroCiclo');
   const cardCicloOriginale = elCiclo ? elCiclo.closest('.card') : null;
   if (cardCicloOriginale) {
     cardCicloOriginale.style.display = 'none';
   }
 
-  // Cerca il contenitore dove inserire le card (o lo crea dinamico e riutilizzabile)
+  // Cerca il contenitore dove inserire le card (o lo crea se non esiste)
   let contenitoreSintesi = document.getElementById('contenitoreSintesiDinamico');
   
   if (!contenitoreSintesi) {
@@ -1263,11 +1285,11 @@ function calcolaAnimaEIoDiretto(testoCompleto) {
       contenitoreSintesi = document.createElement('div');
       contenitoreSintesi.id = 'contenitoreSintesiDinamico';
       cardOriginale.parentNode.insertBefore(contenitoreSintesi, cardOriginale);
-      cardOriginale.remove(); // Rimuove la vecchia card singola una volta sola
+      cardOriginale.remove();
     }
   }
 
-  // Genera ed eroga l'HTML fresco ad ogni ricalcolo
+  // Genera ed eroga l'HTML fresco e ordinato ad ogni ricalcolo
   if (contenitoreSintesi) {
     let htmlGruppo = '';
 
