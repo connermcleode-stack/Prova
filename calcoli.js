@@ -1152,19 +1152,23 @@ function validaECalcolaRelazioneKarmica() {
   };
   const VOCALI = ['A', 'E', 'I', 'O', 'U'];
 
-  function calcolaAnimaEIoDiretto(testoCompleto) {
-    if (!testoCompleto) return { anima: null, io: null };
+function calcolaAnimaEIoDiretto(testoCompleto) {
+    if (!testoCompleto) return { anima: null, io: null, persona: null };
     
-    let sommaAnima = 0;
-    let sommaIo = 0;
+    let sommaAnima = 0;   // Vocali
+    let sommaPersona = 0; // Consonanti (Ciò che attualmente chiamavi sommaIo)
+    let sommaIo = 0;      // Vocali + Consonanti (Nome Completo)
+
     const pulito = testoCompleto.toUpperCase().replace(/[^A-Z]/g, '');
 
     for (let char of pulito) {
       const val = MAPPATURA_LETTERE[char] || 0;
+      sommaIo += val; // L'IO è la somma totale di TUTTE le lettere (Vocali + Consonanti)
+
       if (VOCALI.includes(char)) {
-        sommaAnima += val;
+        sommaAnima += val; // L'ANIMA è la somma delle sole vocali
       } else {
-        sommaIo += val;
+        sommaPersona += val; // LA PERSONA è la somma delle sole consonanti
       }
     }
 
@@ -1178,7 +1182,8 @@ function validaECalcolaRelazioneKarmica() {
 
     return {
       anima: riduci(sommaAnima),
-      io: riduci(sommaIo)
+      persona: riduci(sommaPersona), // Mantenuto separato per chiarezza
+      io: riduci(sommaIo)             // ORA L'IO RITORNA IL VALORE REALE (11/2 per Chiara, 7 per Davide)!
     };
   }
 
@@ -1198,30 +1203,95 @@ function validaECalcolaRelazioneKarmica() {
   console.log(`Persona A (${nomeCompletoA}): Destino=${destinoA}, Anima=${animaA}, Io=${ioA}`);
   console.log(`Persona B (${nomeCompletoB}): Destino=${destinoB}, Anima=${animaB}, Io=${ioB}`);
 
-  // Resto della logica di sintesi...
-  const sommaDestini = destinoA + destinoB;
-  let numeroSintesi = riduciNumeroKarmico(sommaDestini);
-  if (!DESCRIZIONI_LEGAME[numeroSintesi]) {
-    numeroSintesi = riduciInSingolaOCifraMaestra(numeroSintesi);
-  }
+  // ==========================================================================
+  // CALCOLO E RENDERING INTEGRATO (Impronta + Ciclo per Destino, Anima e Io)
+  // ==========================================================================
+  const sommaDestini = (destinoA || 0) + (destinoB || 0);
+  const sommaAnime = (animaA || 0) + (animaB || 0);
+  const sommaIo = (ioA || 0) + (ioB || 0);
 
-  const numCiclo = calcolaCicloRelazione(dataA, dataB);
+  // Calcolo dei cicli specifici
+  const cicloDestino = calcolaCicloRelazione(dataA, dataB);
+  const cicloAnima = riduciNumeroKarmico(sommaAnime);
+  const cicloIo = riduciNumeroKarmico(sommaIo);
 
-  document.getElementById('numeroSintesi').innerText = numeroSintesi;
-  const info = DESCRIZIONI_LEGAME[numeroSintesi] || {
-    titolo: "Incontro di Affinità",
-    badge: "Legame di Esperienza",
-    badgeClass: "badge-soft",
-    testo: "Questa combinazione non presenta un karma attivo primario o un numero maestro sulla somma dei destini, ma rappresenta un percorso di apprendimento libero da pesi o debiti del passato."
+  const costruisciDatiSezione = (sommaImpronta, numCiclo, etichetta) => {
+    // Gestione Impronta
+    let numImp = riduciNumeroKarmico(sommaImpronta);
+    if (!DESCRIZIONI_LEGAME[numImp]) {
+      numImp = riduciInSingolaOCifraMaestra(numImp);
+    }
+    const infoImp = DESCRIZIONI_LEGAME[numImp] || {
+      titolo: "Incontro di Affinità",
+      badge: "Legame di Esperienza",
+      badgeClass: "badge-soft",
+      testo: "Questa combinazione rappresenta un percorso di apprendimento libero da pesi o debiti del passato."
+    };
+
+    // Gestione Ciclo
+    let numCic = DESCRIZIONI_CICLO[numCiclo] ? numCiclo : riduciInSingolaOCifraMaestra(numCiclo);
+    const descCic = DESCRIZIONI_CICLO[numCic] || `Numero di ciclo ${numCic}: definisce la frequenza evolutiva generale lungo il percorso comune della coppia.`;
+
+    return {
+      etichetta,
+      impronta: { numero: numImp, ...infoImp },
+      ciclo: { numero: numCic, testo: descCic }
+    };
   };
 
-  document.getElementById('badgeContenitore').innerHTML = `
-    <span class="badge ${info.badgeClass}">${info.badge}</span>
-    <strong style="display:block; margin-top:8px; color:var(--accent-gold-light); font-size:1.05rem;">${info.titolo}</strong>
-  `;
-  document.getElementById('descrizioneSintesi').innerText = info.testo;
+  const sezioni = [
+    costruisciDatiSezione(sommaDestini, cicloDestino, "DESTINO (Cammino Comune)"),
+    costruisciDatiSezione(sommaAnime, cicloAnima, "ANIMA (Affinità Profonda)"),
+    costruisciDatiSezione(sommaIo, cicloIo, "IO (Espressione e Azione)")
+  ];
 
- // ==========================================================================
+  // Identifica e sostituisce sia la card dell'impronta che quella del ciclo originaria
+  const elSintesi = document.getElementById('numeroSintesi');
+  const elCiclo = document.getElementById('numeroCiclo');
+  
+  const cardPrincipale = elSintesi ? elSintesi.closest('.card') : null;
+  const cardCicloOriginale = elCiclo ? elCiclo.closest('.card') : null;
+
+  // Se esiste la card del ciclo separata nell'HTML, la nascondiamo per evitare duplicazioni
+  if (cardCicloOriginale) {
+    cardCicloOriginale.style.display = 'none';
+  }
+
+  if (cardPrincipale) {
+    let htmlGruppo = '';
+
+    sezioni.forEach(s => {
+      htmlGruppo += `
+        <div class="card" style="text-align: center; margin-bottom: 25px; padding: 20px;">
+          
+          <!-- SEZIONE IMPRONTA -->
+          <div class="card-title center">IMPRONTA DEL LEGAME - ${s.etichetta}</div>
+          <h2 style="font-size: 2.8rem; color: var(--accent-gold); font-family: var(--font-title); margin: 6px 0;">${s.impronta.numero}</h2>
+          <div>
+            <span class="badge ${s.impronta.badgeClass}">${s.impronta.badge}</span>
+            <strong style="display:block; margin-top:8px; color:var(--accent-gold-light); font-size:1.05rem;">${s.impronta.titolo}</strong>
+          </div>
+          <p style="margin-top: 14px; font-size: 0.9rem; color: var(--text-main); line-height: 1.5;">${s.impronta.testo}</p>
+
+          <!-- SEPARATORE ELEGANTE -->
+          <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4), transparent); margin: 20px 0;">
+
+          <!-- SEZIONE CICLO INTEGRATA -->
+          <div class="card-title center" style="font-size: 0.85rem; opacity: 0.9;">CICLO DELLA RELAZIONE</div>
+          <h3 style="font-size: 2rem; color: var(--accent-gold-light); font-family: var(--font-title); margin: 4px 0;">${s.ciclo.numero}</h3>
+          <p style="margin-top: 8px; font-size: 0.88rem; color: var(--text-main); line-height: 1.45; font-style: italic;">${s.ciclo.testo}</p>
+
+        </div>
+      `;
+    });
+
+    cardPrincipale.outerHTML = htmlGruppo;
+  }
+
+  // MANTIENI LA RIGA DEL CICLO SUBITO DOPO:
+  const numCiclo = calcolaCicloRelazione(dataA, dataB);
+
+  // ==========================================================================
   // CONFRONTI E RISPECCHIAMENTI
   // ==========================================================================
   let coincidenze = [];
@@ -1237,7 +1307,7 @@ function validaECalcolaRelazioneKarmica() {
     return x;
   };
 
-  // 1. Stessi Aspetti (Destino=Destino, Anima=Anima, Persona=Persona)
+  // 1. Stessi Aspetti (Destino=Destino, Anima=Anima, Io=Io)
   if (destinoA && destinoB && base(destinoA) === base(destinoB)) {
     coincidenze.push(`<strong>Stesso Destino (${destinoA}):</strong> ${pA} e ${pB} condividono la stessa direzione evolutiva.`);
   }
@@ -1245,7 +1315,7 @@ function validaECalcolaRelazioneKarmica() {
     coincidenze.push(`<strong>Stessa Anima (${animaA}):</strong> ${pA} e ${pB} condividono gli stessi desideri e motivazioni profonde.`);
   }
   if (ioA && ioB && base(ioA) === base(ioB)) {
-    coincidenze.push(`<strong>Stesso Numero Persona (${ioA}):</strong> ${pA} e ${pB} condividono la stessa modalità espressiva e personalità.`);
+    coincidenze.push(`<strong>Stesso Io (${ioA}):</strong> ${pA} e ${pB} condividono la stessa modalità espressiva e personalità.`);
   }
 
   // 2. Anima <-> Destino
@@ -1256,20 +1326,20 @@ function validaECalcolaRelazioneKarmica() {
     coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Destino di ${pA}</strong> (${destinoA})`);
   }
 
-  // 3. Anima <-> Persona
+  // 3. Anima <-> Io
   if (animaA && ioB && base(animaA) === base(ioB)) {
-    coincidenze.push(`L'<strong>Anima di ${pA}</strong> (${animaA}) = <strong>Persona di ${pB}</strong> (${ioB})`);
+    coincidenze.push(`L'<strong>Anima di ${pA}</strong> (${animaA}) = <strong>Io di ${pB}</strong> (${ioB})`);
   }
   if (animaB && ioA && base(animaB) === base(ioA)) {
-    coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Persona di ${pA}</strong> (${ioA})`);
+    coincidenze.push(`L'<strong>Anima di ${pB}</strong> (${animaB}) = <strong>Io di ${pA}</strong> (${ioA})`);
   }
 
-  // 4. Destino <-> Persona
+  // 4. Destino <-> Io
   if (destinoA && ioB && base(destinoA) === base(ioB)) {
-    coincidenze.push(`Il <strong>Destino di ${pA}</strong> (${destinoA}) = <strong>Persona di ${pB}</strong> (${ioB})`);
+    coincidenze.push(`Il <strong>Destino di ${pA}</strong> (${destinoA}) = <strong>Io di ${pB}</strong> (${ioB})`);
   }
   if (destinoB && ioA && base(destinoB) === base(ioA)) {
-    coincidenze.push(`Il <strong>Destino di ${pB}</strong> (${destinoB}) = <strong>Persona di ${pA}</strong> (${ioA})`);
+    coincidenze.push(`Il <strong>Destino di ${pB}</strong> (${destinoB}) = <strong>Io di ${pA}</strong> (${ioA})`);
   }
 
   // Rendering Box Rispecchiamento
