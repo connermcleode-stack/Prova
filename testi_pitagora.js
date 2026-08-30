@@ -744,9 +744,80 @@ annoPersonale: {
   consigliPratici: "Fai decluttering nel tuo spazio fisico eliminando o regalando ciò che non ti serve più. Svolgi un esercizio sul perdono: individua chi ti ha ferito in passato, riconsci quali lezioni di forza ne hai tratto e sciogli il legame dicendo 'ti benedico e ti lascio andare'. Accogli la fine come la premessa indispensabile per la tua prossima fioritura."
 }
 },
+
 giornoPersonale: {
-  1: "Testo per il Giorno Personale 1...",
-  2: "Testo per il Giorno Personale 2..."
+ 1: {
+  archetipo: "Il Guerriero",
+  paroleChiave: "Obiettivi e strategia",
+  descrizione: "Giornata ideale per agire con slancio, determinazione e ambizione. Fai chiarezza sui tuoi obiettivi, supera le paure e prendi l'iniziativa senza aspettare gli altri. Esprimi la tua unicità, fai valere le tue idee e impara a dire di no se necessario. È il momento perfetto per avviare qualcosa di nuovo e correre il rischio di seguire ciò in cui credi.",
+  lavoro: "Pianifica le priorità e definisci un programma chiaro. È un giorno favorevole per avviare progetti, sbloccare situazioni con autonomia e proporre idee alternative. Sii deciso, assertivo e comunica chiaramente le tue intenzioni.",
+  amore: "Abbi il coraggio di osare, conquistare e fare la prima mossa. Esprimi chiaramente quello che senti e mantieni la tua indipendenza, ritagliandoti dei momenti per te. Metti al primo posto il rispetto per te stesso e la tua dignità.",
+  daEvitare: "Rimandare gli impegni, indulgere in pigrizia o apatia e cedere al senso di fallimento. Evita sia l'eccesso di aggressività, impulsività e rigidità, sia l'assecondare passivamente gli altri solo per evitare conflitti."
+},
+2: {
+  archetipo: "Il Fanciullo",
+  paroleChiave: "Sensibilità e cooperazione",
+  descrizione: "Giornata dedicata al rallentamento, all'ascolto interiore e all'armonia. La tua intuizione ed emotività sono ai massimi livelli: fidati delle tue sensazioni e dei messaggi dell'anima. Concediti momenti di relax e ricerca la cooperazione con gli altri, lasciando spazio anche a possibili coincidenze significative.",
+  lavoro: "Adotta un approccio gentile, paziente e diplomatico. È un ottimo momento per collaborare, cercare punti d'incontro, rifinire dettagli, riordinare o programmare riunioni. Ascolta il sesto senso nel prendere decisioni e crea empatia con colleghi e partner.",
+  amore: "Aprite il cuore ed esprimi apertamente i tuoi bisogni di affetto e cura senza chiuderti in diffidenze mentali. Giorno ideale per incontri romantici, scambi affettuosi, coccole e vicinanza emotiva con le persone care.",
+  daEvitare: "L'impulsività e le reazioni affrettate: conta fino a dieci prima di parlare. Evita la ruminazione mentale, l'autocommiserazione, il vittimismo e l'indecisione. Non alimentare polemiche o conflitti inutili."
+},
+3: {
+  archetipo: "Il Giullare", 
+  paroleChiave: "Creatività e ottimismo",
+  descrizione: "Giornata all'insegna del buonumore, della socialità e dell'espressione personale. Approcciati agli altri con cordialità, sorrisetto e ottimismo. È il momento perfetto per comunicare, scrivere, condividere e farti notare in modo autentico e senza inibizioni. Esci, divertiti e vivi la giornata con leggerezza ed entusiasmo.",
+  lavoro: "Ottima giornata per pubbliche relazioni, promozione, vendite e comunicazione. Cura la tua immagine, proponi idee originali e usa la creatività per risolvere vecchi problemi. Affronta i compiti con entusiasmo e spirito di gioco, cogliendo al volo le opportunità.",
+  amore: "Giorno ideale per corteggiare, flirtare e mettere in luce il tuo fascino. Sorprendi chi ami con un gesto romantico, un regalo o un invito a cena. Mostra ammirazione sincera e goditi serate piacevoli in compagnia o ad eventi culturali e di intrattenimento.",
+  daEvitare: "Chiusura in casa, trascuratezza ed evitare di affondare in pensieri tristi o drammi emotivi. Evita i pettegolezzi, le critiche sterili e le parole a vuoto. Non disperdere le tue energie e sdrammatizza le tensioni con un sorriso."
+},
+4: {
+  archetipo: "Il Costruttore",
+  paroleChiave: "Ordine e concretezza",
+  descrizione: "Giornata dedicata a disciplina, organizzazione e concretezza. Inizia con un programma chiaro e porta a termine ciò che hai intrapreso. È il momento ideale per sistemare questioni pratiche, burocrazia, conti e faccende domestiche. Ascolta i bisogni del corpo, pratica attività fisica o fai una passeggiata nella natura.",
+  lavoro: "Pianifica con metodo, definisci le priorità e organizza il tuo tempo per gestire al meglio ogni impegno. Ottima giornata per strutturare progetti, curare la contabilità, archiviare documenti e curare i dettagli del tuo spazio di lavoro.",
+  amore: "Mostra la tua presenza e vicinanza attraverso gesti pratici e concreti. Assumiti piccole responsabilità quotidiane in casa e fai sentire il tuo supporto ai cari. Pianifica insieme alla famiglia o al partner progetti futuri, casa o investimenti.",
+  daEvitare: "Rimandare le scadenze, procrastinare e disperdere le energie in cose inutili. Evita la rigidità mentale e i soliti vizi o eccessi (cibo, fumo, ritmi sregolati). Non trascurare la tua salute saltando i pasti o lavorando fino all'esaurimento."
+},
+5: {
+  archetipo: "Il Cercatore",
+  paroleChiave: "Libertà ed entusiasmo",
+  descrizione: "Giornata dinamica da vivere nel 'qui e ora' con curiosità, disinvoltura e flessibilità. Esci dalla routine, accogli l'imprevisto e concediti qualche piccolo rischio o novità. Sii aperto alle nuove conoscenze, parla con le persone e lasciati sorprendere dal flusso degli eventi.",
+  lavoro: "Ottimo giorno per pubbliche relazioni, negoziazioni, vendite e viaggi. Approfitta dei cambiamenti e delle sincronicità per proporre idee innovative o cambiare prospettiva. La tua comunicazione brillante favorisce contratti e collaborazioni.",
+  amore: "L'avventura e la seduzione sono nell'aria. Segui l'istinto, lascia andare le inibizioni e fai la prima mossa se un'intesa ti stuzzica. Se sei in coppia, rompi la routine: esci, balla, divertiti e risveglia la passione con la stessa intensità dei primi tempi.",
+  daEvitare: "Impantanarti nella solita routine o disperdere le energie rincorrendo troppe cose insieme. Evita di fare troppi castelli in aria, frenati dalle polemiche impulsive e fai attenzione agli eccessi e all'alta velocità."
+},
+6: {
+  archetipo: "L'Angelo Custode",
+  paroleChiave: "Amore e famiglia",
+  descrizione: "Giornata dedicata all'armonia, alla generosità e agli affetti. Apri il cuore, ascolta e fai sentire la tua vicinanza a chi ha bisogno. Goditi la calore della casa, abbellisci il tuo ambiente o dedicati a un hobby creativo. Coltiva la gratitudine per ciò che hai e condividi momenti sereni in famiglia o con le persone care.",
+  lavoro: "Sii responsabile, gentile e amichevole, creando un clima sereno attorno a te. La tua presenza porta equilibrio e ispirazione. È una giornata ideale per riunioni, cene aziendali, fare scelte importanti o avviare nuove partnership e associazioni.",
+  amore: "Giorno ideale per la vita di coppia e la cura del partner. Organizza una cena romantica, esprimi chiaramente quello che provi e permetti all'altro di prendersi cura di te. Giornata propizia per riappacificarsi e ritrovare complicità.",
+  daEvitare: "Isolarti, caricarti di troppe responsabilità e farti prosciugare da 'vampiri emotivi'. Evita la rigidità, la scontrosità e le discussioni inutili. Attento a non diventare troppo apprensivo o invadente con le persone che ami."
+},
+7: {
+  archetipo: "Il Saggio",
+  paroleChiave: "Introspezione e fede",
+  descrizione: "Giornata dedicata al riposo, alla quiete interiore e al ricaricare le pile. L'Universo ti invita a rallentare e a eliminare la confusione senza agire precipitosamente. Medita, fai yoga o passeggia nella natura per ritrovare la pace interiore e sintonizzarti con la tua saggezza profonda.",
+  lavoro: "Momento perfetto per studiare, analizzare dati, riflettere e definire i dettagli di un progetto. Punta sulla qualità anziché sulla quantità. La tua intuizione è al massimo: potresti avere intuizioni geniali o trovare soluzioni semplici a problemi complessi.",
+  amore: "Giorno fortemente introspettivo in cui potresti sentire il bisogno di spazi individuali. Si possono creare connessioni profonde e quasi telepatiche con il partner. Ideale per condividere riflessioni spirituali in un'atmosfera intima, magari a luci soffuse e candele.",
+  daEvitare: "Cedere a dubbi, rimuginazioni e autocritica severa. Evita di isolarti troppo, di cadere nel cinismo o di lasciarti rattristare dai troppi pensieri mentali. Coltiva la fiducia nell'esistenza."
+},
+8: {
+  archetipo: "Il Sovrano",
+  paroleChiave: "Potere personale",
+  descrizione: "Giornata carica di determinazione, grinta ed energia di realizzazione. È il momento di concretizzare i tuoi progetti, mostrare la tua competenza e raccogliere i frutti del tuo impegno. Nutri la tua autostima, riconosci il tuo valore e non aver paura di pretendere ciò che ti spetta. Concediti anche un piccolo lusso o un acquisto importante.",
+  lavoro: "Agisci con fermezza, sicurezza e franchezza. Ottimo momento per negoziazioni, firme di contratti, investimenti e transazioni commerciali. Fatti avanti per chiedere ciò che meriti (come un aumento o un riconoscimento) e gesti le situazioni da leader.",
+  amore: "Mostra generosità e sicurezza in te stesso, evitando ruoli da vittima e pretendendo rispetto. Sorprendi chi ami invitandolo in un luogo speciale o con un gesto magnifico. Sii franco, diretto e trasparente nei sentimenti.",
+  daEvitare: "Incertezza, rinuncia o compiacenza passiva solo per evitare scontri. Non permettere agli altri di approfittarsene, ma fai attenzione a non sconfinare nell'arroganza, nella durezza o nell'eccesso di controllo."
+},
+9: {
+  archetipo: "Il Liberatore",
+  paroleChiave: "Compimento e perdono",
+  descrizione: "Giornata di transizione, chiusura di cicli e liberazione. Non è il momento di avviare cose nuove, ma di completare ciò che è rimasto in sospeso. Se qualcosa si interrompe, lascia andare con fiducia. Coltiva la tolleranza, la creatività e l'altruismo. Dedicati ad attività culturali o a ritrovare persone del passato.",
+  lavoro: "Concludi i progetti aperti e porta a termine le tue mansioni: gli sforzi saranno premiati. È un giorno ideale per consulenze, celebrazioni, apparizioni pubbliche o eventi aziendali. Mettere al centro i tuoi ideali porterà anche frutti economici.",
+  amore: "Pratica il perdono, la comprensione e l'amore incondizionato, donando senza aspettarti nulla in cambio. Sostieni chi ami nell'esprimere i propri talenti. Condividi momenti culturali con il partner o organizza un viaggio per riabbracciare amici lontani.",
+  daEvitare: "Rimuginare sul passato, cedere alla nostalgia o alimentare drammi e delusioni. Non opporre resistenza ai cambiamenti: quando una porta si chiude, si sta preparando un nuovo e più ampio inizio."
+}
 }
 };
 
