@@ -499,6 +499,67 @@ img,
     text-transform: uppercase !important;
 }
 
+/* ============================================================================
+   CORREZIONE BOX CONTENUTI NELLA MODALE (PREVIENE LO STRABORDAMENTO)
+   ============================================================================ */
+
+/* Forza il box-sizing corretto su tutti gli elementi e box interni alla modale */
+#modaleContenuto,
+#modaleContenuto *,
+#modaleContenuto div[style*="background"] {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+}
+
+/* Regola specifica per i box con background dentro il contenuto modale */
+#modaleContenuto div[style*="background"] {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 12px 14px !important;
+}
+
+/* ============================================================================
+   FIX DEFINITIVO STRABORDAMENTO MODALE / POPUP
+   ============================================================================ */
+
+/* 1. Blocca lo strabordamento dell'intero contenitore popup */
+#modaleApprofondimento,
+#modaleApprofondimento * {
+    box-sizing: border-box !important;
+}
+
+/* 2. Assicura che la finestra interna del popup gestisca correttamente il padding */
+#modaleApprofondimento .modal-content,
+#modaleApprofondimento > div {
+    max-width: 90vw !important;
+    width: 600px !important;
+    padding: 20px 15px !important; /* Ridotto il padding laterale interno */
+    overflow-x: hidden !important; /* Impedisce qualsiasi fuoriuscita orizzontale */
+}
+
+/* 3. Corregge tutti i box interni (Analisi Specifica, Profilo Archetipo, ecc.) */
+#modaleContenuto {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#modaleContenuto div {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 4. Mantiene i box interni perfettamente allineati e contenuti */
+#modaleContenuto div[style*="background"],
+#modaleContenuto .box-contenuto,
+#modaleContenuto .box-karmico {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 12px 12px !important; /* Padding contenuto */
+}
+
         /* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Fino a 768px) --- */
         @media (max-width: 768px) {
             body {
@@ -730,13 +791,13 @@ img,
 </div>
                 </div>
 
-            <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb; text-align: center; margin-top: 40px;">
+          <div class="sezione-titolo" style="color: #16a085; border-bottom-color: #d1f2eb; text-align: center; margin-top: 40px;">
     Le 3 influenze fondamentali
 </div>
 
 <div class="grid-cards">
     <!-- Influenza Emotiva (Mese) -->
-    <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this, 'mese')">
+    <div class="card" style="border-left-color: #16a085;" onclick="apriModalInfluenze('mese')">
         <div class="card-header-flex">
             <h3>Influenza Emotiva<br>(Mese)</h3>
             <div id="numCicloForm" class="numero-evidenziato" style="color: #16a085;"></div>
@@ -746,7 +807,7 @@ img,
     </div>
 
     <!-- Influenza Operativa (Giorno) -->
-    <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this, 'giorno')">
+    <div class="card" style="border-left-color: #16a085;" onclick="apriModalInfluenze('giorno')">
         <div class="card-header-flex">
             <h3>Influenza Operativa<br>(Giorno)</h3>
             <div id="numCicloProd" class="numero-evidenziato" style="color: #16a085;"></div>
@@ -756,7 +817,7 @@ img,
     </div>
 
     <!-- Influenza Generazionale (Anno) -->
-    <div class="card" style="border-left-color: #16a085;" onclick="apriApprofondimento(this, 'anno')">
+    <div class="card" style="border-left-color: #16a085;" onclick="apriModalInfluenze('anno')">
         <div class="card-header-flex">
             <h3>Influenza Generazionale<br>(Anno)</h3>
             <div id="numCicloConc" class="numero-evidenziato" style="color: #16a085;"></div>
@@ -765,6 +826,7 @@ img,
         <div id="descCicloConc"></div>
     </div>
 </div>
+
                 <div id="infoEtaGrandiCicli" style="font-size: 13px; font-style: italic; color: #7f8c8d; margin-top: 8px; text-align: center;"></div>
 
            <div class="sezione-titolo" style="color: #2980b9; border-bottom-color: #d4e6f1; text-align: center; margin-top: 40px;">I 4 Cicli di Realizzazione</div>
