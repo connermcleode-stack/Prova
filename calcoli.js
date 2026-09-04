@@ -1135,12 +1135,11 @@ function apriModalQuintessenza(numero) {
 window.apriModalQuintessenza = apriModalQuintessenza;
 
 // ============================================================================
-// INFLUENZE FONDAMENTALI (FUNZIONE MODALE DEDICATA)
+// INFLUENZE FONDAMENTALI (TESTO SPECIFICO CENTRATO)
 // ============================================================================
 function apriModalInfluenze(tipoInfluenza) {
     if (!tipoInfluenza) return;
 
-    // 1. Recupero dinamico del valore numerico
     let numeroRaw = "";
     if (tipoInfluenza === 'mese') {
         numeroRaw = window.numeroMese || document.getElementById('numCicloForm')?.innerText || document.getElementById('numMese')?.innerText || "";
@@ -1162,21 +1161,18 @@ function apriModalInfluenze(tipoInfluenza) {
 
     const etichettaNumero = (numPuro !== numRidotto) ? `${numPuro}/${numRidotto}` : `${numPuro}`;
 
-    // 2. Mappatura dei titoli
     const titoliMap = {
         'mese': 'INFLUENZA EMOTIVA<br>(Mese)',
         'giorno': 'INFLUENZA OPERATIVA<br>(Giorno)',
         'anno': 'INFLUENZA GENERAZIONALE<br>(Anno)'
     };
 
-    // 3. Recupero sorgente dati
     const tSpecifico = window.INFLUENZE?.[tipoInfluenza]?.[numPuro] || window.INFLUENZE?.[tipoInfluenza]?.[numStr];
     const tArchetipo = window.TESTI_PITAGORA?.[numPuro] || window.TESTI_PITAGORA?.[numRidotto];
 
     const nomeArchetipo = tSpecifico?.titolo || tArchetipo?.titolo || tArchetipo?.nome || "";
     const nomeFormattato = (nomeArchetipo || '').replace(/\s*\(/, '<br>(');
 
-    // DOM Modale
     const titoloModale = document.getElementById('modaleTitolo');
     const sottotitoloModale = document.getElementById('modaleSottotitolo');
     const contenutoModale = document.getElementById('modaleContenuto');
@@ -1196,7 +1192,6 @@ function apriModalInfluenze(tipoInfluenza) {
         }
     }
 
-    // Costruzione Contenuto senza conflitti di padding/width
     if (contenutoModale) {
         contenutoModale.innerHTML = `
             <!-- IMMAGINE CARTA ARCHETIPO -->
@@ -1205,21 +1200,21 @@ function apriModalInfluenze(tipoInfluenza) {
             </div>
 
             <!-- NOME ARCHETIPO -->
-            ${nomeFormattato ? `<h3 class="archetipo-nome" style="text-align: center; margin-bottom: 15px; color: #16a085; text-transform: uppercase;">${nomeFormattato}</h3>` : ''}
+            ${nomeFormattato ? `<h3 class="archetipo-nome" style="text-align: center !important; margin-bottom: 15px; color: #16a085; text-transform: uppercase;">${nomeFormattato}</h3>` : ''}
 
-            <!-- 1. ANALISI SPECIFICA DELL'INFLUENZA (Box Turchese) -->
+            <!-- 1. ANALISI SPECIFICA DELL'INFLUENZA (Box Turchese - Centrato) -->
             ${tSpecifico ? `
-            <div class="box-contenuto" style="background: rgba(22, 160, 133, 0.12); border: 1px solid rgba(22, 160, 133, 0.4); border-radius: 8px; padding: 12px 14px; margin-bottom: 15px; box-sizing: border-box; width: 100%;">
-                <h4 style="color: #16a085 !important; margin-top: 0; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; text-align: center;">ANALISI SPECIFICA DELL'INFLUENZA</h4>
-                <p style="margin: 0; line-height: 1.5; font-size: 0.82rem; color: #e0e0e0; text-align: left !important;">${tSpecifico.testo || tSpecifico.descrizione || tSpecifico}</p>
+            <div class="box-contenuto" style="background: rgba(22, 160, 133, 0.12); border: 1px solid rgba(22, 160, 133, 0.4); border-radius: 8px; padding: 14px; margin-bottom: 15px; box-sizing: border-box; width: 100%; text-align: center !important;">
+                <h4 style="color: #16a085 !important; margin-top: 0; margin-bottom: 10px; font-size: 0.85rem; text-transform: uppercase; text-align: center !important;">ANALISI SPECIFICA DELL'INFLUENZA</h4>
+                <p style="margin: 0; line-height: 1.5; font-size: 0.82rem; color: #e0e0e0; text-align: center !important;">${tSpecifico.testo || tSpecifico.descrizione || tSpecifico}</p>
             </div>
             ` : ''}
 
-            <!-- 2. PROFILO GENERALE ARCHETIPO DALL'ARCHIVIO (Box Viola) -->
+            <!-- 2. PROFILO GENERALE ARCHETIPO DALL'ARCHIVIO (Box Viola - Centrato) -->
             ${tArchetipo ? `
-            <div class="box-contenuto" style="background: rgba(147, 51, 234, 0.12); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 8px; padding: 12px 14px; margin-bottom: 15px; box-sizing: border-box; width: 100%;">
-                <h4 style="color: #c084fc !important; margin-top: 0; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; text-align: center;">PROFILO DELL'ARCHETIPO (${etichettaNumero})</h4>
-                <p style="margin: 0; line-height: 1.5; font-size: 0.82rem; color: #e0e0e0; text-align: left !important;">${tArchetipo.descrizione || tArchetipo.testo || tArchetipo.sintesi || ''}</p>
+            <div class="box-contenuto" style="background: rgba(147, 51, 234, 0.12); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 8px; padding: 14px; margin-bottom: 15px; box-sizing: border-box; width: 100%; text-align: center !important;">
+                <h4 style="color: #c084fc !important; margin-top: 0; margin-bottom: 10px; font-size: 0.85rem; text-transform: uppercase; text-align: center !important;">PROFILO DELL'ARCHETIPO (${etichettaNumero})</h4>
+                <p style="margin: 0; line-height: 1.5; font-size: 0.82rem; color: #e0e0e0; text-align: center !important;">${tArchetipo.descrizione || tArchetipo.testo || tArchetipo.sintesi || ''}</p>
             </div>
             ` : ''}
         `;
